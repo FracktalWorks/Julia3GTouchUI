@@ -5,7 +5,7 @@ import octoprint.plugin
 
 class Julia3GTouchUI(octoprint.plugin.StartupPlugin):
 	def on_after_startup(self):
-		self._logger.info("TouchUI PLugin Started")
+		self._logger.info("TouchUI Plugin Started")
 
 	def get_update_information(self):
 		return dict(
@@ -26,7 +26,7 @@ class Julia3GTouchUI(octoprint.plugin.StartupPlugin):
 
 
 __plugin_name__ = "Julia3GTouchUI"
-__plugin_version__ = "0.0.2"
+__plugin_version__ = "0.0.3"
 
 
 def __plugin_load__():

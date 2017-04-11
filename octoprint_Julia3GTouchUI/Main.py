@@ -60,7 +60,7 @@ Testing:
 # check for uploading error when uploading from USB
 # Test if active extruder goes back after pausing
 # TRy to fuck with printing process from GUI
-# PNG Handaling
+# /templates/img Handaling
 # dissable buttons while printing
 '''
 
@@ -262,23 +262,23 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                                                           ""))
         self.wifiPasswordLineEdit.setObjectName(_fromUtf8("wifiPasswordLineEdit"))
 
-        self.movie = QtGui.QMovie("png/loading.gif")
+        self.movie = QtGui.QMovie("/templates/img/loading.gif")
         self.loadingGif.setMovie(self.movie)
         self.movie.start()
 
-        self.movie1 = QtGui.QMovie("png/unlockAll.gif")
+        self.movie1 = QtGui.QMovie("/templates/img/unlockAll.gif")
         self.releaseAllLevelingScrewsLabel.setMovie(self.movie1)
 
-        self.movie2 = QtGui.QMovie("png/lockRight.gif")
+        self.movie2 = QtGui.QMovie("/templates/img/lockRight.gif")
         self.turnRightLevelingScrewLabel.setMovie(self.movie2)
 
-        self.movie3 = QtGui.QMovie("png/lockLeft.gif")
+        self.movie3 = QtGui.QMovie("/templates/img/lockLeft.gif")
         self.turnLeftLevelingScrewLabel.setMovie(self.movie3)
 
-        self.movie4 = QtGui.QMovie("png/lockCenter.gif")
+        self.movie4 = QtGui.QMovie("/templates/img/lockCenter.gif")
         self.turnCenterLevelingScrewLabel.setMovie(self.movie4)
 
-        self.movie5 = QtGui.QMovie("png/cat.gif")
+        self.movie5 = QtGui.QMovie("/templates/img/cat.gif")
         self.caliberationHeightLabel.setMovie(self.movie5)
 
     def __init__(self):
@@ -490,7 +490,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         font.setStrikeOut(False)
         choice.setFont(font)
         choice.setText("Filament Error detected on tool " + str(self.activeExtruder))
-        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("png/exclamation-mark.png")))
+        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/exclamation-mark./templates/img")))
         # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         choice.setGeometry(QtCore.QRect(110, 50, 200, 300))
         choice.setStandardButtons(QtGui.QMessageBox.Ok)
@@ -793,13 +793,13 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             '''
             if self.currentImage != self.currentFile:
                 self.currentImage = self.currentFile
-                img = octopiclient.getImage(file['job']['file']['name'].replace(".gcode", ".png"))
+                img = octopiclient.getImage(file['job']['file']['name'].replace(".gcode", "./templates/img"))
                 if img:
                     pixmap = QtGui.QPixmap()
                     pixmap.loadFromData(img)
                     self.printPreviewMain.setPixmap(pixmap)
                 else:
-                    self.printPreviewMain.setPixmap(QtGui.QPixmap(_fromUtf8("png/printer2.png")))
+                    self.printPreviewMain.setPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/printer2./templates/img")))
 
     def updateStatus(self, status):
         '''
@@ -871,9 +871,9 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         Deletes a gcode file, and if associates, its image file from the memory
         '''
         octopiclient.deleteFile(self.fileListWidget.currentItem().text())
-        octopiclient.deleteFile(self.fileListWidget.currentItem().text().replace(".gcode", ".png"))
+        octopiclient.deleteFile(self.fileListWidget.currentItem().text().replace(".gcode", "./templates/img"))
 
-        # delete PNG also
+        # delete /templates/img also
         self.fileListLocal()
 
     def playPauseAction(self):
@@ -909,7 +909,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         choice.setFont(font)
         choice.setText("Are you sure you want to stop the Print?")
         # choice.setText(text)
-        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("png/exclamation-mark.png")))
+        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/exclamation-mark./templates/img")))
         # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         choice.setGeometry(QtCore.QRect(75, 50, 300, 300))
         choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
@@ -1012,16 +1012,16 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
     def setActiveExtruder(self, activeNozzle):
         activeNozzle = int(activeNozzle)
         if activeNozzle == 0:
-            self.tool0Label.setPixmap(QtGui.QPixmap(_fromUtf8("png/activeNozzle.png")))
-            self.tool1Label.setPixmap(QtGui.QPixmap(_fromUtf8("png/Nozzle.png")))
+            self.tool0Label.setPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/activeNozzle./templates/img")))
+            self.tool1Label.setPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/Nozzle./templates/img")))
             self.toolToggleChangeFilamentButton.setChecked(False)
             self.toolToggleChangeFilamentButton.setText("0")
             self.toolToggleMotionButton.setChecked(False)
             self.toolToggleMotionButton.setText("0")
             self.activeExtruder = 0
         elif activeNozzle == 1:
-            self.tool0Label.setPixmap(QtGui.QPixmap(_fromUtf8("png/Nozzle.png")))
-            self.tool1Label.setPixmap(QtGui.QPixmap(_fromUtf8("png/activeNozzle.png")))
+            self.tool0Label.setPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/Nozzle./templates/img")))
+            self.tool1Label.setPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/activeNozzle./templates/img")))
             self.toolToggleChangeFilamentButton.setChecked(True)
             self.toolToggleChangeFilamentButton.setText("1")
             self.toolToggleMotionButton.setChecked(True)
@@ -1109,7 +1109,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         font.setStrikeOut(False)
         self.wifiMessageBox.setFont(font)
         self.wifiMessageBox.setText("Restarting networking, please wait...")
-        self.wifiMessageBox.setIconPixmap(QtGui.QPixmap(_fromUtf8("png/exclamation-mark.png")))
+        self.wifiMessageBox.setIconPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/exclamation-mark./templates/img")))
         # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.wifiMessageBox.setGeometry(QtCore.QRect(110, 50, 200, 300))
         self.wifiMessageBox.setStandardButtons(QtGui.QMessageBox.Cancel)
@@ -1255,14 +1255,14 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             '''
             If image is available from server, set it, otherwise display default image
             '''
-            img = octopiclient.getImage(self.fileListWidget.currentItem().text().replace(".gcode", ".png"))
+            img = octopiclient.getImage(self.fileListWidget.currentItem().text().replace(".gcode", "./templates/img"))
             if img:
                 pixmap = QtGui.QPixmap()
                 pixmap.loadFromData(img)
                 self.printPreviewSelected.setPixmap(pixmap)
 
             else:
-                self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("png/printer2.png")))
+                self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/printer2./templates/img")))
 
 
         except:
@@ -1271,11 +1271,11 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
 
             # Set image fot print preview:
-            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("png/fracktal.png")))
+            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/fracktal./templates/img")))
             # print self.fileListWidget.currentItem().text().replace(".gcode","")
-            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("/home/pi/.octoprint/uploads/{}.png".format(self.FileListWidget.currentItem().text().replace(".gcode","")))))
+            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("/home/pi/.octoprint/uploads/{}./templates/img".format(self.FileListWidget.currentItem().text().replace(".gcode","")))))
 
-            # Check if the PNG file exists, and if it does display it, or diplay a default picture.
+            # Check if the /templates/img file exists, and if it does display it, or diplay a default picture.
 
     def printSelectedUSB(self):
         '''
@@ -1285,7 +1285,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         try:
             self.fileSelectedUSBName.setText(self.fileListWidgetUSB.currentItem().text())
             self.stackedWidget.setCurrentWidget(self.printSelectedUSBPage)
-            file = '/media/usb0/' + str(self.fileListWidgetUSB.currentItem().text().replace(".gcode", ".png"))
+            file = '/media/usb0/' + str(self.fileListWidgetUSB.currentItem().text().replace(".gcode", "./templates/img"))
             try:
                 exists = os.path.exists(file)
             except:
@@ -1294,7 +1294,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             if exists:
                 self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8(file)))
             else:
-                self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8("png/printer2.png")))
+                self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8("/templates/img/printer2./templates/img")))
         except:
             print "Log: Nothing Selected"
 
@@ -1598,11 +1598,11 @@ class fileUploadThread(QtCore.QThread):
     def run(self):
 
         try:
-            exists = os.path.exists(self.file.replace(".gcode", ".png"))
+            exists = os.path.exists(self.file.replace(".gcode", "./templates/img"))
         except:
             exists = False
         if exists:
-            octopiclient.uploadImage(self.file.replace(".gcode", ".png"))
+            octopiclient.uploadImage(self.file.replace(".gcode", "./templates/img"))
 
         if self.prnt:
             octopiclient.uploadGcode(file=self.file, select=True, prnt=True)

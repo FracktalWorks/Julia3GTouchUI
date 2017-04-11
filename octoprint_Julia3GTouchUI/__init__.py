@@ -24,7 +24,7 @@ class Julia3GTouchUI(octoprint.plugin.StartupPlugin):
 
 
 __plugin_name__ = "Julia3GTouchUI"
-__plugin_version__ = "0.0.1"
+__plugin_version__ = "0.0.2"
 
 
 def __plugin_load__():

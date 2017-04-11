@@ -9,7 +9,7 @@ class Julia3GTouchUI(octoprint.plugin.StartupPlugin):
 
 	def get_update_information(self):
 		return dict(
-			octoprint_Julia3GFilament=dict(
+			Julia3GTouchUI=dict(
 				displayName="Julia3GTouchUI",
 				displayVersion=self._plugin_version,
 

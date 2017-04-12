@@ -965,8 +965,8 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         '''
         Selects the tool whose temperature needs to be changed. It accordingly changes the button text.it also updates the status of the other toggle buttons
         '''
-        self.toolToggleTemperatureButton.setText(
-            "1") if self.toolToggleTemperatureButton.isChecked() else self.toolToggleTemperatureButton.setText("0")
+        # self.toolToggleTemperatureButton.setText(
+        #     "1") if self.toolToggleTemperatureButton.isChecked() else self.toolToggleTemperatureButton.setText("0")
         if self.toolToggleTemperatureButton.isChecked():
             print "extruder 1 Temperature"
             self.toolTempSpinBox.setProperty("value", float(self.tool1TargetTemperature.text()))
@@ -1015,7 +1015,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             self.tool0Label.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/activeNozzle.png")))
             self.tool1Label.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/Nozzle.png")))
             self.toolToggleChangeFilamentButton.setChecked(False)
-            self.toolToggleChangeFilamentButton.setText("0")
+            # self.toolToggleChangeFilamentButton.setText("0")
             self.toolToggleMotionButton.setChecked(False)
             self.toolToggleMotionButton.setText("0")
             self.activeExtruder = 0
@@ -1023,7 +1023,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             self.tool0Label.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/Nozzle.png")))
             self.tool1Label.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/activeNozzle.png")))
             self.toolToggleChangeFilamentButton.setChecked(True)
-            self.toolToggleChangeFilamentButton.setText("1")
+            # self.toolToggleChangeFilamentButton.setText("1")
             self.toolToggleMotionButton.setChecked(True)
             self.toolToggleMotionButton.setText("1")
             self.activeExtruder = 1

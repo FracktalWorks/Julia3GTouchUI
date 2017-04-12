@@ -624,3 +624,21 @@ class octoprintAPI:
         payload = {'sensorCount': value}
         headers = {'content-type': 'application/json', 'X-Api-Key': self.apiKey}
         requests.post(url, data=json.dumps(payload), headers=headers)
+
+
+    def getSoftwareUpdateInfo(self):
+        '''
+        get information from the software update API about software module versions, ad if updates are available
+        :return:
+        '''
+        url = 'http://' + self.ip + '/plugin/softwareupdate/check'
+        headers = {'X-Api-Key': self.apiKey}
+        response = requests.get(url, headers=headers)
+        temp = response.json()
+        return temp
+
+    def performSoftwareUpdate(self,force = False):
+        url = 'http://' + self.ip + '/plugin/softwareupdate/update'
+        payload = {'force': str(force).lower()}
+        headers = {'content-type': 'application/json', 'X-Api-Key': self.apiKey}
+        requests.post(url, data=json.dumps(payload), headers=headers)

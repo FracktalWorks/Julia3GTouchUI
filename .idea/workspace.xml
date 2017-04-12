@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f3bfca3-6a62-46bf-a4a3-5a39cfeecc16" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/templates/img/update-arrows.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Test2.ui" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Test2.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/octoprintAPI.py" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/octoprintAPI.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
     </list>
     <ignored path="Julia3GTouchUI.iws" />
@@ -26,8 +32,8 @@
       <file leaf-file-name="setup.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
+            <state relative-caret-position="425">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -36,8 +42,8 @@
       <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="700">
-              <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+            <state relative-caret-position="525">
+              <caret line="21" column="36" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
               <folding>
                 <element signature="e#15#53#0" expanded="true" />
               </folding>
@@ -48,9 +54,97 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="1027" column="52" selection-start-line="1027" selection-start-column="52" selection-end-line="1027" selection-end-column="52" />
+            <state relative-caret-position="-6321">
+              <caret line="182" column="18" selection-start-line="182" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
+              <folding>
+                <element signature="e#18#49#0" expanded="true" />
+                <element signature="e#5019#7254#0" expanded="false" />
+                <element signature="e#5293#6483#0" expanded="false" />
+                <element signature="e#7541#8914#0" expanded="false" />
+                <element signature="e#8948#10253#0" expanded="false" />
+                <element signature="e#10286#10794#0" expanded="false" />
+                <element signature="e#21258#23785#0" expanded="false" />
+                <element signature="e#23831#24259#0" expanded="false" />
+                <element signature="e#24303#25283#0" expanded="false" />
+                <element signature="e#25330#25564#0" expanded="false" />
+                <element signature="e#25611#25980#0" expanded="false" />
+                <element signature="e#26023#26384#0" expanded="false" />
+                <element signature="e#26431#26982#0" expanded="false" />
+                <element signature="e#27017#27809#0" expanded="false" />
+                <element signature="e#28346#29144#0" expanded="false" />
+                <element signature="e#30624#31512#0" expanded="false" />
+                <element signature="e#37051#39673#0" expanded="false" />
+                <element signature="e#39719#43399#0" expanded="false" />
+                <element signature="e#43435#43760#0" expanded="false" />
+                <element signature="e#43801#44470#0" expanded="false" />
+                <element signature="e#44506#46799#0" expanded="false" />
+                <element signature="e#46849#47252#0" expanded="false" />
+                <element signature="e#47294#47690#0" expanded="false" />
+                <element signature="e#47737#48431#0" expanded="false" />
+                <element signature="e#48474#49227#0" expanded="false" />
+                <element signature="e#49267#49634#0" expanded="false" />
+                <element signature="e#49691#50788#0" expanded="false" />
+                <element signature="e#50839#51094#0" expanded="false" />
+                <element signature="e#51159#51961#0" expanded="false" />
+                <element signature="e#54669#55074#0" expanded="false" />
+                <element signature="e#55111#55399#0" expanded="false" />
+                <element signature="e#55441#56158#0" expanded="false" />
+                <element signature="e#56196#56357#0" expanded="false" />
+                <element signature="e#56410#59350#0" expanded="false" />
+                <element signature="e#59390#60197#0" expanded="false" />
+                <element signature="e#60235#61039#0" expanded="false" />
+                <element signature="e#61079#61246#0" expanded="false" />
+                <element signature="e#61292#61422#0" expanded="false" />
+                <element signature="e#61461#62166#0" expanded="false" />
+                <element signature="e#62203#62894#0" expanded="false" />
+                <element signature="e#62939#65985#0" expanded="false" />
+                <element signature="e#66027#66921#0" expanded="false" />
+                <element signature="e#66974#67475#0" expanded="false" />
+                <element signature="e#67510#67754#0" expanded="false" />
+                <element signature="e#67787#68195#0" expanded="false" />
+                <element signature="e#68233#68334#0" expanded="false" />
+                <element signature="e#68621#69155#0" expanded="false" />
+                <element signature="e#69186#69356#0" expanded="false" />
+                <element signature="e#69387#69731#0" expanded="false" />
+                <element signature="e#69762#70204#0" expanded="false" />
+                <element signature="e#70235#70686#0" expanded="false" />
+                <element signature="e#70717#71068#0" expanded="false" />
+                <element signature="e#71099#71276#0" expanded="false" />
+                <element signature="e#71307#71571#0" expanded="false" />
+                <element signature="e#71605#71937#0" expanded="false" />
+                <element signature="e#71973#72201#0" expanded="false" />
+                <element signature="e#72937#72958#0" expanded="false" />
+                <element signature="e#73008#73535#0" expanded="false" />
+                <element signature="e#76265#76269#0" expanded="false" />
+                <element signature="e#76307#76311#0" expanded="false" />
+                <element signature="e#76356#76360#0" expanded="false" />
+                <element signature="e#76408#78014#0" expanded="false" />
+                <element signature="e#76567#78014#0" expanded="false" />
+                <element signature="e#78061#78633#0" expanded="false" />
+                <element signature="e#78687#80146#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="filesize.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/hurry/filesize/filesize.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-975">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="octoprintAPI.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/octoprintAPI.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="769">
+              <caret line="637" column="19" selection-start-line="637" selection-start-column="19" selection-end-line="637" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -69,8 +163,51 @@
         <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="25">
-              <caret line="187" column="32" selection-start-line="187" selection-start-column="32" selection-end-line="187" selection-end-column="32" />
-              <folding />
+              <caret line="345" column="32" selection-start-line="345" selection-start-column="32" selection-end-line="345" selection-end-column="32" />
+              <folding>
+                <marker date="1492029726156" expanded="true" signature="294:333" ph="..." />
+                <marker date="1492029726156" expanded="true" signature="316:333" ph="..." />
+                <marker date="1492029726156" expanded="true" signature="339:511" ph="..." />
+                <marker date="1492029726156" expanded="true" signature="431:511" ph="..." />
+                <marker date="1492029726156" expanded="true" signature="534:648" ph="..." />
+                <marker date="1492029726156" expanded="true" signature="579:648" ph="..." />
+                <marker date="1492029726156" expanded="true" signature="678:267303" ph="..." />
+                <marker date="1492029726156" expanded="true" signature="713:40945" ph="..." />
+                <marker date="1492029726156" expanded="true" signature="967:1114" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="3704:3745" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="5158:5827" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="6792:7452" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="8529:8553" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="10083:10157" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="10620:10694" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="11416:11728" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="12478:12548" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="13268:13338" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="13608:13920" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="14740:14804" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="15373:15437" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="16000:16070" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="16536:17211" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="18732:19252" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="19925:19999" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="20503:20551" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="21127:21788" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="22809:23030" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="23684:23754" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="24308:24378" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="24905:24929" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="25359:25671" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="26492:26556" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="26957:27154" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="28994:29597" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="30438:31064" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="31797:32437" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="33321:33947" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="34834:35460" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="36355:36981" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="38294:38902" ph="&quot;...&quot;" />
+                <marker date="1492029726156" expanded="true" signature="39534:40708" ph="&quot;...&quot;" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -84,17 +221,18 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py" />
+        <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/octoprintAPI.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" />
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="4309" />
-    <option name="y" value="-302" />
-    <option name="width" value="1462" />
-    <option name="height" value="1586" />
+    <option name="x" value="2869" />
+    <option name="y" value="-313" />
+    <option name="width" value="2902" />
+    <option name="height" value="1597" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -162,7 +300,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.Main">
+  <component name="RunManager" selected="Python tests.Unittests in setup">
     <configuration default="false" name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -178,6 +316,45 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/octoprint_Julia3GTouchUI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Julia3GTouchUI" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in setup" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Julia3GTouchUI" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/setup.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -314,12 +491,16 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="1">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.Main" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Main (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in setup" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.Main" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in setup" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Main (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -339,27 +520,32 @@
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Unittests_in_setup - 2017.04.13 at 02h 42m 02s.xml">
+      <configuration name="Unittests in setup" configurationId="tests" />
+    </history-entry>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="4309" y="-302" width="1462" height="1586" extended-state="0" />
+    <frame x="2869" y="-313" width="2902" height="1597" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24930556" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12465278" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17372577" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17438495" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -374,7 +560,26 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py</url>
+          <line>1050</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py</url>
+          <line>656</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py</url>
+          <line>642</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="4" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -400,7 +605,73 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#18#49#0" expanded="true" />
+            <element signature="e#5019#7254#0" expanded="false" />
+            <element signature="e#5293#6483#0" expanded="false" />
+            <element signature="e#7541#8914#0" expanded="false" />
+            <element signature="e#8948#10253#0" expanded="false" />
+            <element signature="e#10286#10794#0" expanded="false" />
+            <element signature="e#21258#23785#0" expanded="false" />
+            <element signature="e#23831#24259#0" expanded="false" />
+            <element signature="e#24303#25283#0" expanded="false" />
+            <element signature="e#25330#25564#0" expanded="false" />
+            <element signature="e#25611#25980#0" expanded="false" />
+            <element signature="e#26023#26384#0" expanded="false" />
+            <element signature="e#26431#26982#0" expanded="false" />
+            <element signature="e#27017#27809#0" expanded="false" />
+            <element signature="e#28346#29144#0" expanded="false" />
+            <element signature="e#30624#31512#0" expanded="false" />
+            <element signature="e#37051#39673#0" expanded="false" />
+            <element signature="e#39719#43399#0" expanded="false" />
+            <element signature="e#43435#43760#0" expanded="false" />
+            <element signature="e#43801#44470#0" expanded="false" />
+            <element signature="e#44506#46799#0" expanded="false" />
+            <element signature="e#46849#47252#0" expanded="false" />
+            <element signature="e#47294#47690#0" expanded="false" />
+            <element signature="e#47737#48431#0" expanded="false" />
+            <element signature="e#48474#49227#0" expanded="false" />
+            <element signature="e#49267#49634#0" expanded="false" />
+            <element signature="e#49691#50788#0" expanded="false" />
+            <element signature="e#50839#51094#0" expanded="false" />
+            <element signature="e#51159#51961#0" expanded="false" />
+            <element signature="e#54669#55074#0" expanded="false" />
+            <element signature="e#55111#55399#0" expanded="false" />
+            <element signature="e#55441#56158#0" expanded="false" />
+            <element signature="e#56196#56357#0" expanded="false" />
+            <element signature="e#56410#59350#0" expanded="false" />
+            <element signature="e#59390#60197#0" expanded="false" />
+            <element signature="e#60235#61039#0" expanded="false" />
+            <element signature="e#61079#61246#0" expanded="false" />
+            <element signature="e#61292#61422#0" expanded="false" />
+            <element signature="e#61461#62166#0" expanded="false" />
+            <element signature="e#62203#62894#0" expanded="false" />
+            <element signature="e#62939#65985#0" expanded="false" />
+            <element signature="e#66027#66921#0" expanded="false" />
+            <element signature="e#66974#67475#0" expanded="false" />
+            <element signature="e#67510#67754#0" expanded="false" />
+            <element signature="e#67787#68195#0" expanded="false" />
+            <element signature="e#68233#68334#0" expanded="false" />
+            <element signature="e#68621#69155#0" expanded="false" />
+            <element signature="e#69186#69356#0" expanded="false" />
+            <element signature="e#69387#69731#0" expanded="false" />
+            <element signature="e#69762#70204#0" expanded="false" />
+            <element signature="e#70235#70686#0" expanded="false" />
+            <element signature="e#70717#71068#0" expanded="false" />
+            <element signature="e#71099#71276#0" expanded="false" />
+            <element signature="e#71307#71571#0" expanded="false" />
+            <element signature="e#71605#71937#0" expanded="false" />
+            <element signature="e#71973#72201#0" expanded="false" />
+            <element signature="e#72937#72958#0" expanded="false" />
+            <element signature="e#73008#73535#0" expanded="false" />
+            <element signature="e#76265#76269#0" expanded="false" />
+            <element signature="e#76307#76311#0" expanded="false" />
+            <element signature="e#76356#76360#0" expanded="false" />
+            <element signature="e#76408#78014#0" expanded="false" />
+            <element signature="e#76567#78014#0" expanded="false" />
+            <element signature="e#78061#78633#0" expanded="false" />
+            <element signature="e#78687#80146#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -416,25 +687,103 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4675">
           <caret line="187" column="32" selection-start-line="187" selection-start-column="32" selection-end-line="187" selection-end-column="32" />
-          <folding />
+          <folding>
+            <marker date="1492029726156" expanded="true" signature="294:333" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="316:333" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="339:511" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="431:511" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="534:648" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="579:648" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="678:267303" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="713:40945" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="967:1114" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="3704:3745" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="5158:5827" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="6792:7452" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="8529:8553" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="10083:10157" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="10620:10694" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="11416:11728" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="12478:12548" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="13268:13338" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="13608:13920" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="14740:14804" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="15373:15437" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="16000:16070" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="16536:17211" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="18732:19252" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="19925:19999" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="20503:20551" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="21127:21788" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="22809:23030" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="23684:23754" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="24308:24378" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="24905:24929" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="25359:25671" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="26492:26556" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="26957:27154" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="28994:29597" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="30438:31064" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="31797:32437" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="33321:33947" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="34834:35460" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="36355:36981" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="38294:38902" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="39534:40708" ph="&quot;...&quot;" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainGUI.py" />
     <entry file="file://$PROJECT_DIR$/Main.py" />
-    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="1027" column="52" selection-start-line="1027" selection-start-column="52" selection-end-line="1027" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
-          <caret line="187" column="32" selection-start-line="187" selection-start-column="32" selection-end-line="187" selection-end-column="32" />
-          <folding />
+          <caret line="345" column="32" selection-start-line="345" selection-start-column="32" selection-end-line="345" selection-end-column="32" />
+          <folding>
+            <marker date="1492029726156" expanded="true" signature="294:333" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="316:333" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="339:511" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="431:511" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="534:648" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="579:648" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="678:267303" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="713:40945" ph="..." />
+            <marker date="1492029726156" expanded="true" signature="967:1114" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="3704:3745" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="5158:5827" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="6792:7452" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="8529:8553" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="10083:10157" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="10620:10694" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="11416:11728" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="12478:12548" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="13268:13338" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="13608:13920" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="14740:14804" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="15373:15437" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="16000:16070" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="16536:17211" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="18732:19252" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="19925:19999" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="20503:20551" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="21127:21788" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="22809:23030" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="23684:23754" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="24308:24378" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="24905:24929" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="25359:25671" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="26492:26556" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="26957:27154" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="28994:29597" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="30438:31064" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="31797:32437" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="33321:33947" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="34834:35460" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="36355:36981" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="38294:38902" ph="&quot;...&quot;" />
+            <marker date="1492029726156" expanded="true" signature="39534:40708" ph="&quot;...&quot;" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -446,10 +795,102 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/octoprintAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="769">
+          <caret line="637" column="19" selection-start-line="637" selection-start-column="19" selection-end-line="637" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/hurry/filesize/filesize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-975">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6321">
+          <caret line="182" column="18" selection-start-line="182" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
+          <folding>
+            <element signature="e#18#49#0" expanded="true" />
+            <element signature="e#5019#7254#0" expanded="false" />
+            <element signature="e#5293#6483#0" expanded="false" />
+            <element signature="e#7541#8914#0" expanded="false" />
+            <element signature="e#8948#10253#0" expanded="false" />
+            <element signature="e#10286#10794#0" expanded="false" />
+            <element signature="e#21258#23785#0" expanded="false" />
+            <element signature="e#23831#24259#0" expanded="false" />
+            <element signature="e#24303#25283#0" expanded="false" />
+            <element signature="e#25330#25564#0" expanded="false" />
+            <element signature="e#25611#25980#0" expanded="false" />
+            <element signature="e#26023#26384#0" expanded="false" />
+            <element signature="e#26431#26982#0" expanded="false" />
+            <element signature="e#27017#27809#0" expanded="false" />
+            <element signature="e#28346#29144#0" expanded="false" />
+            <element signature="e#30624#31512#0" expanded="false" />
+            <element signature="e#37051#39673#0" expanded="false" />
+            <element signature="e#39719#43399#0" expanded="false" />
+            <element signature="e#43435#43760#0" expanded="false" />
+            <element signature="e#43801#44470#0" expanded="false" />
+            <element signature="e#44506#46799#0" expanded="false" />
+            <element signature="e#46849#47252#0" expanded="false" />
+            <element signature="e#47294#47690#0" expanded="false" />
+            <element signature="e#47737#48431#0" expanded="false" />
+            <element signature="e#48474#49227#0" expanded="false" />
+            <element signature="e#49267#49634#0" expanded="false" />
+            <element signature="e#49691#50788#0" expanded="false" />
+            <element signature="e#50839#51094#0" expanded="false" />
+            <element signature="e#51159#51961#0" expanded="false" />
+            <element signature="e#54669#55074#0" expanded="false" />
+            <element signature="e#55111#55399#0" expanded="false" />
+            <element signature="e#55441#56158#0" expanded="false" />
+            <element signature="e#56196#56357#0" expanded="false" />
+            <element signature="e#56410#59350#0" expanded="false" />
+            <element signature="e#59390#60197#0" expanded="false" />
+            <element signature="e#60235#61039#0" expanded="false" />
+            <element signature="e#61079#61246#0" expanded="false" />
+            <element signature="e#61292#61422#0" expanded="false" />
+            <element signature="e#61461#62166#0" expanded="false" />
+            <element signature="e#62203#62894#0" expanded="false" />
+            <element signature="e#62939#65985#0" expanded="false" />
+            <element signature="e#66027#66921#0" expanded="false" />
+            <element signature="e#66974#67475#0" expanded="false" />
+            <element signature="e#67510#67754#0" expanded="false" />
+            <element signature="e#67787#68195#0" expanded="false" />
+            <element signature="e#68233#68334#0" expanded="false" />
+            <element signature="e#68621#69155#0" expanded="false" />
+            <element signature="e#69186#69356#0" expanded="false" />
+            <element signature="e#69387#69731#0" expanded="false" />
+            <element signature="e#69762#70204#0" expanded="false" />
+            <element signature="e#70235#70686#0" expanded="false" />
+            <element signature="e#70717#71068#0" expanded="false" />
+            <element signature="e#71099#71276#0" expanded="false" />
+            <element signature="e#71307#71571#0" expanded="false" />
+            <element signature="e#71605#71937#0" expanded="false" />
+            <element signature="e#71973#72201#0" expanded="false" />
+            <element signature="e#72937#72958#0" expanded="false" />
+            <element signature="e#73008#73535#0" expanded="false" />
+            <element signature="e#76265#76269#0" expanded="false" />
+            <element signature="e#76307#76311#0" expanded="false" />
+            <element signature="e#76356#76360#0" expanded="false" />
+            <element signature="e#76408#78014#0" expanded="false" />
+            <element signature="e#76567#78014#0" expanded="false" />
+            <element signature="e#78061#78633#0" expanded="false" />
+            <element signature="e#78687#80146#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+        <state relative-caret-position="525">
+          <caret line="21" column="36" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
           <folding>
             <element signature="e#15#53#0" expanded="true" />
           </folding>
@@ -458,8 +899,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
+        <state relative-caret-position="425">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -18,6 +18,7 @@ import uuid
 import os
 import serial
 import io
+
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)  # Use the board numbering scheme
@@ -69,7 +70,7 @@ Testing:
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-# ip = '192.168.0.118:5000'
+#ip = '192.168.1.103:5000'
 ip = '0.0.0.0:5000'
 # ip = 'localhost:5000'
 # open octoprint config.yaman and get the apiKey
@@ -334,7 +335,9 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.connect(self.QtSocket, QtCore.SIGNAL('PRINT_STATUS'), self.updatePrintStatus)
         self.connect(self.QtSocket, QtCore.SIGNAL('FILAMENT_SENSOR_TRIGGERED'), self.filamentSensorTriggeredMessageBox)
         self.connect(self.wifiPasswordLineEdit, QtCore.SIGNAL("clicked()"), self.startKeyboardPassword)
-
+        self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_STARTED'), self.softwareUpdateProgress)
+        self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_LOG'), self.softwareUpdateProgressLog)
+        self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_LOG_RESULT'), self.softwareUpdateResult)
 
         # Button Events:
 
@@ -453,13 +456,14 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.retractFilamentButton.pressed.connect(lambda: octopiclient.extrude(-10))
         self.ExtrudeButton.pressed.connect(lambda: octopiclient.extrude(10))
 
-        #Settings Page
+        # Settings Page
         self.settingsBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.MenuPage))
         self.pairPhoneButton.pressed.connect(self.pairPhoneApp)
         self.configureWifiButton.pressed.connect(self.wifiSettings)
         self.networkInfoButton.pressed.connect(self.networkInfo)
+        self.OTAButton.pressed.connect(self.softwareUpdate)
 
-        #Network Info Page
+        # Network Info Page
         self.networkInfoBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
 
         # WifiSetings page
@@ -469,6 +473,10 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
         # QR Code
         self.QRCodeBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
+
+        # SoftwareUpdatePaage
+        self.softwareUpdateBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
+        self.performUpdateButton.pressed.connect(lambda: octopiclient.performSoftwareUpdate())
 
     # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ++++++++++++++++++Function Definitions++++++++++++++++++++++++++++++++++++++++
@@ -605,7 +613,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # scanData = {}
         # print "Scanning available wireless signals available to wlan0"
         scan_result = \
-        subprocess.Popen("iwlist wlan0 scan | grep 'ESSID'", stdout=subprocess.PIPE, shell=True).communicate()[0]
+            subprocess.Popen("iwlist wlan0 scan | grep 'ESSID'", stdout=subprocess.PIPE, shell=True).communicate()[0]
         # Processing STDOUT into a dictionary that later will be converted to a json file later
         scan_result = scan_result.split('ESSID:')  # each ssid and pass from an item in a list ([ssid pass,ssid paas])
         scan_result = [s.strip() for s in scan_result]
@@ -1060,25 +1068,73 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
     # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ++++++++++++++++++++++++Function that change screens++++++++++++++++++++++++++
     # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    def softwareUpdateProgress(self, data):
+        self.stackedWidget.setCurrentWidget(self.softwareUpdateProgressPage)
+        self.logTextEdit.setTextColor(QtCore.Qt.red)
+        self.logTextEdit.append("-------------------------------------------------------\n"
+                                "Updating " + data["name"] + " to version " + data["version"] + "\n"
+                                "-------------------------------------------------------")
+
+
+    def softwareUpdateProgressLog(self, data):
+        self.logTextEdit.setTextColor(QtCore.Qt.white)
+        for line in data:
+            self.logTextEdit.append(line["line"])
+
+    def softwareUpdateResult(self, data):
+        self.logTextEdit.setTextColor(QtCore.Qt.red)
+        self.logTextEdit.append("-------------------------------------------------------")
+        for item in data:
+            self.logTextEdit.append(item + " :" + data[item][0])
+        self.logTextEdit.append("Update's Completed, Restarting...\n"
+                                "-------------------------------------------------------")
+        # Restart shell script
+
+    def softwareUpdate(self):
+        updateAvailable = False
+        self.performUpdateButton.setDisabled(True)
+        self.stackedWidget.setCurrentWidget(self.OTAUpdatePage)
+        data = octopiclient.getSoftwareUpdateInfo()
+        if data:
+            for item in data["information"]:
+                if not data["information"][item]["updateAvailable"]:
+                    self.updateListWidget.addItem(u'\u2713' + data["information"][item]["displayName"] +
+                                                  "  " + data["information"][item]["displayVersion"] + "\n"
+                                                  + "   Available: " + data["information"][item]["information"]["remote"][
+                                                      "value"])
+                else:
+                    updateAvailable = True
+                    self.updateListWidget.addItem(	u"\u2717" + data["information"][item]["displayName"] +
+                                                  "  " + data["information"][item]["displayVersion"] + "\n"
+                                                  + "   Available: " + data["information"][item]["information"]["remote"][
+                                                      "value"])
+        if updateAvailable:
+            self.performUpdateButton.setDisabled(False)
+
+
     def pairPhoneApp(self):
         if self.getIP('eth0') != 'Not Connected':
             qrip = self.getIP('eth0')
         elif self.getIP('wlan0') != 'Not Connected':
             qrip = self.getIP('wlan0')
-        else :
+        else:
             qrip = None
-        self.QRCodeLabel.setPixmap(qrcode.make(json.dumps({'apiKey': apiKey, 'IP': qrip}), image_factory = Image).pixmap())
+        self.QRCodeLabel.setPixmap(
+            qrcode.make(json.dumps({'apiKey': apiKey, 'IP': qrip}), image_factory=Image).pixmap())
         self.stackedWidget.setCurrentWidget(self.QRCodePage)
+
     def networkInfo(self):
         self.stackedWidget.setCurrentWidget(self.networkInfoPage)
-        self.hostname.setText(subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0])
+        self.hostname.setText(
+            subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0])
         self.wifiIp.setText(self.getIP('wlan0'))
         self.lanIp.setText(self.getIP('eth0'))
 
     def getIP(self, interface):
         try:
             scan_result = \
-            subprocess.Popen("ifconfig | grep " + interface + " -A 1", stdout=subprocess.PIPE, shell=True).communicate()[0]
+                subprocess.Popen("ifconfig | grep " + interface + " -A 1", stdout=subprocess.PIPE,
+                                 shell=True).communicate()[0]
             # Processing STDOUT into a dictionary that later will be converted to a json file later
             scan_result = scan_result.split('\n')  # each ssid and pass from an item in a list ([ssid pass,ssid paas])
             scan_result = [s.strip() for s in scan_result]
@@ -1114,30 +1170,30 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.wifiMessageBox.setGeometry(QtCore.QRect(110, 50, 200, 300))
         self.wifiMessageBox.setStandardButtons(QtGui.QMessageBox.Cancel)
         self.wifiMessageBox.setStyleSheet(_fromUtf8("\n"
-                                       "QMessageBox{\n"
-                                       "height:300px;\n"
-                                       "width: 400px;\n"
-                                       "}\n"
-                                       "\n"
-                                       "QPushButton{\n"
-                                       "     border: 1px solid rgb(87, 87, 87);\n"
-                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-                                       "height:70px;\n"
-                                       "width: 150px;\n"
-                                       "border-radius:5px;\n"
-                                       "    font: 14pt \"Gotham\";\n"
-                                       "}\n"
-                                       "\n"
-                                       "QPushButton:pressed {\n"
-                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-                                       "}\n"
-                                       "QPushButton:focus {\n"
-                                       "outline: none;\n"
-                                       "}\n"
+                                                    "QMessageBox{\n"
+                                                    "height:300px;\n"
+                                                    "width: 400px;\n"
+                                                    "}\n"
+                                                    "\n"
+                                                    "QPushButton{\n"
+                                                    "     border: 1px solid rgb(87, 87, 87);\n"
+                                                    "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                                    "height:70px;\n"
+                                                    "width: 150px;\n"
+                                                    "border-radius:5px;\n"
+                                                    "    font: 14pt \"Gotham\";\n"
+                                                    "}\n"
+                                                    "\n"
+                                                    "QPushButton:pressed {\n"
+                                                    "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                                    "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                                    "}\n"
+                                                    "QPushButton:focus {\n"
+                                                    "outline: none;\n"
+                                                    "}\n"
 
-                                       "\n"
-                                       ""))
+                                                    "\n"
+                                                    ""))
         retval = self.wifiMessageBox.exec_()
         if retval == QtGui.QMessageBox.Ok or QtGui.QMessageBox.Cancel:
             self.stackedWidget.setCurrentWidget(self.settingsPage)
@@ -1507,6 +1563,15 @@ class QtWebsocket(QtCore.QThread):
                 if data["plugin"]["data"]["status_value"] == 'error':
                     self.emit(QtCore.SIGNAL('FILAMENT_SENSOR_TRIGGERED'))
 
+            elif data["plugin"]["plugin"] == 'softwareupdate':
+                if data["plugin"]["data"]["type"] == "updating":
+                    self.emit(QtCore.SIGNAL('UPDATE_STARTED'),data["plugin"]["data"]["data"])
+                elif data["plugin"]["data"]["type"] == "loglines":
+                    self.emit(QtCore.SIGNAL('UPDATE_LOG'),data["plugin"]["data"]["data"]["loglines"])
+                elif data["plugin"]["data"]["type"] == "restarting":
+                    self.emit(QtCore.SIGNAL('UPDATE_LOG_RESULT'),data["plugin"]["data"]["data"]["results"])
+
+
         if "current" in data:
 
             if data["current"]["messages"]:
@@ -1627,7 +1692,6 @@ class restartNetworkingThread(QtCore.QThread):
         if attempt >= 3:
             self.emit(QtCore.SIGNAL('IP_ADDRESS'), None)
 
-
     def restart_wlan0(self):
         '''
         restars wlan0 wireless interface to use new changes in wpa_supplicant.conf file
@@ -1640,7 +1704,7 @@ class restartNetworkingThread(QtCore.QThread):
     def getIP(self):
         try:
             scan_result = \
-            subprocess.Popen("ifconfig | grep wlan0 -A 1", stdout=subprocess.PIPE, shell=True).communicate()[0]
+                subprocess.Popen("ifconfig | grep wlan0 -A 1", stdout=subprocess.PIPE, shell=True).communicate()[0]
             # Processing STDOUT into a dictionary that later will be converted to a json file later
             scan_result = scan_result.split('\n')  # each ssid and pass from an item in a list ([ssid pass,ssid paas])
             scan_result = [s.strip() for s in scan_result]
@@ -1663,3 +1727,40 @@ if __name__ == '__main__':
     # charm = FlickCharm()
     # charm.activateOn(MainWindow.FileListWidget)
     sys.exit(app.exec_())
+
+
+
+    # a[{"plugin":{"data":{"data":{"version":"0.0.5","name":"Julia3GTouchUI","target":"Julia3GTouchUI"},"type":"updating"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"/home/pi/OctoPrint/venv/bin/python -m pip install https://github.com/FracktalWorks/Julia3GTouchUI/archive/0.0.5.zip","stream":"call"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Collecting https://github.com/FracktalWorks/Julia3GTouchUI/archive/0.0.5.zip","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # h
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Downloading https://github.com/FracktalWorks/Julia3GTouchUI/archive/0.0.5.zip","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # h
+    # h
+    # h
+    # h
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Requirement already satisfied (use --upgrade to upgrade): Octoprint-Julia3GTouchUI==0.0.4 from https://github.com/FracktalWorks/Julia3GTouchUI/archive/0.0.5.zip in /home/pi/OctoPrint/venv/lib/python2.7/site-packages","stream":"stdout"},{"line":"Requirement already satisfied: OctoPrint in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/OctoPrint-1.3.2_stable_-py2.7.egg (from Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: RPi.GPIO in /home/pi/OctoPrint/venv/lib/python2.7/site-packages (from Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: flask<0.11,>=0.9 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: Jinja2<2.9,>=2.8 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Jinja2-2.8.1-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: werkzeug<0.9,>=0.8.3 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Werkzeug-0.8.3-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: tornado==4.0.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/tornado-4.0.2-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: sockjs-tornado<1.1,>=1.0.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/sockjs_tornado-1.0.3-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: PyYAML<3.11,>=3.10 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/PyYAML-3.10-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: Flask-Login<0.3,>=0.2.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask_Login-0.2.11-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: Flask-Principal<0.4,>=0.3.5 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask_Principal-0.3.5-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: Flask-Babel<0.10,>=0.9 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask_Babel-0.9-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: Flask-Assets<0.11,>=0.10 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask_Assets-0.10-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: markdown<2.7,>=2.6.4 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Markdown-2.6.8-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: pyserial<2.8,>=2.7 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pyserial-2.7-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: netaddr<0.8,>=0.7.17 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/netaddr-0.7.19-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: watchdog<0.9,>=0.8.3 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/watchdog-0.8.3-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: sarge<0.2,>=0.1.4 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/sarge-0.1.4-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: netifaces<0.11,>=0.10 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/netifaces-0.10.5-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: pylru<1.1,>=1.0.9 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pylru-1.0.9-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: rsa<3.3,>=3.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/rsa-3.2.3-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: pkginfo<1.3,>=1.2.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pkginfo-1.2.1-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: requests<2.8,>=2.7 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/requests-2.7.0-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: semantic_version<2.5,>=2.4.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/semantic_version-2.4.2-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: psutil<3.3,>=3.2.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/psutil-3.2.2-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: Click<6.3,>=6.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/click-6.2-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: awesome-slugify<1.7,>=1.6.5 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/awesome_slugify-1.6.5-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: feedparser<5.3,>=5.2.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/feedparser-5.2.1-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: chainmap<1.1,>=1.0.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/chainmap-1.0.2-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: future<0.16,>=0.15 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/future-0.15.2-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: scandir<1.4,>=1.3 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/scandir-1.3-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: websocket-client<0.41,>=0.40 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/websocket_client-0.40.0-py2.7.egg (from OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: itsdangerous>=0.21 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/itsdangerous-0.24-py2.7.egg (from flask<0.11,>=0.9->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: MarkupSafe in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/MarkupSafe-0.23-py2.7-linux-armv7l.egg (from Jinja2<2.9,>=2.8->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: certifi in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/certifi-2017.01.23-py2.7.egg (from tornado==4.0.2->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: backports.ssl_match_hostname in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/backports.ssl_match_hostname-3.5.0.1-py2.7.egg (from tornado==4.0.2->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: blinker in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/blinker-1.4-py2.7.egg (from Flask-Principal<0.4,>=0.3.5->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: Babel>=1.0 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Babel-2.3.4-py2.7.egg (from Flask-Babel<0.10,>=0.9->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: speaklater>=1.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/speaklater-1.3-py2.7.egg (from Flask-Babel<0.10,>=0.9->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: webassets>=0.10 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/webassets-0.12.1-py2.7.egg (from Flask-Assets<0.11,>=0.10->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: argh>=0.24.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/argh-0.26.2-py2.7.egg (from watchdog<0.9,>=0.8.3->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: pathtools>=0.1.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pathtools-0.1.2-py2.7.egg (from watchdog<0.9,>=0.8.3->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: pyasn1>=0.1.3 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pyasn1-0.2.2-py2.7.egg (from rsa<3.3,>=3.2->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: regex in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/regex-2017.02.08-py2.7-linux-armv7l.egg (from awesome-slugify<1.7,>=1.6.5->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: Unidecode<0.05,>=0.04.14 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Unidecode-0.04.20-py2.7.egg (from awesome-slugify<1.7,>=1.6.5->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: six in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/six-1.10.0-py2.7.egg (from websocket-client<0.41,>=0.40->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"},{"line":"Requirement already satisfied: pytz>=0a in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pytz-2016.10-py2.7.egg (from Babel>=1.0->Flask-Babel<0.10,>=0.9->OctoPrint->Octoprint-Julia3GTouchUI==0.0.4)","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"/home/pi/OctoPrint/venv/bin/python -m pip install https://github.com/FracktalWorks/Julia3GTouchUI/archive/0.0.5.zip --ignore-installed --force-reinstall --no-deps","stream":"call"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Collecting https://github.com/FracktalWorks/Julia3GTouchUI/archive/0.0.5.zip","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Downloading https://github.com/FracktalWorks/Julia3GTouchUI/archive/0.0.5.zip (3.6MB)","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # h
+    # h
+    # h
+    # h
+    # h
+    # h
+    # h
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Installing collected packages: Octoprint-Julia3GTouchUI","stream":"stdout"},{"line":"Running setup.py install for Octoprint-Julia3GTouchUI: started","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Running setup.py install for Octoprint-Julia3GTouchUI: finished with status 'done'","stream":"stdout"},{"line":"Successfully installed Octoprint-Julia3GTouchUI-0.0.4","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"version":"0.1.5","name":"Julia3GFilament","target":"octoprint_Julia3GFilament"},"type":"updating"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"/home/pi/OctoPrint/venv/bin/python -m pip install https://github.com/FracktalWorks/3GFilament/archive/0.1.5.zip","stream":"call"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Collecting https://github.com/FracktalWorks/3GFilament/archive/0.1.5.zip","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Downloading https://github.com/FracktalWorks/3GFilament/archive/0.1.5.zip","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Requirement already satisfied (use --upgrade to upgrade): Octoprint-Julia3GFilament==0.1.4 from https://github.com/FracktalWorks/3GFilament/archive/0.1.5.zip in /home/pi/OctoPrint/venv/lib/python2.7/site-packages","stream":"stdout"},{"line":"Requirement already satisfied: OctoPrint in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/OctoPrint-1.3.2_stable_-py2.7.egg (from Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: RPi.GPIO in /home/pi/OctoPrint/venv/lib/python2.7/site-packages (from Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: flask<0.11,>=0.9 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask-0.10.1-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: Jinja2<2.9,>=2.8 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Jinja2-2.8.1-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: werkzeug<0.9,>=0.8.3 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Werkzeug-0.8.3-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: tornado==4.0.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/tornado-4.0.2-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: sockjs-tornado<1.1,>=1.0.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/sockjs_tornado-1.0.3-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: PyYAML<3.11,>=3.10 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/PyYAML-3.10-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: Flask-Login<0.3,>=0.2.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask_Login-0.2.11-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: Flask-Principal<0.4,>=0.3.5 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask_Principal-0.3.5-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: Flask-Babel<0.10,>=0.9 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask_Babel-0.9-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: Flask-Assets<0.11,>=0.10 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Flask_Assets-0.10-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: markdown<2.7,>=2.6.4 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Markdown-2.6.8-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: pyserial<2.8,>=2.7 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pyserial-2.7-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: netaddr<0.8,>=0.7.17 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/netaddr-0.7.19-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: watchdog<0.9,>=0.8.3 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/watchdog-0.8.3-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: sarge<0.2,>=0.1.4 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/sarge-0.1.4-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: netifaces<0.11,>=0.10 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/netifaces-0.10.5-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: pylru<1.1,>=1.0.9 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pylru-1.0.9-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: rsa<3.3,>=3.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/rsa-3.2.3-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: pkginfo<1.3,>=1.2.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pkginfo-1.2.1-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: requests<2.8,>=2.7 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/requests-2.7.0-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: semantic_version<2.5,>=2.4.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/semantic_version-2.4.2-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: psutil<3.3,>=3.2.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/psutil-3.2.2-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: Click<6.3,>=6.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/click-6.2-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: awesome-slugify<1.7,>=1.6.5 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/awesome_slugify-1.6.5-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: feedparser<5.3,>=5.2.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/feedparser-5.2.1-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: chainmap<1.1,>=1.0.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/chainmap-1.0.2-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: future<0.16,>=0.15 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/future-0.15.2-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: scandir<1.4,>=1.3 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/scandir-1.3-py2.7-linux-armv7l.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: websocket-client<0.41,>=0.40 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/websocket_client-0.40.0-py2.7.egg (from OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: itsdangerous>=0.21 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/itsdangerous-0.24-py2.7.egg (from flask<0.11,>=0.9->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: MarkupSafe in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/MarkupSafe-0.23-py2.7-linux-armv7l.egg (from Jinja2<2.9,>=2.8->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: certifi in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/certifi-2017.01.23-py2.7.egg (from tornado==4.0.2->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: backports.ssl_match_hostname in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/backports.ssl_match_hostname-3.5.0.1-py2.7.egg (from tornado==4.0.2->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: blinker in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/blinker-1.4-py2.7.egg (from Flask-Principal<0.4,>=0.3.5->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: Babel>=1.0 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Babel-2.3.4-py2.7.egg (from Flask-Babel<0.10,>=0.9->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: speaklater>=1.2 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/speaklater-1.3-py2.7.egg (from Flask-Babel<0.10,>=0.9->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: webassets>=0.10 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/webassets-0.12.1-py2.7.egg (from Flask-Assets<0.11,>=0.10->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: argh>=0.24.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/argh-0.26.2-py2.7.egg (from watchdog<0.9,>=0.8.3->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: pathtools>=0.1.1 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pathtools-0.1.2-py2.7.egg (from watchdog<0.9,>=0.8.3->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: pyasn1>=0.1.3 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pyasn1-0.2.2-py2.7.egg (from rsa<3.3,>=3.2->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: regex in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/regex-2017.02.08-py2.7-linux-armv7l.egg (from awesome-slugify<1.7,>=1.6.5->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: Unidecode<0.05,>=0.04.14 in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/Unidecode-0.04.20-py2.7.egg (from awesome-slugify<1.7,>=1.6.5->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: six in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/six-1.10.0-py2.7.egg (from websocket-client<0.41,>=0.40->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"},{"line":"Requirement already satisfied: pytz>=0a in /home/pi/OctoPrint/venv/lib/python2.7/site-packages/pytz-2016.10-py2.7.egg (from Babel>=1.0->Flask-Babel<0.10,>=0.9->OctoPrint->Octoprint-Julia3GFilament==0.1.4)","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"/home/pi/OctoPrint/venv/bin/python -m pip install https://github.com/FracktalWorks/3GFilament/archive/0.1.5.zip --ignore-installed --force-reinstall --no-deps","stream":"call"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Collecting https://github.com/FracktalWorks/3GFilament/archive/0.1.5.zip","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Downloading https://github.com/FracktalWorks/3GFilament/archive/0.1.5.zip","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # h
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Installing collected packages: Octoprint-Julia3GFilament","stream":"stdout"},{"line":"Running setup.py install for Octoprint-Julia3GFilament: started","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"loglines":[{"line":"Running setup.py install for Octoprint-Julia3GFilament: finished with status 'done'","stream":"stdout"},{"line":"Successfully installed Octoprint-Julia3GFilament-0.1.4","stream":"stdout"}]},"type":"loglines"},"plugin":"softwareupdate"}}]
+    # a[{"plugin":{"data":{"data":{"restart_type":"octoprint","results":{"Julia3GTouchUI":["success","ok"],"octoprint_Julia3GFilament":["success","ok"]}},"type":"restarting"},"plugin":"softwareupdate"}}]

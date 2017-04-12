@@ -1091,6 +1091,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # Restart shell script
 
     def softwareUpdate(self):
+        self.updateListWidget.clear()
         updateAvailable = False
         self.performUpdateButton.setDisabled(True)
         self.stackedWidget.setCurrentWidget(self.OTAUpdatePage)

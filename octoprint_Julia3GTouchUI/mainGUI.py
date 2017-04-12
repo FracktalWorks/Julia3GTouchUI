@@ -1548,6 +1548,9 @@ class Ui_MainWindow(object):
         self.OTAUpdatePage.setObjectName(_fromUtf8("OTAUpdatePage"))
         self.updateListWidget = QtGui.QListWidget(self.OTAUpdatePage)
         self.updateListWidget.setGeometry(QtCore.QRect(0, 0, 481, 251))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.updateListWidget.setFont(font)
         self.updateListWidget.setStyleSheet(_fromUtf8("\n"
 "\n"
 "QScrollBar:vertical {\n"
@@ -1690,7 +1693,7 @@ class Ui_MainWindow(object):
         self.logTextEdit.setGeometry(QtCore.QRect(0, 0, 481, 321))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Gotham"))
-        font.setPointSize(10)
+        font.setPointSize(12)
         self.logTextEdit.setFont(font)
         self.logTextEdit.setStyleSheet(_fromUtf8("QTextEdit{\n"
 "background-color:  rgb(40, 40, 40);\n"
@@ -6025,8 +6028,8 @@ class Ui_MainWindow(object):
         self.logTextEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Gotham\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Software Update Starting, Please Wait....</p></body></html>", None))
+"</style></head><body style=\" font-family:\'Gotham\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">Software Update Starting, Please Wait....</span></p></body></html>", None))
         self.bedLevelButton.setText(_translate("MainWindow", "Bed Level", None))
         self.caliberateLabel.setText(_translate("MainWindow", "Caliberate:", None))
         self.nozzleOffsetButton.setText(_translate("MainWindow", "Height", None))

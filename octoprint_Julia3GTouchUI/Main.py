@@ -1072,7 +1072,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.softwareUpdateProgressPage)
         self.logTextEdit.setTextColor(QtCore.Qt.red)
         self.logTextEdit.append("---------------------------------------------------------------\n"
-                                "Updating " + data["name"] + " to version " + data["version"] + "\n"
+                                "Updating " + data["name"] + " to " + data["version"] + "\n"
                                 "---------------------------------------------------------------")
 
 
@@ -1086,7 +1086,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.logTextEdit.append("---------------------------------------------------------------")
         for item in data:
             self.logTextEdit.append(item + " :" + data[item][0])
-        self.logTextEdit.append("Update's Completed, Restarting...\n"
+        self.logTextEdit.append("Update Completed, Restarting...\n"
                                 "---------------------------------------------------------------")
         # Restart shell script
 

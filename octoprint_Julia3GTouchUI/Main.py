@@ -1071,9 +1071,9 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
     def softwareUpdateProgress(self, data):
         self.stackedWidget.setCurrentWidget(self.softwareUpdateProgressPage)
         self.logTextEdit.setTextColor(QtCore.Qt.red)
-        self.logTextEdit.append("-------------------------------------------------------\n"
+        self.logTextEdit.append("---------------------------------------------------------------\n"
                                 "Updating " + data["name"] + " to version " + data["version"] + "\n"
-                                "-------------------------------------------------------")
+                                "---------------------------------------------------------------")
 
 
     def softwareUpdateProgressLog(self, data):
@@ -1083,11 +1083,11 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
     def softwareUpdateResult(self, data):
         self.logTextEdit.setTextColor(QtCore.Qt.red)
-        self.logTextEdit.append("-------------------------------------------------------")
+        self.logTextEdit.append("---------------------------------------------------------------")
         for item in data:
             self.logTextEdit.append(item + " :" + data[item][0])
         self.logTextEdit.append("Update's Completed, Restarting...\n"
-                                "-------------------------------------------------------")
+                                "---------------------------------------------------------------")
         # Restart shell script
 
     def softwareUpdate(self):

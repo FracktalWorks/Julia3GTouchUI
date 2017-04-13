@@ -338,11 +338,12 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_STARTED'), self.softwareUpdateProgress)
         self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_LOG'), self.softwareUpdateProgressLog)
         self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_LOG_RESULT'), self.softwareUpdateResult)
+        self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_FAILED'), self.updateFailed)
 
         # Button Events:
 
         # Home Screen:
-        self.stopButton.pressed.connect(self.stopAction)
+        self.stopButton.pressed.connect(self.stopActionMessageBox)
         # self.menuButton.pressed.connect(self.keyboardButton)
         self.menuButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.MenuPage))
         self.controlButton.pressed.connect(self.control)
@@ -477,10 +478,10 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # SoftwareUpdatePaage
         self.softwareUpdateBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
         self.performUpdateButton.pressed.connect(lambda: octopiclient.performSoftwareUpdate())
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # +++++++++++++++++++++++++Message Boxes++++++++++++++++++++++++++++++++++++++++
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    # ++++++++++++++++++Function Definitions++++++++++++++++++++++++++++++++++++++++
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     def filamentSensorTriggeredMessageBox(self):
         '''
         Displays a message box alerting the user of a filament error
@@ -500,19 +501,13 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         choice.setText("Filament Error detected on tool " + str(self.activeExtruder))
         choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
         # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        choice.setGeometry(QtCore.QRect(110, 50, 200, 300))
+        #choice.setFixedSize(QtCore.QSize(400, 300))
         choice.setStandardButtons(QtGui.QMessageBox.Ok)
-        choice.setStyleSheet(_fromUtf8("\n"
-                                       "QMessageBox{\n"
-                                       "height:300px;\n"
-                                       "width: 400px;\n"
-                                       "}\n"
-                                       "\n"
-                                       "QPushButton{\n"
+        choice.setStyleSheet(_fromUtf8("QPushButton{\n"
                                        "     border: 1px solid rgb(87, 87, 87);\n"
                                        "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
                                        "height:70px;\n"
-                                       "width: 150px;\n"
+                                       "width: 200px;\n"
                                        "border-radius:5px;\n"
                                        "    font: 14pt \"Gotham\";\n"
                                        "}\n"
@@ -530,6 +525,142 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         retval = choice.exec_()
         if retval == QtGui.QMessageBox.Ok:
             pass
+
+    def updateStatusMessageBox(self,status):
+        '''
+        Displays a message box alerting the user of a filament error
+        '''
+        choice = QtGui.QMessageBox()
+        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        font = QtGui.QFont()
+        QtGui.QInputMethodEvent
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        choice.setFont(font)
+        choice.setText(status)
+        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        #choice.setFixedSize(QtCore.QSize(400,300))
+        choice.setStandardButtons(QtGui.QMessageBox.Ok)
+        choice.setStyleSheet(_fromUtf8("QPushButton{\n"
+                                       "     border: 1px solid rgb(87, 87, 87);\n"
+                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                       "height:70px;\n"
+                                       "width: 320px;\n"
+                                       "border-radius:5px;\n"
+                                       "    font: 14pt \"Gotham\";\n"
+                                       "}\n"
+                                       "\n"
+                                       "QPushButton:pressed {\n"
+                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                       "}\n"
+                                       "QPushButton:focus {\n"
+                                       "outline: none;\n"
+                                       "}\n"
+
+                                       "\n"
+                                       ""))
+        retval = choice.exec_()
+        if retval == QtGui.QMessageBox.Ok:
+            pass
+            GPIO.cleanup()
+            os.execl(sys.executable, sys.executable, *sys.argv)
+
+    def updateFailedMessageBox(self, status):
+        '''
+        Displays a message box alerting the user of a filament error
+        '''
+        choice = QtGui.QMessageBox()
+        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        font = QtGui.QFont()
+        QtGui.QInputMethodEvent
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        choice.setFont(font)
+        choice.setText(status)
+        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        # choice.setFixedSize(QtCore.QSize(400,300))
+        choice.setStandardButtons(QtGui.QMessageBox.Ok)
+        choice.setStyleSheet(_fromUtf8("QPushButton{\n"
+                                       "     border: 1px solid rgb(87, 87, 87);\n"
+                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                       "height:70px;\n"
+                                       "width: 320px;\n"
+                                       "border-radius:5px;\n"
+                                       "    font: 14pt \"Gotham\";\n"
+                                       "}\n"
+                                       "\n"
+                                       "QPushButton:pressed {\n"
+                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                       "}\n"
+                                       "QPushButton:focus {\n"
+                                       "outline: none;\n"
+                                       "}\n"
+
+                                       "\n"
+                                       ""))
+        retval = choice.exec_()
+        if retval == QtGui.QMessageBox.Ok:
+            pass
+
+    def stopActionMessageBox(self):
+        '''
+        Displays a message box asking if the user is sure if he wants to turn off the print
+        '''
+        choice = QtGui.QMessageBox()
+        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        font = QtGui.QFont()
+        QtGui.QInputMethodEvent
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        choice.setFont(font)
+        choice.setText("Are you sure you want to stop the Print?")
+        # choice.setText(text)
+        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        #choice.setFixedSize(QtCore.QSize(400, 300))
+        choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        choice.setStyleSheet(_fromUtf8("\n"
+                                       "QPushButton{\n"
+                                       "     border: 1px solid rgb(87, 87, 87);\n"
+                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                       "height:70px;\n"
+                                       "width: 150px;\n"
+                                       "border-radius:5px;\n"
+                                       "    font: 14pt \"Gotham\";\n"
+                                       "}\n"
+                                       "\n"
+                                       "QPushButton:pressed {\n"
+                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                       "}\n"
+                                       "QPushButton:focus {\n"
+                                       "outline: none;\n"
+                                       "}\n"
+                                       "\n"
+                                       ""))
+        retval = choice.exec_()
+        if retval == QtGui.QMessageBox.Yes:
+            octopiclient.cancelPrint()
+
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # ++++++++++++++++++Function Definitions++++++++++++++++++++++++++++++++++++++++
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     def toggleFilamentSensor(self):
         self.filamentSensorToggleButton.setText(
@@ -900,50 +1031,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                 octopiclient.selectTool(self.activeExtruderPrint)
             octopiclient.pausePrint()
 
-    def stopAction(self):
-        '''
-        Displays a message box asking if the user is sure if he wants to turn off the print
-        '''
-        choice = QtGui.QMessageBox()
-        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        font = QtGui.QFont()
-        QtGui.QInputMethodEvent
-        font.setFamily(_fromUtf8("Gotham"))
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setUnderline(False)
-        font.setWeight(50)
-        font.setStrikeOut(False)
-        choice.setFont(font)
-        choice.setText("Are you sure you want to stop the Print?")
-        # choice.setText(text)
-        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
-        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        choice.setGeometry(QtCore.QRect(75, 50, 300, 300))
-        choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-        choice.setStyleSheet(_fromUtf8("\n"
-                                       "QPushButton{\n"
-                                       "     border: 1px solid rgb(87, 87, 87);\n"
-                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-                                       "height:70px;\n"
-                                       "width: 150px;\n"
-                                       "border-radius:5px;\n"
-                                       "    font: 14pt \"Gotham\";\n"
-                                       "}\n"
-                                       "\n"
-                                       "QPushButton:pressed {\n"
-                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-                                       "}\n"
-                                       "QPushButton:focus {\n"
-                                       "outline: none;\n"
-                                       "}\n"
-                                       "\n"
-                                       ""))
-        retval = choice.exec_()
-        if retval == QtGui.QMessageBox.Yes:
-            octopiclient.cancelPrint()
-
     def selectToolChangeFilament(self):
         '''
         Selects the tool whose temperature needs to be changed. It accordingly changes the button text. it also updates the status of the other toggle buttons
@@ -1075,20 +1162,23 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                                 "Updating " + data["name"] + " to " + data["version"] + "\n"
                                 "---------------------------------------------------------------")
 
-
     def softwareUpdateProgressLog(self, data):
         self.logTextEdit.setTextColor(QtCore.Qt.white)
         for line in data:
             self.logTextEdit.append(line["line"])
 
     def softwareUpdateResult(self, data):
-        self.logTextEdit.setTextColor(QtCore.Qt.red)
-        self.logTextEdit.append("---------------------------------------------------------------")
+        messageText = ""
         for item in data:
-            self.logTextEdit.append(item + " :" + data[item][0])
-        self.logTextEdit.append("Update Completed, Restarting...\n"
-                                "---------------------------------------------------------------")
-        # Restart shell script
+            messageText+= item + ": " + data[item][0] + ".\n"
+        messageText += "Restart required"
+        self.updateStatusMessageBox(messageText)
+
+    def updateFailed(self,data):
+        self.stackedWidget.setCurrentWidget(self.settingsPage)
+        messageText = (data["name"] + " failed to update\n")
+        self.updateFailedMessageBox(messageText)
+
 
     def softwareUpdate(self):
         self.updateListWidget.clear()
@@ -1111,7 +1201,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                                                       "value"])
         if updateAvailable:
             self.performUpdateButton.setDisabled(False)
-
 
     def pairPhoneApp(self):
         if self.getIP('eth0') != 'Not Connected':
@@ -1571,6 +1660,8 @@ class QtWebsocket(QtCore.QThread):
                     self.emit(QtCore.SIGNAL('UPDATE_LOG'),data["plugin"]["data"]["data"]["loglines"])
                 elif data["plugin"]["data"]["type"] == "restarting":
                     self.emit(QtCore.SIGNAL('UPDATE_LOG_RESULT'),data["plugin"]["data"]["data"]["results"])
+                elif data["plugin"]["data"]["type"] == "update_failed":
+                    self.emit(QtCore.SIGNAL('UPDATE_FAILED'),data["plugin"]["data"]["data"])
 
 
         if "current" in data:
@@ -1622,6 +1713,7 @@ class sanityCheckThread(QtCore.QThread):
         self.lightBarPort = None
 
     def run(self):
+        global octopiclient
         global octopiclient
         global lightbar
         # keep trying untill octoprint connects

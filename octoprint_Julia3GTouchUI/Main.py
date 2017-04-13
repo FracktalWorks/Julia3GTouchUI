@@ -567,7 +567,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                                        ""))
         retval = choice.exec_()
         if retval == QtGui.QMessageBox.Ok:
-            pass
             GPIO.cleanup()
             os.system('sudo reboot now')
 

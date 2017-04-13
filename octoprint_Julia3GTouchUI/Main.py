@@ -1649,7 +1649,7 @@ class QtWebsocket(QtCore.QThread):
     @run_async
     def process(self, data):
         if "plugin" in data:
-            if data["plugin"]["plugin"] == 'Julia3GFilament':
+            if data["plugin"]["plugin"] == 'Julia3GFilamentSensor':
                 if data["plugin"]["data"]["status_value"] == 'error':
                     self.emit(QtCore.SIGNAL('FILAMENT_SENSOR_TRIGGERED'))
 

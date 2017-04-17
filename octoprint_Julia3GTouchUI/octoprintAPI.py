@@ -642,3 +642,16 @@ class octoprintAPI:
         payload = {'force': str(force).lower()}
         headers = {'content-type': 'application/json', 'X-Api-Key': self.apiKey}
         requests.post(url, data=json.dumps(payload), headers=headers)
+
+    def isResurrectionAvailable(self):
+        url = 'http://' + self.ip + '/plugin/Julia3GPrintResurrection/isAvailable'
+        headers = {'X-Api-Key': self.apiKey}
+        response = requests.get(url, headers=headers)
+        temp = response.json()
+        return temp
+    def resurrect(self):
+        url = 'http://' + self.ip + '/plugin/Julia3GPrintResurrection/resurrect'
+        headers = {'X-Api-Key': self.apiKey}
+        response = requests.get(url, headers=headers)
+        temp = response.json()
+        return temp

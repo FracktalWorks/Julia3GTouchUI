@@ -835,42 +835,8 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.MenuPage)
         self.settingsPage = QtGui.QWidget()
         self.settingsPage.setObjectName(_fromUtf8("settingsPage"))
-        self.settingsBackButton = QtGui.QPushButton(self.settingsPage)
-        self.settingsBackButton.setGeometry(QtCore.QRect(0, 256, 481, 64))
-        self.settingsBackButton.setMinimumSize(QtCore.QSize(0, 0))
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Gotham Light"))
-        font.setPointSize(9)
-        self.settingsBackButton.setFont(font)
-        self.settingsBackButton.setStyleSheet(_fromUtf8("QPushButton {\n"
-"     border: 1px solid rgb(87, 87, 87);\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"\n"
-"\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-"}\n"
-"\n"
-"QPushButton:flat {\n"
-"    border: none; /* no border for a flat push button */\n"
-"}\n"
-"\n"
-"QPushButton:default {\n"
-"    border-color: navy; /* make the default button prominent */\n"
-"}"))
-        self.settingsBackButton.setText(_fromUtf8(""))
-        self.settingsBackButton.setIcon(icon4)
-        self.settingsBackButton.setIconSize(QtCore.QSize(50, 50))
-        self.settingsBackButton.setCheckable(False)
-        self.settingsBackButton.setAutoDefault(False)
-        self.settingsBackButton.setDefault(False)
-        self.settingsBackButton.setFlat(False)
-        self.settingsBackButton.setObjectName(_fromUtf8("settingsBackButton"))
         self.scrollArea = QtGui.QScrollArea(self.settingsPage)
-        self.scrollArea.setGeometry(QtCore.QRect(-1, -4, 479, 261))
+        self.scrollArea.setGeometry(QtCore.QRect(0, 0, 480, 320))
         self.scrollArea.setStyleSheet(_fromUtf8("\n"
 "\n"
 "QScrollBar:vertical {\n"
@@ -920,7 +886,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 415, 420))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -172, 416, 490))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setContentsMargins(0, 0, 3, 0)
@@ -1118,6 +1084,40 @@ class Ui_MainWindow(object):
         self.restartButton.setIconSize(QtCore.QSize(40, 40))
         self.restartButton.setObjectName(_fromUtf8("restartButton"))
         self.verticalLayout.addWidget(self.restartButton)
+        self.settingsBackButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.settingsBackButton.setMinimumSize(QtCore.QSize(0, 70))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Gotham Light"))
+        font.setPointSize(9)
+        self.settingsBackButton.setFont(font)
+        self.settingsBackButton.setStyleSheet(_fromUtf8("QPushButton {\n"
+"     border: 1px solid rgb(87, 87, 87);\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+"}\n"
+"\n"
+"QPushButton:flat {\n"
+"    border: none; /* no border for a flat push button */\n"
+"}\n"
+"\n"
+"QPushButton:default {\n"
+"    border-color: navy; /* make the default button prominent */\n"
+"}"))
+        self.settingsBackButton.setText(_fromUtf8(""))
+        self.settingsBackButton.setIcon(icon4)
+        self.settingsBackButton.setIconSize(QtCore.QSize(50, 50))
+        self.settingsBackButton.setCheckable(False)
+        self.settingsBackButton.setAutoDefault(False)
+        self.settingsBackButton.setDefault(False)
+        self.settingsBackButton.setFlat(False)
+        self.settingsBackButton.setObjectName(_fromUtf8("settingsBackButton"))
+        self.verticalLayout.addWidget(self.settingsBackButton)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.stackedWidget.addWidget(self.settingsPage)
         self.QRCodePage = QtGui.QWidget()
@@ -5977,7 +5977,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.mainApplication)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(8)
+        self.stackedWidget.setCurrentIndex(3)
         self.controlTabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

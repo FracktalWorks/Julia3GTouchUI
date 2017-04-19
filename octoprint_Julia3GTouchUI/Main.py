@@ -324,8 +324,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(MainWindow.homePage)
         self.checkResurrection()
 
-
-
     def setActions(self):
 
         '''
@@ -1243,14 +1241,14 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                 if not data["information"][item]["updateAvailable"]:
                     self.updateListWidget.addItem(u'\u2713' + data["information"][item]["displayName"] +
                                                   "  " + data["information"][item]["displayVersion"] + "\n"
-                                                  + "   Available: " + data["information"][item]["information"]["remote"][
-                                                      "value"])
+                                                  + "   Available: " +
+                                                  data["information"][item]["information"]["remote"]["value"])
                 else:
                     updateAvailable = True
-                    self.updateListWidget.addItem(	u"\u2717" + data["information"][item]["displayName"] +
+                    self.updateListWidget.addItem(u"\u2717" + data["information"][item]["displayName"] +
                                                   "  " + data["information"][item]["displayVersion"] + "\n"
-                                                  + "   Available: " + data["information"][item]["information"]["remote"][
-                                                      "value"])
+                                                  + "   Available: " +
+                                                  data["information"][item]["information"]["remote"]["value"])
         if updateAvailable:
             self.performUpdateButton.setDisabled(False)
 

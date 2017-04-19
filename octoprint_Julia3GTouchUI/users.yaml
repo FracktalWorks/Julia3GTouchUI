@@ -1,0 +1,8 @@
+vjvarada:
+  active: true
+  apikey: 75F1B338BF6040C0BDAC2A98B163910A
+  password: 46d0d11347af8217ec2ab6c0e32a104ee290972a4ee53deb8a11a1d110cea695be47f479279fed4cb82c3d4290cc34c286409540cfc15b944c71f3dad00f37e2
+  roles:
+  - user
+  - admin
+  settings: {}

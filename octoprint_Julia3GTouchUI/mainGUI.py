@@ -440,6 +440,7 @@ class Ui_MainWindow(object):
         self.timeLeft.setFont(font)
         self.timeLeft.setStyleSheet(_fromUtf8("color: rgb(255, 255, 255);\n"
 "background-color: rgba(255, 255, 255, 0);"))
+        self.timeLeft.setWordWrap(False)
         self.timeLeft.setObjectName(_fromUtf8("timeLeft"))
         self.printerStatus = QtGui.QLabel(self.homePage)
         self.printerStatus.setGeometry(QtCore.QRect(30, 0, 381, 31))
@@ -788,7 +789,7 @@ class Ui_MainWindow(object):
 "    border-color: navy; /* make the default button prominent */\n"
 "}"))
         icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap(_fromUtf8("templates/img/pie-chart.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon7.addPixmap(QtGui.QPixmap(_fromUtf8("templates/img/cart.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.menuStatsButton.setIcon(icon7)
         self.menuStatsButton.setIconSize(QtCore.QSize(80, 80))
         self.menuStatsButton.setCheckable(False)
@@ -838,56 +839,56 @@ class Ui_MainWindow(object):
         self.settingsPage.setObjectName(_fromUtf8("settingsPage"))
         self.scrollArea = QtGui.QScrollArea(self.settingsPage)
         self.scrollArea.setGeometry(QtCore.QRect(0, 0, 480, 320))
-        self.scrollArea.setStyleSheet(_fromUtf8("\n"
-"\n"
-"QScrollBar:vertical {\n"
-" border: 1px solid black; \n"
+        self.scrollArea.setStyleSheet(_fromUtf8(" QScrollBar:vertical {\n"
+"     border: 1px solid black;\n"
 "border-radius: 5px;\n"
-"background: rgb(40,40,40);\n"
-"width: 90px;\n"
-"}\n"
-"\n"
-"/* Sets up the color and height of handle */\n"
-"QScrollBar::handle:vertical {\n"
+"    background-color: rgb(40,40,40);\n"
+"     width: 80px;\n"
+"     margin: 70px 0 70px 0;\n"
+" }\n"
+" QScrollBar::handle:vertical {\n"
 "border-radius: 5px;\n"
 "background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "min-height: 20px;\n"
-"}\n"
+" }\n"
+" QScrollBar::add-line:vertical {\n"
+"     border: 1px solid black;\n"
+"background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"     height:65px;\n"
+"border-radius: 5px;\n"
+"     subcontrol-position: bottom;\n"
+"     subcontrol-origin: margin;\n"
+" }\n"
 "\n"
+" QScrollBar::sub-line:vertical {\n"
+"     border: 1px solid black;\n"
+"background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"     height: 65px;\n"
+"border-radius: 5px;\n"
+"     subcontrol-position: top;\n"
+"     subcontrol-origin: margin;\n"
+" }\n"
 "\n"
+"QScrollBar::up-arrow:vertical {\n"
+" image: url(./templates/img/arrows.png);\n"
+"    width: 40px;\n"
+"    height: 40px;\n"
+" padding: 5px;\n"
+" }\n"
+"QScrollBar::down-arrow:vertical {\n"
+" image: url(./templates/img/arrows-5.png);\n"
+"    width: 40px;\n"
+"    height: 40px;\n"
+" padding: 5px;\n"
+" }\n"
 "\n"
-"\n"
-"/* This remvoes the bottom button by setting the height to 0px */\n"
-"QScrollBar::add-line:vertical {\n"
-"height: 0px;\n"
-"subcontrol-position: bottom;\n"
-"subcontrol-origin: margin;\n"
-"}\n"
-"\n"
-"/* This remvoes the top button by setting the height to 0px */\n"
-"QScrollBar::sub-line:vertical {\n"
-"height: 0px;\n"
-"subcontrol-position: top;\n"
-"subcontrol-origin: margin;\n"
-"}\n"
-"\n"
-"/*\n"
-"QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {\n"
-"border: 2px solid grey;\n"
-"width: 5px;\n"
-"height: 5px;\n"
-"background: white;\n"
-"}\n"
-"\n"
-"\n"
-"/* need this to get rid of crosshatching on scrollbar background */\n"
-"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
-"background: none;\n"
-"}"))
+" QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
+"     background: none;\n"
+" }"))
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -242, 388, 560))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 398, 490))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setContentsMargins(0, 0, 3, 0)
@@ -957,38 +958,6 @@ class Ui_MainWindow(object):
         self.configureWifiButton.setIconSize(QtCore.QSize(40, 40))
         self.configureWifiButton.setObjectName(_fromUtf8("configureWifiButton"))
         self.verticalLayout.addWidget(self.configureWifiButton)
-        self.touchCaliberationButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
-        self.touchCaliberationButton.setMinimumSize(QtCore.QSize(0, 70))
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Gotham"))
-        font.setPointSize(13)
-        self.touchCaliberationButton.setFont(font)
-        self.touchCaliberationButton.setStyleSheet(_fromUtf8("QPushButton {\n"
-"     border: 1px solid rgb(87, 87, 87);\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"\n"
-"\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-"}\n"
-"\n"
-"QPushButton:flat {\n"
-"    border: none; /* no border for a flat push button */\n"
-"}\n"
-"\n"
-"QPushButton:default {\n"
-"    border-color: navy; /* make the default button prominent */\n"
-"}\n"
-"\n"
-"QPushButton:focus {\n"
-"    outline: none;\n"
-"}"))
-        self.touchCaliberationButton.setIconSize(QtCore.QSize(40, 40))
-        self.touchCaliberationButton.setObjectName(_fromUtf8("touchCaliberationButton"))
-        self.verticalLayout.addWidget(self.touchCaliberationButton)
         self.pairPhoneButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.pairPhoneButton.setMinimumSize(QtCore.QSize(0, 70))
         font = QtGui.QFont()
@@ -1212,47 +1181,52 @@ class Ui_MainWindow(object):
         font.setFamily(_fromUtf8("Gotham"))
         font.setPointSize(20)
         self.wifiSettingsComboBox.setFont(font)
-        self.wifiSettingsComboBox.setStyleSheet(_fromUtf8("\n"
-"\n"
-"QScrollBar:vertical {\n"
-" border: 1px solid black; \n"
+        self.wifiSettingsComboBox.setStyleSheet(_fromUtf8(" QScrollBar:vertical {\n"
+"     border: 1px solid black;\n"
 "border-radius: 5px;\n"
-"background: rgb(40,40,40);\n"
-"width: 62px;\n"
-"}\n"
+"    background-color: rgb(40,40,40);\n"
+"     width: 60px;\n"
+"     margin: 67px 0 67px 0;\n"
+" }\n"
 "\n"
 "/* Sets up the color and height of handle */\n"
 "QScrollBar::handle:vertical {\n"
 "border-radius: 5px;\n"
 "background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"min-height: 20px;\n"
+"min-height: 7px;\n"
 "}\n"
 "\n"
 "\n"
-"\n"
-"\n"
-"/* This remvoes the bottom button by setting the height to 0px */\n"
 "QScrollBar::add-line:vertical {\n"
-"height: 0px;\n"
-"subcontrol-position: bottom;\n"
-"subcontrol-origin: margin;\n"
-"}\n"
+"     border: 1px solid black;\n"
+"background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"     height:65px;\n"
+"border-radius: 5px;\n"
+"     subcontrol-position: bottom;\n"
+"     subcontrol-origin: margin;\n"
+" }\n"
 "\n"
-"/* This remvoes the top button by setting the height to 0px */\n"
-"QScrollBar::sub-line:vertical {\n"
-"height: 0px;\n"
-"subcontrol-position: top;\n"
-"subcontrol-origin: margin;\n"
-"}\n"
+" QScrollBar::sub-line:vertical {\n"
+"     border: 1px solid black;\n"
+"background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"     height: 65px;\n"
+"border-radius: 5px;\n"
+"     subcontrol-position: top;\n"
+"     subcontrol-origin: margin;\n"
+" }\n"
 "\n"
-"/*\n"
-"QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {\n"
-"border: 2px solid grey;\n"
-"width: 5px;\n"
-"height: 5px;\n"
-"background: white;\n"
-"}\n"
-"\n"
+"QScrollBar::up-arrow:vertical {\n"
+" image: url(./templates/img/arrows.png);\n"
+"    width: 40px;\n"
+"    height: 40px;\n"
+" padding: 5px;\n"
+" }\n"
+"QScrollBar::down-arrow:vertical {\n"
+" image: url(./templates/img/arrows-5.png);\n"
+"    width: 40px;\n"
+"    height: 40px;\n"
+" padding: 5px;\n"
+" }\n"
 "\n"
 "/* need this to get rid of crosshatching on scrollbar background */\n"
 "QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
@@ -1262,7 +1236,7 @@ class Ui_MainWindow(object):
 "QComboBox {\n"
 "border: 1px solid black;\n"
 "    padding: 0px 18px 0px 3px;\n"
-"\n"
+"    min-width: 6em;\n"
 "\n"
 "}\n"
 "\n"
@@ -1288,8 +1262,8 @@ class Ui_MainWindow(object):
 "border-left: 1px solid black;\n"
 "border-right: 1px solid black;\n"
 "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"    width: 80px;\n"
-"     height: 49px;\n"
+"    width: 60px;\n"
+"     height: 50px;\n"
 "\n"
 "}\n"
 "\n"
@@ -1786,10 +1760,10 @@ class Ui_MainWindow(object):
         self.caliberatePage = QtGui.QWidget()
         self.caliberatePage.setObjectName(_fromUtf8("caliberatePage"))
         self.caliberateLabel = QtGui.QLabel(self.caliberatePage)
-        self.caliberateLabel.setGeometry(QtCore.QRect(10, 20, 231, 21))
+        self.caliberateLabel.setGeometry(QtCore.QRect(10, 20, 231, 31))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Gotham"))
-        font.setPointSize(14)
+        font.setPointSize(18)
         font.setBold(False)
         font.setWeight(50)
         self.caliberateLabel.setFont(font)
@@ -3033,7 +3007,7 @@ class Ui_MainWindow(object):
         self.printPreviewSelected_2.setGeometry(QtCore.QRect(150, 90, 161, 161))
         self.printPreviewSelected_2.setStyleSheet(_fromUtf8("background-color: rgba(255, 255, 255, 0);"))
         self.printPreviewSelected_2.setText(_fromUtf8(""))
-        self.printPreviewSelected_2.setPixmap(QtGui.QPixmap(_fromUtf8("png/Nozzle Offset.png")))
+        self.printPreviewSelected_2.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/Nozzle Offset.png")))
         self.printPreviewSelected_2.setScaledContents(True)
         self.printPreviewSelected_2.setObjectName(_fromUtf8("printPreviewSelected_2"))
         self.feedRateLabelControlPage_3.raise_()
@@ -3076,10 +3050,10 @@ class Ui_MainWindow(object):
         self.fromUsbButton.setIconSize(QtCore.QSize(40, 40))
         self.fromUsbButton.setObjectName(_fromUtf8("fromUsbButton"))
         self.printFromLabel = QtGui.QLabel(self.printLocationPage)
-        self.printFromLabel.setGeometry(QtCore.QRect(0, 90, 231, 21))
+        self.printFromLabel.setGeometry(QtCore.QRect(0, 80, 231, 31))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Gotham"))
-        font.setPointSize(14)
+        font.setPointSize(18)
         font.setBold(False)
         font.setWeight(50)
         self.printFromLabel.setFont(font)
@@ -3161,35 +3135,36 @@ class Ui_MainWindow(object):
         self.fileListWidget.setFont(font)
         self.fileListWidget.setStyleSheet(_fromUtf8("\n"
 "\n"
-"QListView::item {\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
 "QListView {\n"
-"    show-decoration-selected: 1; /* make the selection span the entire width of the view */\n"
+"    show-decoration-selected: 1; /* make the selection span the entire width\n"
+" of the view */\n"
+"    background-color: rgb(255, 255, 255);\n"
+"outline: none;\n"
 "}\n"
 "\n"
-"QListView::item:alternate {\n"
-"    background: #EEEEEE;\n"
+"QListView::item:!selected {\n"
+"    color: black;\n"
+"outline: none;\n"
 "}\n"
 "\n"
 "QListView::item:selected {\n"
 "    border:  rgb(182, 182, 182);\n"
+"    color: rgb(255, 255, 255);\n"
+"    background-color: rgb(40, 40, 40);\n"
 "outline: none;\n"
 "}\n"
 "\n"
 "QListView::item:selected:!active {\n"
-"border-radius: 5px;\n"
 "     border: 1px solid rgb(182, 182, 182);\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(70, 70, 70, 255), stop:1 rgba(127, 127, 127, 255));\n"
+"    background-color: rgb(40,40,40);\n"
 "outline: none;\n"
 "\n"
 "}\n"
 "\n"
 "QListView::item:selected:active {\n"
-"border-radius: 5px;\n"
 "     border: 1px solid  rgb(182, 182, 182);\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(70, 70, 70, 255), stop:1 rgba(127, 127, 127, 255));\n"
+"    background-color: rgb(40,40,40);\n"
+"outline: none;\n"
 "}\n"
 "\n"
 "QListView::item:selected:focus {\n"
@@ -3604,35 +3579,36 @@ class Ui_MainWindow(object):
         self.fileListWidgetUSB.setFont(font)
         self.fileListWidgetUSB.setStyleSheet(_fromUtf8("\n"
 "\n"
-"QListView::item {\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
 "QListView {\n"
-"    show-decoration-selected: 1; /* make the selection span the entire width of the view */\n"
+"    show-decoration-selected: 1; /* make the selection span the entire width\n"
+" of the view */\n"
+"    background-color: rgb(255, 255, 255);\n"
+"outline: none;\n"
 "}\n"
 "\n"
-"QListView::item:alternate {\n"
-"    background: #EEEEEE;\n"
+"QListView::item:!selected {\n"
+"    color: black;\n"
+"outline: none;\n"
 "}\n"
 "\n"
 "QListView::item:selected {\n"
 "    border:  rgb(182, 182, 182);\n"
+"    color: rgb(255, 255, 255);\n"
+"    background-color: rgb(40, 40, 40);\n"
 "outline: none;\n"
 "}\n"
 "\n"
 "QListView::item:selected:!active {\n"
-"border-radius: 5px;\n"
 "     border: 1px solid rgb(182, 182, 182);\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(70, 70, 70, 255), stop:1 rgba(127, 127, 127, 255));\n"
+"    background-color: rgb(40,40,40);\n"
 "outline: none;\n"
 "\n"
 "}\n"
 "\n"
 "QListView::item:selected:active {\n"
-"border-radius: 5px;\n"
 "     border: 1px solid  rgb(182, 182, 182);\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(70, 70, 70, 255), stop:1 rgba(127, 127, 127, 255));\n"
+"    background-color: rgb(40,40,40);\n"
+"outline: none;\n"
 "}\n"
 "\n"
 "QListView::item:selected:focus {\n"
@@ -3646,6 +3622,12 @@ class Ui_MainWindow(object):
         self.fileListWidgetUSB.setAutoScrollMargin(4)
         self.fileListWidgetUSB.setVerticalScrollMode(QtGui.QAbstractItemView.ScrollPerItem)
         self.fileListWidgetUSB.setObjectName(_fromUtf8("fileListWidgetUSB"))
+        self.USBStorageSaveButton.raise_()
+        self.USBStorageSelectButton.raise_()
+        self.USBStorageBackButton.raise_()
+        self.fileListWidgetUSB.raise_()
+        self.USBStorageScrollDown.raise_()
+        self.USBStorageScrollUp.raise_()
         self.stackedWidget.addWidget(self.fileListUSBPage)
         self.printSelectedLocalPage = QtGui.QWidget()
         self.printSelectedLocalPage.setObjectName(_fromUtf8("printSelectedLocalPage"))
@@ -4564,7 +4546,7 @@ class Ui_MainWindow(object):
         self.motionTab = QtGui.QWidget()
         self.motionTab.setObjectName(_fromUtf8("motionTab"))
         self.step1Button = QtGui.QPushButton(self.motionTab)
-        self.step1Button.setGeometry(QtCore.QRect(202, 225, 100, 45))
+        self.step1Button.setGeometry(QtCore.QRect(102, 225, 100, 45))
         self.step1Button.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Gotham"))
@@ -4573,7 +4555,7 @@ class Ui_MainWindow(object):
         self.step1Button.setStyleSheet(_fromUtf8("QPushButton {\n"
 "     border: 1px solid rgb(87, 87, 87);\n"
 "     border-bottom: none; /* no border for a flat push button */\n"
-"\n"
+"border-top-left-radius: 15px;\n"
 "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "}\n"
 "\n"
@@ -4602,7 +4584,7 @@ class Ui_MainWindow(object):
         self.step1Button.setFlat(False)
         self.step1Button.setObjectName(_fromUtf8("step1Button"))
         self.step10Button = QtGui.QPushButton(self.motionTab)
-        self.step10Button.setGeometry(QtCore.QRect(301, 225, 100, 45))
+        self.step10Button.setGeometry(QtCore.QRect(201, 225, 100, 45))
         self.step10Button.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Gotham"))
@@ -4639,19 +4621,18 @@ class Ui_MainWindow(object):
         self.step10Button.setDefault(False)
         self.step10Button.setFlat(False)
         self.step10Button.setObjectName(_fromUtf8("step10Button"))
-        self.step0_1Button = QtGui.QPushButton(self.motionTab)
-        self.step0_1Button.setGeometry(QtCore.QRect(102, 225, 101, 45))
-        self.step0_1Button.setMinimumSize(QtCore.QSize(0, 0))
+        self.step100Button = QtGui.QPushButton(self.motionTab)
+        self.step100Button.setGeometry(QtCore.QRect(300, 225, 101, 45))
+        self.step100Button.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Gotham"))
         font.setPointSize(15)
-        self.step0_1Button.setFont(font)
-        self.step0_1Button.setStyleSheet(_fromUtf8("QPushButton {\n"
+        self.step100Button.setFont(font)
+        self.step100Button.setStyleSheet(_fromUtf8("QPushButton {\n"
 "     border: 1px solid rgb(87, 87, 87);\n"
 "     border-bottom: none; /* no border for a flat push button */\n"
 "\n"
 "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"border-top-left-radius: 15px;\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
@@ -4672,13 +4653,13 @@ class Ui_MainWindow(object):
 "QPushButton:focus {\n"
 "    outline: none;\n"
 "}"))
-        self.step0_1Button.setIconSize(QtCore.QSize(40, 40))
-        self.step0_1Button.setCheckable(True)
-        self.step0_1Button.setChecked(False)
-        self.step0_1Button.setAutoDefault(False)
-        self.step0_1Button.setDefault(False)
-        self.step0_1Button.setFlat(False)
-        self.step0_1Button.setObjectName(_fromUtf8("step0_1Button"))
+        self.step100Button.setIconSize(QtCore.QSize(40, 40))
+        self.step100Button.setCheckable(True)
+        self.step100Button.setChecked(False)
+        self.step100Button.setAutoDefault(False)
+        self.step100Button.setDefault(False)
+        self.step100Button.setFlat(False)
+        self.step100Button.setObjectName(_fromUtf8("step100Button"))
         self.moveYPButton = QtGui.QPushButton(self.motionTab)
         self.moveYPButton.setGeometry(QtCore.QRect(80, 6, 70, 70))
         self.moveYPButton.setMinimumSize(QtCore.QSize(0, 0))
@@ -4943,7 +4924,7 @@ class Ui_MainWindow(object):
 "}"))
         self.motorOffButton.setText(_fromUtf8(""))
         icon27 = QtGui.QIcon()
-        icon27.addPixmap(QtGui.QPixmap(_fromUtf8("octoprint_Julia3GTouchUI/templates/img/motor.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon27.addPixmap(QtGui.QPixmap(_fromUtf8("templates/img/motor.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.motorOffButton.setIcon(icon27)
         self.motorOffButton.setIconSize(QtCore.QSize(40, 40))
         self.motorOffButton.setCheckable(False)
@@ -5193,7 +5174,7 @@ class Ui_MainWindow(object):
         self.moveByLabel.raise_()
         self.step1Button.raise_()
         self.step10Button.raise_()
-        self.step0_1Button.raise_()
+        self.step100Button.raise_()
         self.moveYPButton.raise_()
         self.moveYMButton.raise_()
         self.moveXPButton.raise_()
@@ -5469,49 +5450,54 @@ class Ui_MainWindow(object):
         self.changeFilamentComboBox.setGeometry(QtCore.QRect(0, 40, 481, 51))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Gotham"))
-        font.setPointSize(20)
+        font.setPointSize(24)
         self.changeFilamentComboBox.setFont(font)
-        self.changeFilamentComboBox.setStyleSheet(_fromUtf8("\n"
-"\n"
-"QScrollBar:vertical {\n"
-" border: 1px solid black; \n"
+        self.changeFilamentComboBox.setStyleSheet(_fromUtf8(" QScrollBar:vertical {\n"
+"     border: 1px solid black;\n"
 "border-radius: 5px;\n"
-"background: rgb(40,40,40);\n"
-"width: 62px;\n"
-"}\n"
+"    background-color: rgb(40,40,40);\n"
+"     width: 60px;\n"
+"     margin: 67px 0 67px 0;\n"
+" }\n"
 "\n"
 "/* Sets up the color and height of handle */\n"
 "QScrollBar::handle:vertical {\n"
 "border-radius: 5px;\n"
 "background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"min-height: 20px;\n"
+"min-height: 7px;\n"
 "}\n"
 "\n"
 "\n"
-"\n"
-"\n"
-"/* This remvoes the bottom button by setting the height to 0px */\n"
 "QScrollBar::add-line:vertical {\n"
-"height: 0px;\n"
-"subcontrol-position: bottom;\n"
-"subcontrol-origin: margin;\n"
-"}\n"
+"     border: 1px solid black;\n"
+"background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"     height:65px;\n"
+"border-radius: 5px;\n"
+"     subcontrol-position: bottom;\n"
+"     subcontrol-origin: margin;\n"
+" }\n"
 "\n"
-"/* This remvoes the top button by setting the height to 0px */\n"
-"QScrollBar::sub-line:vertical {\n"
-"height: 0px;\n"
-"subcontrol-position: top;\n"
-"subcontrol-origin: margin;\n"
-"}\n"
+" QScrollBar::sub-line:vertical {\n"
+"     border: 1px solid black;\n"
+"background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"     height: 65px;\n"
+"border-radius: 5px;\n"
+"     subcontrol-position: top;\n"
+"     subcontrol-origin: margin;\n"
+" }\n"
 "\n"
-"/*\n"
-"QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {\n"
-"border: 2px solid grey;\n"
-"width: 5px;\n"
-"height: 5px;\n"
-"background: white;\n"
-"}\n"
-"\n"
+"QScrollBar::up-arrow:vertical {\n"
+" image: url(./templates/img/arrows.png);\n"
+"    width: 40px;\n"
+"    height: 40px;\n"
+" padding: 5px;\n"
+" }\n"
+"QScrollBar::down-arrow:vertical {\n"
+" image: url(./templates/img/arrows-5.png);\n"
+"    width: 40px;\n"
+"    height: 40px;\n"
+" padding: 5px;\n"
+" }\n"
 "\n"
 "/* need this to get rid of crosshatching on scrollbar background */\n"
 "QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
@@ -5983,8 +5969,8 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.mainApplication)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
-        self.controlTabWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(24)
+        self.controlTabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -6010,11 +5996,10 @@ class Ui_MainWindow(object):
         self.menuControlButton.setText(_translate("MainWindow", "Control", None))
         self.menuPrintButton.setText(_translate("MainWindow", "Print", None))
         self.menuSettingsButton.setText(_translate("MainWindow", "Settings", None))
-        self.menuStatsButton.setText(_translate("MainWindow", "Stat\'s", None))
+        self.menuStatsButton.setText(_translate("MainWindow", "Cart", None))
         self.menuCaliberateButton.setText(_translate("MainWindow", "Calibrate", None))
         self.networkInfoButton.setText(_translate("MainWindow", "Network info", None))
         self.configureWifiButton.setText(_translate("MainWindow", "Configure WiFi", None))
-        self.touchCaliberationButton.setText(_translate("MainWindow", "Touch Caliberation", None))
         self.pairPhoneButton.setText(_translate("MainWindow", "Pair Phone App", None))
         self.OTAButton.setText(_translate("MainWindow", "Check for Updates", None))
         self.versionButton.setText(_translate("MainWindow", "Version", None))
@@ -6092,7 +6077,7 @@ class Ui_MainWindow(object):
         self.bedTempSpinBox.setSuffix(_translate("MainWindow", "°C", None))
         self.step1Button.setText(_translate("MainWindow", "1 mm", None))
         self.step10Button.setText(_translate("MainWindow", "10 mm", None))
-        self.step0_1Button.setText(_translate("MainWindow", "0.1 mm", None))
+        self.step100Button.setText(_translate("MainWindow", "100 mm", None))
         self.XYLabel.setText(_translate("MainWindow", "X/Y :", None))
         self.ZLabel.setText(_translate("MainWindow", "Z:", None))
         self.ELabel.setText(_translate("MainWindow", "E:", None))

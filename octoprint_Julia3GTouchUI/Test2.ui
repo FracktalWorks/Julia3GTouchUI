@@ -173,7 +173,7 @@ QStatusBar::item {
 background-color: rgb(40, 40, 40);</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="loadingPage">
      <widget class="QLabel" name="LoadingLabel">
@@ -912,6 +912,9 @@ background-color: rgba(255, 255, 255, 0);</string>
       <property name="text">
        <string>timeLeft</string>
       </property>
+      <property name="wordWrap">
+       <bool>false</bool>
+      </property>
      </widget>
      <widget class="QLabel" name="printerStatus">
       <property name="geometry">
@@ -1551,11 +1554,11 @@ QToolButton:default {
 }</string>
       </property>
       <property name="text">
-       <string>Stat's</string>
+       <string>Cart</string>
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>templates/img/pie-chart.png</normaloff>templates/img/pie-chart.png</iconset>
+        <normaloff>templates/img/cart.png</normaloff>templates/img/cart.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1650,52 +1653,52 @@ QToolButton:default {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-
-QScrollBar:vertical {
- border: 1px solid black; 
+       <string notr="true"> QScrollBar:vertical {
+     border: 1px solid black;
 border-radius: 5px;
-background: rgb(40,40,40);
-width: 90px;
-}
-
-/* Sets up the color and height of handle */
-QScrollBar::handle:vertical {
+	background-color: rgb(40,40,40);
+     width: 80px;
+     margin: 70px 0 70px 0;
+ }
+ QScrollBar::handle:vertical {
 border-radius: 5px;
 background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
 min-height: 20px;
-}
+ }
+ QScrollBar::add-line:vertical {
+     border: 1px solid black;
+background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+     height:65px;
+border-radius: 5px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
 
+ QScrollBar::sub-line:vertical {
+     border: 1px solid black;
+background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+     height: 65px;
+border-radius: 5px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
 
+QScrollBar::up-arrow:vertical {
+ image: url(./templates/img/arrows.png);
+    width: 40px;
+    height: 40px;
+ padding: 5px;
+ }
+QScrollBar::down-arrow:vertical {
+ image: url(./templates/img/arrows-5.png);
+    width: 40px;
+    height: 40px;
+ padding: 5px;
+ }
 
-
-/* This remvoes the bottom button by setting the height to 0px */
-QScrollBar::add-line:vertical {
-height: 0px;
-subcontrol-position: bottom;
-subcontrol-origin: margin;
-}
-
-/* This remvoes the top button by setting the height to 0px */
-QScrollBar::sub-line:vertical {
-height: 0px;
-subcontrol-position: top;
-subcontrol-origin: margin;
-}
-
-/*
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-border: 2px solid grey;
-width: 5px;
-height: 5px;
-background: white;
-}
-
-
-/* need this to get rid of crosshatching on scrollbar background */
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-background: none;
-}</string>
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }</string>
       </property>
       <property name="widgetResizable">
        <bool>true</bool>
@@ -1704,9 +1707,9 @@ background: none;
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-242</y>
-         <width>388</width>
-         <height>560</height>
+         <y>0</y>
+         <width>398</width>
+         <height>490</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -1816,56 +1819,6 @@ QPushButton:focus {
           </property>
           <property name="text">
            <string>Configure WiFi</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>40</width>
-            <height>40</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="touchCaliberationButton">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Gotham</family>
-            <pointsize>13</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-     border: 1px solid rgb(87, 87, 87);
-	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-
-
-}
-
-QPushButton:pressed {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
-}
-
-QPushButton:flat {
-    border: none; /* no border for a flat push button */
-}
-
-QPushButton:default {
-    border-color: navy; /* make the default button prominent */
-}
-
-QPushButton:focus {
-	outline: none;
-}</string>
-          </property>
-          <property name="text">
-           <string>Touch Caliberation</string>
           </property>
           <property name="iconSize">
            <size>
@@ -2266,47 +2219,52 @@ QPushButton:default {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-
-QScrollBar:vertical {
- border: 1px solid black; 
+       <string notr="true"> QScrollBar:vertical {
+     border: 1px solid black;
 border-radius: 5px;
-background: rgb(40,40,40);
-width: 62px;
-}
+    background-color: rgb(40,40,40);
+     width: 60px;
+     margin: 67px 0 67px 0;
+ }
 
 /* Sets up the color and height of handle */
 QScrollBar::handle:vertical {
 border-radius: 5px;
 background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-min-height: 20px;
+min-height: 7px;
 }
 
 
-
-
-/* This remvoes the bottom button by setting the height to 0px */
 QScrollBar::add-line:vertical {
-height: 0px;
-subcontrol-position: bottom;
-subcontrol-origin: margin;
-}
+     border: 1px solid black;
+background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+     height:65px;
+border-radius: 5px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
 
-/* This remvoes the top button by setting the height to 0px */
-QScrollBar::sub-line:vertical {
-height: 0px;
-subcontrol-position: top;
-subcontrol-origin: margin;
-}
+ QScrollBar::sub-line:vertical {
+     border: 1px solid black;
+background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+     height: 65px;
+border-radius: 5px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
 
-/*
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-border: 2px solid grey;
-width: 5px;
-height: 5px;
-background: white;
-}
-
+QScrollBar::up-arrow:vertical {
+ image: url(./templates/img/arrows.png);
+    width: 40px;
+    height: 40px;
+ padding: 5px;
+ }
+QScrollBar::down-arrow:vertical {
+ image: url(./templates/img/arrows-5.png);
+    width: 40px;
+    height: 40px;
+ padding: 5px;
+ }
 
 /* need this to get rid of crosshatching on scrollbar background */
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
@@ -2316,7 +2274,7 @@ background: none;
 QComboBox {
 border: 1px solid black;
     padding: 0px 18px 0px 3px;
-
+    min-width: 6em;
 
 }
 
@@ -2342,8 +2300,8 @@ QComboBox::drop-down {
 border-left: 1px solid black;
 border-right: 1px solid black;
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-    width: 80px;
-     height: 49px;
+    width: 60px;
+     height: 50px;
 
 }
 
@@ -3188,13 +3146,13 @@ p, li { white-space: pre-wrap; }
         <x>10</x>
         <y>20</y>
         <width>231</width>
-        <height>21</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Gotham</family>
-        <pointsize>14</pointsize>
+        <pointsize>18</pointsize>
         <weight>50</weight>
         <bold>false</bold>
        </font>
@@ -5406,7 +5364,7 @@ QPushButton:focus {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>png/Nozzle Offset.png</pixmap>
+       <pixmap>templates/img/Nozzle Offset.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -5474,15 +5432,15 @@ QPushButton:default {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>90</y>
+        <y>80</y>
         <width>231</width>
-        <height>21</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Gotham</family>
-        <pointsize>14</pointsize>
+        <pointsize>18</pointsize>
         <weight>50</weight>
         <bold>false</bold>
        </font>
@@ -5633,35 +5591,36 @@ QPushButton:default {
       <property name="styleSheet">
        <string notr="true">
 
-QListView::item {
-	color: rgb(255, 255, 255);
-}
-
 QListView {
-    show-decoration-selected: 1; /* make the selection span the entire width of the view */
+    show-decoration-selected: 1; /* make the selection span the entire width
+ of the view */
+	background-color: rgb(255, 255, 255);
+outline: none;
 }
 
-QListView::item:alternate {
-    background: #EEEEEE;
+QListView::item:!selected {
+	color: black;
+outline: none;
 }
 
 QListView::item:selected {
     border:  rgb(182, 182, 182);
+	color: rgb(255, 255, 255);
+	background-color: rgb(40, 40, 40);
 outline: none;
 }
 
 QListView::item:selected:!active {
-border-radius: 5px;
      border: 1px solid rgb(182, 182, 182);
-	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(70, 70, 70, 255), stop:1 rgba(127, 127, 127, 255));
+	background-color: rgb(40,40,40);
 outline: none;
 
 }
 
 QListView::item:selected:active {
-border-radius: 5px;
      border: 1px solid  rgb(182, 182, 182);
-	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(70, 70, 70, 255), stop:1 rgba(127, 127, 127, 255));
+	background-color: rgb(40,40,40);
+outline: none;
 }
 
 QListView::item:selected:focus {
@@ -6453,35 +6412,36 @@ QPushButton:focus {
       <property name="styleSheet">
        <string notr="true">
 
-QListView::item {
-	color: rgb(255, 255, 255);
-}
-
 QListView {
-    show-decoration-selected: 1; /* make the selection span the entire width of the view */
+    show-decoration-selected: 1; /* make the selection span the entire width
+ of the view */
+	background-color: rgb(255, 255, 255);
+outline: none;
 }
 
-QListView::item:alternate {
-    background: #EEEEEE;
+QListView::item:!selected {
+	color: black;
+outline: none;
 }
 
 QListView::item:selected {
     border:  rgb(182, 182, 182);
+	color: rgb(255, 255, 255);
+	background-color: rgb(40, 40, 40);
 outline: none;
 }
 
 QListView::item:selected:!active {
-border-radius: 5px;
      border: 1px solid rgb(182, 182, 182);
-	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(70, 70, 70, 255), stop:1 rgba(127, 127, 127, 255));
+	background-color: rgb(40,40,40);
 outline: none;
 
 }
 
 QListView::item:selected:active {
-border-radius: 5px;
      border: 1px solid  rgb(182, 182, 182);
-	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(70, 70, 70, 255), stop:1 rgba(127, 127, 127, 255));
+	background-color: rgb(40,40,40);
+outline: none;
 }
 
 QListView::item:selected:focus {
@@ -6511,6 +6471,12 @@ QListView::item:selected:focus {
        <number>8</number>
       </property>
      </widget>
+     <zorder>USBStorageSaveButton</zorder>
+     <zorder>USBStorageSelectButton</zorder>
+     <zorder>USBStorageBackButton</zorder>
+     <zorder>fileListWidgetUSB</zorder>
+     <zorder>USBStorageScrollDown</zorder>
+     <zorder>USBStorageScrollUp</zorder>
     </widget>
     <widget class="QWidget" name="printSelectedLocalPage">
      <widget class="QLabel" name="fileSelected">
@@ -7294,7 +7260,7 @@ QTabBar:focus {
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <property name="iconSize">
        <size>
@@ -8159,7 +8125,7 @@ QPushButton:focus {
        <widget class="QPushButton" name="step1Button">
         <property name="geometry">
          <rect>
-          <x>202</x>
+          <x>102</x>
           <y>225</y>
           <width>100</width>
           <height>45</height>
@@ -8181,7 +8147,7 @@ QPushButton:focus {
          <string notr="true">QPushButton {
      border: 1px solid rgb(87, 87, 87);
      border-bottom: none; /* no border for a flat push button */
-
+border-top-left-radius: 15px;
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
 }
 
@@ -8229,7 +8195,7 @@ QPushButton:focus {
        <widget class="QPushButton" name="step10Button">
         <property name="geometry">
          <rect>
-          <x>301</x>
+          <x>201</x>
           <y>225</y>
           <width>100</width>
           <height>45</height>
@@ -8296,10 +8262,10 @@ QPushButton:focus {
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="step0_1Button">
+       <widget class="QPushButton" name="step100Button">
         <property name="geometry">
          <rect>
-          <x>102</x>
+          <x>300</x>
           <y>225</y>
           <width>101</width>
           <height>45</height>
@@ -8323,7 +8289,6 @@ QPushButton:focus {
      border-bottom: none; /* no border for a flat push button */
 
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-border-top-left-radius: 15px;
 }
 
 QPushButton:pressed {
@@ -8346,7 +8311,7 @@ QPushButton:focus {
 }</string>
         </property>
         <property name="text">
-         <string>0.1 mm</string>
+         <string>100 mm</string>
         </property>
         <property name="iconSize">
          <size>
@@ -8853,7 +8818,7 @@ QPushButton:focus {
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>octoprint_Julia3GTouchUI/templates/img/motor.png</normaloff>octoprint_Julia3GTouchUI/templates/img/motor.png</iconset>
+          <normaloff>templates/img/motor.png</normaloff>templates/img/motor.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -9339,7 +9304,7 @@ QPushButton:focus {
        <zorder>moveByLabel</zorder>
        <zorder>step1Button</zorder>
        <zorder>step10Button</zorder>
-       <zorder>step0_1Button</zorder>
+       <zorder>step100Button</zorder>
        <zorder>moveYPButton</zorder>
        <zorder>moveYMButton</zorder>
        <zorder>moveXPButton</zorder>
@@ -9785,51 +9750,56 @@ QPushButton:default {
       <property name="font">
        <font>
         <family>Gotham</family>
-        <pointsize>20</pointsize>
+        <pointsize>24</pointsize>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-
-QScrollBar:vertical {
- border: 1px solid black; 
+       <string notr="true"> QScrollBar:vertical {
+     border: 1px solid black;
 border-radius: 5px;
-background: rgb(40,40,40);
-width: 62px;
-}
+    background-color: rgb(40,40,40);
+     width: 60px;
+     margin: 67px 0 67px 0;
+ }
 
 /* Sets up the color and height of handle */
 QScrollBar::handle:vertical {
 border-radius: 5px;
 background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-min-height: 20px;
+min-height: 7px;
 }
 
 
-
-
-/* This remvoes the bottom button by setting the height to 0px */
 QScrollBar::add-line:vertical {
-height: 0px;
-subcontrol-position: bottom;
-subcontrol-origin: margin;
-}
+     border: 1px solid black;
+background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+     height:65px;
+border-radius: 5px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
 
-/* This remvoes the top button by setting the height to 0px */
-QScrollBar::sub-line:vertical {
-height: 0px;
-subcontrol-position: top;
-subcontrol-origin: margin;
-}
+ QScrollBar::sub-line:vertical {
+     border: 1px solid black;
+background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+     height: 65px;
+border-radius: 5px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
 
-/*
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-border: 2px solid grey;
-width: 5px;
-height: 5px;
-background: white;
-}
-
+QScrollBar::up-arrow:vertical {
+ image: url(./templates/img/arrows.png);
+    width: 40px;
+    height: 40px;
+ padding: 5px;
+ }
+QScrollBar::down-arrow:vertical {
+ image: url(./templates/img/arrows-5.png);
+    width: 40px;
+    height: 40px;
+ padding: 5px;
+ }
 
 /* need this to get rid of crosshatching on scrollbar background */
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {

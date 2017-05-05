@@ -1,4 +1,18 @@
 #!/usr/bin/python
+
+'''
+*************************************************************************
+ *
+ * Fracktal Works
+ * __________________
+ * Authors: Vijay Varada
+ * Created: Nov 2016
+ *
+ * Licence: AGPLv3
+*************************************************************************
+'''
+
+
 from PyQt4 import QtCore, QtGui
 import mainGUI
 import keyBoard
@@ -432,7 +446,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.fanOnButton.pressed.connect(lambda: octopiclient.gcode(command='M106'))
         self.fanOffButton.pressed.connect(lambda: octopiclient.gcode(command='M107'))
         self.cooldownButton.pressed.connect(self.coolDownAction)
-        self.step0_1Button.pressed.connect(lambda: self.setStep(0.1))
+        self.step100Button.pressed.connect(lambda: self.setStep(100))
         self.step1Button.pressed.connect(lambda: self.setStep(1))
         self.step10Button.pressed.connect(lambda: self.setStep(10))
         self.homeXYButton.pressed.connect(lambda: octopiclient.home(['x', 'y']))
@@ -452,7 +466,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.changeFilamentButton.pressed.connect(self.changeFilament)
         self.toolToggleChangeFilamentButton.clicked.connect(self.selectToolChangeFilament)
         self.changeFilamentBackButton.pressed.connect(self.control)
-        self.changeFilamentBackButton2.pressed.connect(self.control)
+        self.changeFilamentBackButton2.pressed.connect(self.changeFilamentCancel)
         self.changeFilamentUnloadButton.pressed.connect(lambda: self.unloadFilament())
         self.changeFilamentLoadButton.pressed.connect(lambda: self.loadFilament())
         self.loadDoneButton.pressed.connect(self.control)
@@ -481,9 +495,10 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # SoftwareUpdatePaage
         self.softwareUpdateBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
         self.performUpdateButton.pressed.connect(lambda: octopiclient.performSoftwareUpdate())
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    # +++++++++++++++++++++++++Message Boxes++++++++++++++++++++++++++++++++++++++++
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+    ''' +++++++++++++++++++++++++Filament Sensor++++++++++++++++++++++++++++++++++++++ '''
 
     def filamentSensorTriggeredMessageBox(self):
         '''
@@ -504,7 +519,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         choice.setText("Filament Error detected on tool " + str(self.activeExtruder))
         choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
         # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        #choice.setFixedSize(QtCore.QSize(400, 300))
+        # choice.setFixedSize(QtCore.QSize(400, 300))
         choice.setStandardButtons(QtGui.QMessageBox.Ok)
         choice.setStyleSheet(_fromUtf8("QPushButton{\n"
                                        "     border: 1px solid rgb(87, 87, 87);\n"
@@ -528,6 +543,70 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         retval = choice.exec_()
         if retval == QtGui.QMessageBox.Ok:
             pass
+
+    def toggleFilamentSensor(self):
+        self.filamentSensorToggleButton.setText(
+            "FilaSensor ON") if self.filamentSensorToggleButton.isChecked() else self.filamentSensorToggleButton.setText(
+            "FilaSensor OFF")
+        if self.filamentSensorToggleButton.isChecked():
+            print "FilaSensor ON"
+            octopiclient.toggleFiamentSensor(2)
+        else:
+            print "FilaSensor OFF"
+            octopiclient.toggleFiamentSensor(-1)
+
+    ''' +++++++++++++++++++++++++Print Resurrection+++++++++++++++++++++++++++++++++++ '''
+
+    def printResurrectionMessageBox(self,file):
+        '''
+        Displays a message box alerting the user of a filament error
+        '''
+        print " went into message box"
+        choice = QtGui.QMessageBox()
+        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        font = QtGui.QFont()
+        QtGui.QInputMethodEvent
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        choice.setFont(font)
+        choice.setText(file + " Did not finish, would you like to resurrect?")
+        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        # choice.setFixedSize(QtCore.QSize(400, 300))
+        choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        choice.setStyleSheet(_fromUtf8("QPushButton{\n"
+                                       "     border: 1px solid rgb(87, 87, 87);\n"
+                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                       "height:70px;\n"
+                                       "width: 200px;\n"
+                                       "border-radius:5px;\n"
+                                       "    font: 14pt \"Gotham\";\n"
+                                       "}\n"
+                                       "\n"
+                                       "QPushButton:pressed {\n"
+                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                       "}\n"
+                                       "QPushButton:focus {\n"
+                                       "outline: none;\n"
+                                       "}\n"
+
+                                       "\n"
+                                       ""))
+        retval = choice.exec_()
+        if retval == QtGui.QMessageBox.Yes:
+            octopiclient.resurrect()
+
+    def checkResurrection(self):
+        resurrection = octopiclient.isResurrectionAvailable()
+        if resurrection["status"] == "available":
+            self.printResurrectionMessageBox(resurrection["file"])
+
+    ''' +++++++++++++++++++++++++++++++++OTA Update+++++++++++++++++++++++++++++++++++ '''
 
     def updateStatusMessageBox(self,status):
         '''
@@ -616,6 +695,208 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         if retval == QtGui.QMessageBox.Ok:
             pass
 
+    def softwareUpdateResult(self, data):
+        messageText = ""
+        for item in data:
+            messageText += item + ": " + data[item][0] + ".\n"
+        messageText += "Restart required"
+        self.updateStatusMessageBox(messageText)
+
+    def softwareUpdateProgress(self, data):
+        self.stackedWidget.setCurrentWidget(self.softwareUpdateProgressPage)
+        self.logTextEdit.setTextColor(QtCore.Qt.red)
+        self.logTextEdit.append("---------------------------------------------------------------\n"
+                                "Updating " + data["name"] + " to " + data["version"] + "\n"
+                                "---------------------------------------------------------------")
+
+    def softwareUpdateProgressLog(self, data):
+        self.logTextEdit.setTextColor(QtCore.Qt.white)
+        for line in data:
+            self.logTextEdit.append(line["line"])
+
+    def updateFailed(self,data):
+        self.stackedWidget.setCurrentWidget(self.settingsPage)
+        messageText = (data["name"] + " failed to update\n")
+        self.updateFailedMessageBox(messageText)
+
+    def softwareUpdate(self):
+        self.updateListWidget.clear()
+        updateAvailable = False
+        self.performUpdateButton.setDisabled(True)
+        self.stackedWidget.setCurrentWidget(self.OTAUpdatePage)
+        data = octopiclient.getSoftwareUpdateInfo()
+        if data:
+            for item in data["information"]:
+                if not data["information"][item]["updateAvailable"]:
+                    self.updateListWidget.addItem(u'\u2713' + data["information"][item]["displayName"] +
+                                                  "  " + data["information"][item]["displayVersion"] + "\n"
+                                                  + "   Available: " +
+                                                  data["information"][item]["information"]["remote"]["value"])
+                else:
+                    updateAvailable = True
+                    self.updateListWidget.addItem(u"\u2717" + data["information"][item]["displayName"] +
+                                                  "  " + data["information"][item]["displayVersion"] + "\n"
+                                                  + "   Available: " +
+                                                  data["information"][item]["information"]["remote"]["value"])
+        if updateAvailable:
+            self.performUpdateButton.setDisabled(False)
+
+    ''' +++++++++++++++++++++++++++++++++Wifi Config+++++++++++++++++++++++++++++++++++ '''
+
+    def restartNetworkingMessageBox(self):
+        '''
+        Displays a message box for changing network activity
+        '''
+        self.wifiMessageBox = QtGui.QMessageBox()
+        self.wifiMessageBox.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        font = QtGui.QFont()
+        QtGui.QInputMethodEvent
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        self.wifiMessageBox.setFont(font)
+        self.wifiMessageBox.setText("Restarting networking, please wait...")
+        self.wifiMessageBox.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        self.wifiMessageBox.setGeometry(QtCore.QRect(110, 50, 200, 300))
+        self.wifiMessageBox.setStandardButtons(QtGui.QMessageBox.Cancel)
+        self.wifiMessageBox.setStyleSheet(_fromUtf8("\n"
+                                                    "QMessageBox{\n"
+                                                    "height:300px;\n"
+                                                    "width: 400px;\n"
+                                                    "}\n"
+                                                    "\n"
+                                                    "QPushButton{\n"
+                                                    "     border: 1px solid rgb(87, 87, 87);\n"
+                                                    "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                                    "height:70px;\n"
+                                                    "width: 150px;\n"
+                                                    "border-radius:5px;\n"
+                                                    "    font: 14pt \"Gotham\";\n"
+                                                    "}\n"
+                                                    "\n"
+                                                    "QPushButton:pressed {\n"
+                                                    "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                                    "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                                    "}\n"
+                                                    "QPushButton:focus {\n"
+                                                    "outline: none;\n"
+                                                    "}\n"
+
+                                                    "\n"
+                                                    ""))
+        retval = self.wifiMessageBox.exec_()
+        if retval == QtGui.QMessageBox.Ok or QtGui.QMessageBox.Cancel:
+            self.stackedWidget.setCurrentWidget(self.settingsPage)
+
+    def acceptWifiSettings(self):
+        wlan0_config_file = io.open("/etc/wpa_supplicant/wpa_supplicant.conf", "r+", encoding='utf8')
+        wlan0_config_file.truncate()
+        ascii_ssid = self.wifiSettingsComboBox.currentText()
+        # unicode_ssid = ascii_ssid.decode('string_escape').decode('utf-8')
+        wlan0_config_file.write(u"network={\n")
+        wlan0_config_file.write(u'ssid="' + str(ascii_ssid) + '"\n')
+        if self.hiddenCheckBox.isChecked():
+            wlan0_config_file.write(u'scan_ssid=1\n')
+        if str(self.wifiPasswordLineEdit.text()) != "":
+            wlan0_config_file.write(u'psk="' + str(self.wifiPasswordLineEdit.text()) + '"\n')
+        wlan0_config_file.write(u'}')
+        wlan0_config_file.close()
+        self.restartNetworkingThreadObject = restartNetworkingThread()
+        self.restartNetworkingThreadObject.start()
+        self.connect(self.restartNetworkingThreadObject, QtCore.SIGNAL('IP_ADDRESS'), self.wifiReturnFunction)
+        self.restartNetworkingMessageBox()
+
+    def wifiReturnFunction(self, x):
+        if x != None:
+            self.wifiMessageBox.setText('Connected, IP: ' + x)
+            self.wifiMessageBox.setStandardButtons(QtGui.QMessageBox.Ok)
+        else:
+            self.wifiMessageBox.setText("Not able to connect to WiFi")
+
+    def networkInfo(self):
+        self.stackedWidget.setCurrentWidget(self.networkInfoPage)
+        self.hostname.setText(
+            subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0])
+        self.wifiIp.setText(self.getIP('wlan0'))
+        self.lanIp.setText(self.getIP('eth0'))
+
+    def getIP(self, interface):
+        try:
+            scan_result = \
+                subprocess.Popen("ifconfig | grep " + interface + " -A 1", stdout=subprocess.PIPE,
+                                 shell=True).communicate()[0]
+            # Processing STDOUT into a dictionary that later will be converted to a json file later
+            scan_result = scan_result.split(
+                '\n')  # each ssid and pass from an item in a list ([ssid pass,ssid paas])
+            scan_result = [s.strip() for s in scan_result]
+            # scan_result = [s.strip('"') for s in scan_result]
+            scan_result = filter(None, scan_result)
+            return scan_result[1][scan_result[1].index('inet addr:') + 10: 23]
+        except:
+            return "Not Connected"
+
+    def wifiSettings(self):
+        self.stackedWidget.setCurrentWidget(self.wifiSettingsPage)
+        self.wifiSettingsComboBox.clear()
+        self.wifiSettingsComboBox.addItems(self.scan_wifi())
+
+    def scan_wifi(self):
+        '''
+        uses linux shell and WIFI interface to scan available networks
+        :return: dictionary of the SSID and the signal strength
+        '''
+        # scanData = {}
+        # print "Scanning available wireless signals available to wlan0"
+        scan_result = \
+            subprocess.Popen("iwlist wlan0 scan | grep 'ESSID'", stdout=subprocess.PIPE, shell=True).communicate()[0]
+        # Processing STDOUT into a dictionary that later will be converted to a json file later
+        scan_result = scan_result.split('ESSID:')  # each ssid and pass from an item in a list ([ssid pass,ssid paas])
+        scan_result = [s.strip() for s in scan_result]
+        scan_result = [s.strip('"') for s in scan_result]
+        scan_result = filter(None, scan_result)
+        return scan_result
+
+    ''' +++++++++++++++++++++++++++++++++Change Filament+++++++++++++++++++++++++++++++ '''
+
+    def unloadFilament(self):
+        octopiclient.setToolTemperature({"tool1": filaments[str(
+            self.changeFilamentComboBox.currentText())]}) if self.activeExtruder == 1 else octopiclient.setToolTemperature(
+            filaments[str(self.changeFilamentComboBox.currentText())])
+        self.stackedWidget.setCurrentWidget(self.changeFilamentProgressPage)
+        self.changeFilamentStatus.setText("Heating Tool {}, Please Wait...".format(str(self.activeExtruder)))
+        self.changeFilamentNameOperation.setText("Unloading {}".format(str(self.changeFilamentComboBox.currentText())))
+        # this flag tells the updateTemperature function that runs every second to update the filament change progress bar as well, and to load or unload after heating done
+        self.changeFilamentHeatingFlag = True
+        self.loadFlag = False
+
+    def loadFilament(self):
+        octopiclient.setToolTemperature({"tool1": filaments[str(
+            self.changeFilamentComboBox.currentText())]}) if self.activeExtruder == 1 else octopiclient.setToolTemperature(
+            filaments[str(self.changeFilamentComboBox.currentText())])
+        self.stackedWidget.setCurrentWidget(self.changeFilamentProgressPage)
+        self.changeFilamentStatus.setText("Heating Tool {}, Please Wait...".format(str(self.activeExtruder)))
+        self.changeFilamentNameOperation.setText("Loading {}".format(str(self.changeFilamentComboBox.currentText())))
+        # this flag tells the updateTemperature function that runs every second to update the filament change progress bar as well, and to load or unload after heating done
+        self.changeFilamentHeatingFlag = True
+        self.loadFlag = True
+
+    def changeFilament(self):
+        self.stackedWidget.setCurrentWidget(self.changeFilamentPage)
+        self.changeFilamentComboBox.clear()
+        self.changeFilamentComboBox.addItems(filaments.keys())
+
+    def changeFilamentCancel(self):
+        self.changeFilamentHeatingFlag = False
+        self.coolDownAction()
+        self.control()
+
+    ''' +++++++++++++++++++++++++++++++++Job Operations+++++++++++++++++++++++++++++++ '''
+
+
     def stopActionMessageBox(self):
         '''
         Displays a message box asking if the user is sure if he wants to turn off the print
@@ -660,155 +941,182 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         if retval == QtGui.QMessageBox.Yes:
             octopiclient.cancelPrint()
 
-    def printResurrectionMessageBox(self,file):
+    def playPauseAction(self):
         '''
-        Displays a message box alerting the user of a filament error
+        Toggles Play/Pause of a print depending on the status of the print
         '''
-        print " went into message box"
-        choice = QtGui.QMessageBox()
-        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        font = QtGui.QFont()
-        QtGui.QInputMethodEvent
-        font.setFamily(_fromUtf8("Gotham"))
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setUnderline(False)
-        font.setWeight(50)
-        font.setStrikeOut(False)
-        choice.setFont(font)
-        choice.setText(file + " Did not finish, would you like to resurrect?")
-        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
-        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        # choice.setFixedSize(QtCore.QSize(400, 300))
-        choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-        choice.setStyleSheet(_fromUtf8("QPushButton{\n"
-                                       "     border: 1px solid rgb(87, 87, 87);\n"
-                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-                                       "height:70px;\n"
-                                       "width: 200px;\n"
-                                       "border-radius:5px;\n"
-                                       "    font: 14pt \"Gotham\";\n"
-                                       "}\n"
-                                       "\n"
-                                       "QPushButton:pressed {\n"
-                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-                                       "}\n"
-                                       "QPushButton:focus {\n"
-                                       "outline: none;\n"
-                                       "}\n"
+        if self.printerStatusText == "Operational":
+            if self.playPauseButton.isChecked:
+                octopiclient.startPrint()
+        elif self.printerStatusText == "Printing":
+            octopiclient.pausePrint()
+            self.activeExtruderPrint = self.activeExtruder
 
-                                       "\n"
-                                       ""))
-        retval = choice.exec_()
-        if retval == QtGui.QMessageBox.Yes:
-            octopiclient.resurrect()
+        elif self.printerStatusText == "Paused":
+            if self.activeExtruderPrint != self.activeExtruder:  # if the active extruder was chanegd between the print, change it back
+                octopiclient.selectTool(self.activeExtruderPrint)
+            octopiclient.pausePrint()
 
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    # ++++++++++++++++++Function Definitions++++++++++++++++++++++++++++++++++++++++
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    def checkResurrection(self):
-        resurrection = octopiclient.isResurrectionAvailable()
-        if resurrection["status"] == "available":
-            self.printResurrectionMessageBox(resurrection["file"])
-
-    def softwareUpdateResult(self, data):
-        messageText = ""
-        for item in data:
-            messageText+= item + ": " + data[item][0] + ".\n"
-        messageText += "Restart required"
-        self.updateStatusMessageBox(messageText)
-
-    def toggleFilamentSensor(self):
-        self.filamentSensorToggleButton.setText(
-            "FilaSensor ON") if self.filamentSensorToggleButton.isChecked() else self.filamentSensorToggleButton.setText(
-            "FilaSensor OFF")
-        if self.filamentSensorToggleButton.isChecked():
-            print "FilaSensor ON"
-            octopiclient.toggleFiamentSensor(2)
-        else:
-            print "FilaSensor OFF"
-            octopiclient.toggleFiamentSensor(-1)
-
-    def acceptWifiSettings(self):
-        wlan0_config_file = io.open("/etc/wpa_supplicant/wpa_supplicant.conf", "r+", encoding='utf8')
-        wlan0_config_file.truncate()
-        ascii_ssid = self.wifiSettingsComboBox.currentText()
-        # unicode_ssid = ascii_ssid.decode('string_escape').decode('utf-8')
-        wlan0_config_file.write(u"network={\n")
-        wlan0_config_file.write(u'ssid="' + str(ascii_ssid) + '"\n')
-        if self.hiddenCheckBox.isChecked():
-            wlan0_config_file.write(u'scan_ssid=1\n')
-        if str(self.wifiPasswordLineEdit.text()) != "":
-            wlan0_config_file.write(u'psk="' + str(self.wifiPasswordLineEdit.text()) + '"\n')
-        wlan0_config_file.write(u'}')
-        wlan0_config_file.close()
-        self.restartNetworkingThreadObject = restartNetworkingThread()
-        self.restartNetworkingThreadObject.start()
-        self.connect(self.restartNetworkingThreadObject, QtCore.SIGNAL('IP_ADDRESS'), self.wifiReturnFunction)
-        self.restartNetworkingMessageBox()
-
-    def wifiReturnFunction(self, x):
-        if x != None:
-            self.wifiMessageBox.setText('Connected, IP: ' + x)
-            self.wifiMessageBox.setStandardButtons(QtGui.QMessageBox.Ok)
-        else:
-            self.wifiMessageBox.setText("Not able to connect to WiFi")
-
-    def startKeyboardPassword(self):
+    def fileListLocal(self):
         '''
-        starts the keyboard screen for entering Password
+        Gets the file list from octoprint server, displays it on the list, as well as
+        sets the stacked widget page to the file list page
         '''
-        if self.keyboardWindow is None:
-            self.keyboardWindow = Keyboard(self)
-        self.keyboardWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.keyboardWindow.show()
-        # flag that will be used to know where to enter text
-        self.enterIntoPassword = True
+        self.stackedWidget.setCurrentWidget(self.fileListLocalPage)
+        files = octopiclient.retrieveFileInformation()['files']
 
-    def startKeyboardSSID(self):
-        '''
-        starts the keyboard screen for entering SSID
-        '''
-        if self.keyboardWindow is None:
-            self.keyboardWindow = Keyboard(self)
-        self.keyboardWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.keyboardWindow.show()
-        # flag that will be used to know where to enter text
-        self.enterIntoSSID = True
+        for file in files:
+            if file["type"] != "machinecode":
+                files.remove(file)
 
-    def getKeyboadText(self, text):
+        self.fileListWidget.clear()
+        files.sort(key=lambda d: d['date'], reverse=True)
+        # for item in [f['name'] for f in files] :
+        #     self.fileListWidget.addItem(item)
+        self.fileListWidget.addItems([f['name'] for f in files])
+        self.fileListWidget.setCurrentRow(0)
+
+    def fileListUSB(self):
+        '''
+        Gets the file list from octoprint server, displays it on the list, as well as
+        sets the stacked widget page to the file list page
+
+        ToDO: Add deapth of folders recursively get all gcodes
+        '''
+        self.stackedWidget.setCurrentWidget(self.fileListUSBPage)
+        self.fileListWidgetUSB.clear()
+        files = subprocess.Popen("ls /media/usb0 | grep gcode", stdout=subprocess.PIPE, shell=True).communicate()[0]
+        files = files.split('\n')
+        files = filter(None, files)
+        # for item in files:
+        #     self.fileListWidgetUSB.addItem(item)
+        self.fileListWidgetUSB.addItems(files)
+        self.fileListWidgetUSB.setCurrentRow(0)
+
+    def printSelectedLocal(self):
 
         '''
-        Enters value reieved from the keyboard into appropriate fields
-        :param text: text to enter into appropriate field
-        :return: None
-        '''
-        if self.enterIntoPassword:
-            self.enterIntoPassword = False
-            self.wifiPasswordLineEdit.setText(text)
-        elif self.enterIntoSSID:
-            self.wifiSettingsComboBox.addItem(text)
-            self.wifiSettingsComboBox.setCurrentIndex(self.wifiSettingsComboBox.findText(text))
-            self.enterIntoSSID = False
-        self.keyboardWindow = None
+        gets information about the selected file from octoprint server,
+        as well as sets the current page to the print selected page.
 
-    def scan_wifi(self):
+        This function also selects the file to print from octoprint
         '''
-        uses linux shell and WIFI interface to scan available networks
-        :return: dictionary of the SSID and the signal strength
+        try:
+            self.fileSelected.setText(self.fileListWidget.currentItem().text())
+            self.stackedWidget.setCurrentWidget(self.printSelectedLocalPage)
+            file = octopiclient.retrieveFileInformation(self.fileListWidget.currentItem().text())
+            try:
+                self.fileSizeSelected.setText(size(file['size']))
+            except KeyError:
+                self.fileSizeSelected.setText('-')
+            try:
+                self.fileDateSelected.setText(datetime.fromtimestamp(file['date']).strftime('%d/%m/%Y %H:%M:%S'))
+            except KeyError:
+                self.fileDateSelected.setText('-')
+            try:
+                m, s = divmod(file['gcodeAnalysis']['estimatedPrintTime'], 60)
+                h, m = divmod(m, 60)
+                d, h = divmod(h, 24)
+                self.filePrintTimeSelected.setText("%dd:%dh:%02dm:%02ds" % (d, h, m, s))
+            except KeyError:
+                self.filePrintTimeSelected.setText('-')
+            try:
+                self.filamentVolumeSelected.setText(
+                    ("%.2f cm" % file['gcodeAnalysis']['filament']['tool0']['volume']) + unichr(179))
+            except KeyError:
+                self.filamentVolumeSelected.setText('-')
+
+            try:
+                self.filamentLengthFileSelected.setText(
+                    "%.2f mm" % file['gcodeAnalysis']['filament']['tool0']['length'])
+            except KeyError:
+                self.filamentLengthFileSelected.setText('-')
+            # uncomment to select the file when selectedd in list
+            # octopiclient.selectFile(self.fileListWidget.currentItem().text(), False)
+            self.stackedWidget.setCurrentWidget(self.printSelectedLocalPage)
+
+            '''
+            If image is available from server, set it, otherwise display default image
+            '''
+            img = octopiclient.getImage(self.fileListWidget.currentItem().text().replace(".gcode", ".png"))
+            if img:
+                pixmap = QtGui.QPixmap()
+                pixmap.loadFromData(img)
+                self.printPreviewSelected.setPixmap(pixmap)
+
+            else:
+                self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/printer2.png")))
+
+
+        except:
+            print "Log: Nothing Selected"
+
+
+
+            # Set image fot print preview:
+            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/fracktal.png")))
+            # print self.fileListWidget.currentItem().text().replace(".gcode","")
+            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("/home/pi/.octoprint/uploads/{}.png".format(self.FileListWidget.currentItem().text().replace(".gcode","")))))
+
+            # Check if the PNG file exists, and if it does display it, or diplay a default picture.
+
+    def printSelectedUSB(self):
         '''
-        # scanData = {}
-        # print "Scanning available wireless signals available to wlan0"
-        scan_result = \
-            subprocess.Popen("iwlist wlan0 scan | grep 'ESSID'", stdout=subprocess.PIPE, shell=True).communicate()[0]
-        # Processing STDOUT into a dictionary that later will be converted to a json file later
-        scan_result = scan_result.split('ESSID:')  # each ssid and pass from an item in a list ([ssid pass,ssid paas])
-        scan_result = [s.strip() for s in scan_result]
-        scan_result = [s.strip('"') for s in scan_result]
-        scan_result = filter(None, scan_result)
-        return scan_result
+        Sets the screen to the print selected screen for USB, on which you can transfer to local drive and view preview image.
+        :return:
+        '''
+        try:
+            self.fileSelectedUSBName.setText(self.fileListWidgetUSB.currentItem().text())
+            self.stackedWidget.setCurrentWidget(self.printSelectedUSBPage)
+            file = '/media/usb0/' + str(self.fileListWidgetUSB.currentItem().text().replace(".gcode", ".png"))
+            try:
+                exists = os.path.exists(file)
+            except:
+                exists = False
+
+            if exists:
+                self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8(file)))
+            else:
+                self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/printer2.png")))
+        except:
+            print "Log: Nothing Selected"
+
+            # Set Image from USB
+
+    def transferToLocal(self, prnt=False):
+        '''
+        Transfers a file from USB mounted at /media/usb0 to octoprint's watched folder so that it gets automatically detected bu Octoprint.
+        Warning: If the file is read-only, octoprint API for reading the file crashes.
+        '''
+
+        file = '/media/usb0/' + str(self.fileListWidgetUSB.currentItem().text())
+
+        self.uploadThread = fileUploadThread(file, prnt=prnt)
+        self.uploadThread.start()
+        if prnt:
+            self.stackedWidget.setCurrentWidget(self.homePage)
+
+    def printFile(self):
+        '''
+        Prints the file selected from printSelected()
+        '''
+        octopiclient.selectFile(self.fileListWidget.currentItem().text(), True)
+        # octopiclient.startPrint()
+        self.stackedWidget.setCurrentWidget(self.homePage)
+
+    def deleteItem(self):
+        '''
+        Deletes a gcode file, and if associates, its image file from the memory
+        '''
+        octopiclient.deleteFile(self.fileListWidget.currentItem().text())
+        octopiclient.deleteFile(self.fileListWidget.currentItem().text().replace(".gcode", ".png"))
+
+        # delete PNG also
+        self.fileListLocal()
+
+
+    ''' +++++++++++++++++++++++++++++++++Printer Status+++++++++++++++++++++++++++++++ '''
+
 
     def updateTemperature(self, temperature):
         '''
@@ -1063,31 +1371,9 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             self.menuSettingsButton.setDisabled(False)
             self.menuPrintButton.setDisabled(False)
 
-    def deleteItem(self):
-        '''
-        Deletes a gcode file, and if associates, its image file from the memory
-        '''
-        octopiclient.deleteFile(self.fileListWidget.currentItem().text())
-        octopiclient.deleteFile(self.fileListWidget.currentItem().text().replace(".gcode", ".png"))
 
-        # delete PNG also
-        self.fileListLocal()
+    ''' ++++++++++++++++++++++++++++Active Extruder/Tool Change++++++++++++++++++++++++ '''
 
-    def playPauseAction(self):
-        '''
-        Toggles Play/Pause of a print depending on the status of the print
-        '''
-        if self.printerStatusText == "Operational":
-            if self.playPauseButton.isChecked:
-                octopiclient.startPrint()
-        elif self.printerStatusText == "Printing":
-            octopiclient.pausePrint()
-            self.activeExtruderPrint = self.activeExtruder
-
-        elif self.printerStatusText == "Paused":
-            if self.activeExtruderPrint != self.activeExtruder:  # if the active extruder was chanegd between the print, change it back
-                octopiclient.selectTool(self.activeExtruderPrint)
-            octopiclient.pausePrint()
 
     def selectToolChangeFilament(self):
         '''
@@ -1127,41 +1413,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             print "extruder 0 Temperature"
             self.toolTempSpinBox.setProperty("value", float(self.tool0TargetTemperature.text()))
 
-    def setStep(self, stepRate):
-        '''
-        Sets the class variable "Step" which would be needed for movement and joging
-        :param step: step multiplier for movement in the move
-        :return: nothing
-
-        '''
-
-        if stepRate == 0.1:
-            self.step0_1Button.setFlat(True)
-            self.step1Button.setFlat(False)
-            self.step10Button.setFlat(False)
-            self.step = 0.1
-        if stepRate == 1:
-            self.step0_1Button.setFlat(False)
-            self.step1Button.setFlat(True)
-            self.step10Button.setFlat(False)
-            self.step = 1
-        if stepRate == 10:
-            self.step0_1Button.setFlat(False)
-            self.step1Button.setFlat(False)
-            self.step10Button.setFlat(True)
-            self.step = 10
-
-    def coolDownAction(self):
-        ''''
-        Turns all heaters and fans off
-        '''
-        octopiclient.gcode(command='M107')
-        octopiclient.setToolTemperature({"tool0": 0, "tool1": 0})
-        # octopiclient.setToolTemperature({"tool0": 0})
-        octopiclient.setBedTemperature(0)
-        self.toolTempSpinBox.setProperty("value", 0)
-        self.bedTempSpinBox.setProperty("value", 0)
-
     def setActiveExtruder(self, activeNozzle):
         activeNozzle = int(activeNozzle)
         if activeNozzle == 0:
@@ -1184,6 +1435,54 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             # set button states
             # set octoprint if mismatch
 
+
+    ''' +++++++++++++++++++++++++++++++++Control Screen+++++++++++++++++++++++++++++++ '''
+
+    def control(self):
+        self.stackedWidget.setCurrentWidget(self.controlPage)
+        if self.toolToggleTemperatureButton.isChecked():
+            self.toolTempSpinBox.setProperty("value", float(self.tool1TargetTemperature.text()))
+        else:
+            self.toolTempSpinBox.setProperty("value", float(self.tool0TargetTemperature.text()))
+        self.bedTempSpinBox.setProperty("value", float(self.bedTargetTemperature.text()))
+
+    def setStep(self, stepRate):
+        '''
+        Sets the class variable "Step" which would be needed for movement and joging
+        :param step: step multiplier for movement in the move
+        :return: nothing
+
+        '''
+
+        if stepRate == 100:
+            self.step100Button.setFlat(True)
+            self.step1Button.setFlat(False)
+            self.step10Button.setFlat(False)
+            self.step = 100
+        if stepRate == 1:
+            self.step100Button.setFlat(False)
+            self.step1Button.setFlat(True)
+            self.step10Button.setFlat(False)
+            self.step = 1
+        if stepRate == 10:
+            self.step100Button.setFlat(False)
+            self.step1Button.setFlat(False)
+            self.step10Button.setFlat(True)
+            self.step = 10
+
+    def coolDownAction(self):
+        ''''
+        Turns all heaters and fans off
+        '''
+        octopiclient.gcode(command='M107')
+        octopiclient.setToolTemperature({"tool0": 0, "tool1": 0})
+        # octopiclient.setToolTemperature({"tool0": 0})
+        octopiclient.setBedTemperature(0)
+        self.toolTempSpinBox.setProperty("value", 0)
+        self.bedTempSpinBox.setProperty("value", 0)
+
+    ''' +++++++++++++++++++++++++++++++++++Caliberation++++++++++++++++++++++++++++++++ '''
+
     def setZHomeOffsestUI(self, offset):
         '''
         Sets the spinbox value to have the value of the Z offset from the printer.
@@ -1205,333 +1504,14 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             octopiclient.gcode(command='M206 Z{}'.format(-float(offset)))
             self.setHomeOffsetBool = False
             octopiclient.gcode(command='M500')
-            # sale in EEPROM
+            # save in EEPROM
         if setOffset:
             octopiclient.gcode(command='M206 Z{}'.format(-offset))
             octopiclient.gcode(command='M500')
 
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    # ++++++++++++++++++++++++Function that change screens++++++++++++++++++++++++++
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    def softwareUpdateProgress(self, data):
-        self.stackedWidget.setCurrentWidget(self.softwareUpdateProgressPage)
-        self.logTextEdit.setTextColor(QtCore.Qt.red)
-        self.logTextEdit.append("---------------------------------------------------------------\n"
-                                "Updating " + data["name"] + " to " + data["version"] + "\n"
-                                "---------------------------------------------------------------")
-
-    def softwareUpdateProgressLog(self, data):
-        self.logTextEdit.setTextColor(QtCore.Qt.white)
-        for line in data:
-            self.logTextEdit.append(line["line"])
-
-    def updateFailed(self,data):
-        self.stackedWidget.setCurrentWidget(self.settingsPage)
-        messageText = (data["name"] + " failed to update\n")
-        self.updateFailedMessageBox(messageText)
-
-    def softwareUpdate(self):
-        self.updateListWidget.clear()
-        updateAvailable = False
-        self.performUpdateButton.setDisabled(True)
-        self.stackedWidget.setCurrentWidget(self.OTAUpdatePage)
-        data = octopiclient.getSoftwareUpdateInfo()
-        if data:
-            for item in data["information"]:
-                if not data["information"][item]["updateAvailable"]:
-                    self.updateListWidget.addItem(u'\u2713' + data["information"][item]["displayName"] +
-                                                  "  " + data["information"][item]["displayVersion"] + "\n"
-                                                  + "   Available: " +
-                                                  data["information"][item]["information"]["remote"]["value"])
-                else:
-                    updateAvailable = True
-                    self.updateListWidget.addItem(u"\u2717" + data["information"][item]["displayName"] +
-                                                  "  " + data["information"][item]["displayVersion"] + "\n"
-                                                  + "   Available: " +
-                                                  data["information"][item]["information"]["remote"]["value"])
-        if updateAvailable:
-            self.performUpdateButton.setDisabled(False)
-
-    def pairPhoneApp(self):
-        if self.getIP('eth0') != 'Not Connected':
-            qrip = self.getIP('eth0')
-        elif self.getIP('wlan0') != 'Not Connected':
-            qrip = self.getIP('wlan0')
-        else:
-            qrip = None
-        self.QRCodeLabel.setPixmap(
-            qrcode.make(json.dumps({'apiKey': apiKey, 'IP': qrip}), image_factory=Image).pixmap())
-        self.stackedWidget.setCurrentWidget(self.QRCodePage)
-
-    def networkInfo(self):
-        self.stackedWidget.setCurrentWidget(self.networkInfoPage)
-        self.hostname.setText(
-            subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0])
-        self.wifiIp.setText(self.getIP('wlan0'))
-        self.lanIp.setText(self.getIP('eth0'))
-
-    def getIP(self, interface):
-        try:
-            scan_result = \
-                subprocess.Popen("ifconfig | grep " + interface + " -A 1", stdout=subprocess.PIPE,
-                                 shell=True).communicate()[0]
-            # Processing STDOUT into a dictionary that later will be converted to a json file later
-            scan_result = scan_result.split('\n')  # each ssid and pass from an item in a list ([ssid pass,ssid paas])
-            scan_result = [s.strip() for s in scan_result]
-            # scan_result = [s.strip('"') for s in scan_result]
-            scan_result = filter(None, scan_result)
-            return scan_result[1][scan_result[1].index('inet addr:') + 10: 23]
-        except:
-            return "Not Connected"
-
-    def wifiSettings(self):
-        self.stackedWidget.setCurrentWidget(self.wifiSettingsPage)
-        self.wifiSettingsComboBox.clear()
-        self.wifiSettingsComboBox.addItems(self.scan_wifi())
-
-    def restartNetworkingMessageBox(self):
-        '''
-        Displays a message box for changing network activity
-        '''
-        self.wifiMessageBox = QtGui.QMessageBox()
-        self.wifiMessageBox.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        font = QtGui.QFont()
-        QtGui.QInputMethodEvent
-        font.setFamily(_fromUtf8("Gotham"))
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setUnderline(False)
-        font.setWeight(50)
-        font.setStrikeOut(False)
-        self.wifiMessageBox.setFont(font)
-        self.wifiMessageBox.setText("Restarting networking, please wait...")
-        self.wifiMessageBox.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
-        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        self.wifiMessageBox.setGeometry(QtCore.QRect(110, 50, 200, 300))
-        self.wifiMessageBox.setStandardButtons(QtGui.QMessageBox.Cancel)
-        self.wifiMessageBox.setStyleSheet(_fromUtf8("\n"
-                                                    "QMessageBox{\n"
-                                                    "height:300px;\n"
-                                                    "width: 400px;\n"
-                                                    "}\n"
-                                                    "\n"
-                                                    "QPushButton{\n"
-                                                    "     border: 1px solid rgb(87, 87, 87);\n"
-                                                    "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-                                                    "height:70px;\n"
-                                                    "width: 150px;\n"
-                                                    "border-radius:5px;\n"
-                                                    "    font: 14pt \"Gotham\";\n"
-                                                    "}\n"
-                                                    "\n"
-                                                    "QPushButton:pressed {\n"
-                                                    "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-                                                    "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-                                                    "}\n"
-                                                    "QPushButton:focus {\n"
-                                                    "outline: none;\n"
-                                                    "}\n"
-
-                                                    "\n"
-                                                    ""))
-        retval = self.wifiMessageBox.exec_()
-        if retval == QtGui.QMessageBox.Ok or QtGui.QMessageBox.Cancel:
-            self.stackedWidget.setCurrentWidget(self.settingsPage)
-
-    def unloadFilament(self):
-        octopiclient.setToolTemperature({"tool1": filaments[str(
-            self.changeFilamentComboBox.currentText())]}) if self.activeExtruder == 1 else octopiclient.setToolTemperature(
-            filaments[str(self.changeFilamentComboBox.currentText())])
-        self.stackedWidget.setCurrentWidget(self.changeFilamentProgressPage)
-        self.changeFilamentStatus.setText("Heating Tool {}, Please Wait...".format(str(self.activeExtruder)))
-        self.changeFilamentNameOperation.setText("Unloading {}".format(str(self.changeFilamentComboBox.currentText())))
-        # this flag tells the updateTemperature function that runs every second to update the filament change progress bar as well, and to load or unload after heating done
-        self.changeFilamentHeatingFlag = True
-        self.loadFlag = False
-
-    def loadFilament(self):
-        octopiclient.setToolTemperature({"tool1": filaments[str(
-            self.changeFilamentComboBox.currentText())]}) if self.activeExtruder == 1 else octopiclient.setToolTemperature(
-            filaments[str(self.changeFilamentComboBox.currentText())])
-        self.stackedWidget.setCurrentWidget(self.changeFilamentProgressPage)
-        self.changeFilamentStatus.setText("Heating Tool {}, Please Wait...".format(str(self.activeExtruder)))
-        self.changeFilamentNameOperation.setText("Loading {}".format(str(self.changeFilamentComboBox.currentText())))
-        # this flag tells the updateTemperature function that runs every second to update the filament change progress bar as well, and to load or unload after heating done
-        self.changeFilamentHeatingFlag = True
-        self.loadFlag = True
-
-    def changeFilament(self):
-        self.stackedWidget.setCurrentWidget(self.changeFilamentPage)
-        self.changeFilamentComboBox.clear()
-        self.changeFilamentComboBox.addItems(filaments.keys())
-
-    def changeFilamentCancel(self):
-        self.changeFilamentHeatingFlag = False
-        self.coolDownAction()
-        self.stackedWidget.setCurrentWidget(self.controlPage)
-
-    def fileListLocal(self):
-        '''
-        Gets the file list from octoprint server, displays it on the list, as well as
-        sets the stacked widget page to the file list page
-        '''
-        self.stackedWidget.setCurrentWidget(self.fileListLocalPage)
-        files = octopiclient.retrieveFileInformation()['files']
-
-        for file in files:
-            if file["type"] != "machinecode":
-                files.remove(file)
-
-        self.fileListWidget.clear()
-        files.sort(key=lambda d: d['date'], reverse=True)
-        # for item in [f['name'] for f in files] :
-        #     self.fileListWidget.addItem(item)
-        self.fileListWidget.addItems([f['name'] for f in files])
-        self.fileListWidget.setCurrentRow(0)
-
-    def fileListUSB(self):
-        '''
-        Gets the file list from octoprint server, displays it on the list, as well as
-        sets the stacked widget page to the file list page
-
-        ToDO: Add deapth of folders recursively get all gcodes
-        '''
-        self.stackedWidget.setCurrentWidget(self.fileListUSBPage)
-        self.fileListWidgetUSB.clear()
-        files = subprocess.Popen("ls /media/usb0 | grep gcode", stdout=subprocess.PIPE, shell=True).communicate()[0]
-        files = files.split('\n')
-        files = filter(None, files)
-        # for item in files:
-        #     self.fileListWidgetUSB.addItem(item)
-        self.fileListWidgetUSB.addItems(files)
-        self.fileListWidgetUSB.setCurrentRow(0)
-
-    def printSelectedLocal(self):
-
-        '''
-        gets information about the selected file from octoprint server,
-        as well as sets the current page to the print selected page.
-
-        This function also selects the file to print from octoprint
-        '''
-        try:
-            self.fileSelected.setText(self.fileListWidget.currentItem().text())
-            self.stackedWidget.setCurrentWidget(self.printSelectedLocalPage)
-            file = octopiclient.retrieveFileInformation(self.fileListWidget.currentItem().text())
-            try:
-                self.fileSizeSelected.setText(size(file['size']))
-            except KeyError:
-                self.fileSizeSelected.setText('-')
-            try:
-                self.fileDateSelected.setText(datetime.fromtimestamp(file['date']).strftime('%d/%m/%Y %H:%M:%S'))
-            except KeyError:
-                self.fileDateSelected.setText('-')
-            try:
-                m, s = divmod(file['gcodeAnalysis']['estimatedPrintTime'], 60)
-                h, m = divmod(m, 60)
-                d, h = divmod(h, 24)
-                self.filePrintTimeSelected.setText("%dd:%dh:%02dm:%02ds" % (d, h, m, s))
-            except KeyError:
-                self.filePrintTimeSelected.setText('-')
-            try:
-                self.filamentVolumeSelected.setText(
-                    ("%.2f cm" % file['gcodeAnalysis']['filament']['tool0']['volume']) + unichr(179))
-            except KeyError:
-                self.filamentVolumeSelected.setText('-')
-
-            try:
-                self.filamentLengthFileSelected.setText(
-                    "%.2f mm" % file['gcodeAnalysis']['filament']['tool0']['length'])
-            except KeyError:
-                self.filamentLengthFileSelected.setText('-')
-            # uncomment to select the file when selectedd in list
-            # octopiclient.selectFile(self.fileListWidget.currentItem().text(), False)
-            self.stackedWidget.setCurrentWidget(self.printSelectedLocalPage)
-
-            '''
-            If image is available from server, set it, otherwise display default image
-            '''
-            img = octopiclient.getImage(self.fileListWidget.currentItem().text().replace(".gcode", ".png"))
-            if img:
-                pixmap = QtGui.QPixmap()
-                pixmap.loadFromData(img)
-                self.printPreviewSelected.setPixmap(pixmap)
-
-            else:
-                self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/printer2.png")))
-
-
-        except:
-            print "Log: Nothing Selected"
-
-
-
-            # Set image fot print preview:
-            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/fracktal.png")))
-            # print self.fileListWidget.currentItem().text().replace(".gcode","")
-            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("/home/pi/.octoprint/uploads/{}.png".format(self.FileListWidget.currentItem().text().replace(".gcode","")))))
-
-            # Check if the PNG file exists, and if it does display it, or diplay a default picture.
-
-    def printSelectedUSB(self):
-        '''
-        Sets the screen to the print selected screen for USB, on which you can transfer to local drive and view preview image.
-        :return:
-        '''
-        try:
-            self.fileSelectedUSBName.setText(self.fileListWidgetUSB.currentItem().text())
-            self.stackedWidget.setCurrentWidget(self.printSelectedUSBPage)
-            file = '/media/usb0/' + str(self.fileListWidgetUSB.currentItem().text().replace(".gcode", ".png"))
-            try:
-                exists = os.path.exists(file)
-            except:
-                exists = False
-
-            if exists:
-                self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8(file)))
-            else:
-                self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/printer2.png")))
-        except:
-            print "Log: Nothing Selected"
-
-            # Set Image from USB
-
-    def transferToLocal(self, prnt=False):
-        '''
-        Transfers a file from USB mounted at /media/usb0 to octoprint's watched folder so that it gets automatically detected bu Octoprint.
-        Warning: If the file is read-only, octoprint API for reading the file crashes.
-        '''
-
-        file = '/media/usb0/' + str(self.fileListWidgetUSB.currentItem().text())
-
-        self.uploadThread = fileUploadThread(file, prnt=prnt)
-        self.uploadThread.start()
-        if prnt:
-            self.stackedWidget.setCurrentWidget(self.homePage)
-
-    def printFile(self):
-        '''
-        Prints the file selected from printSelected()
-        '''
-        octopiclient.selectFile(self.fileListWidget.currentItem().text(), True)
-        # octopiclient.startPrint()
-        self.stackedWidget.setCurrentWidget(self.homePage)
-
-    def control(self):
-        self.stackedWidget.setCurrentWidget(self.controlPage)
-        if self.toolToggleTemperatureButton.isChecked():
-            self.toolTempSpinBox.setProperty("value", float(self.tool1TargetTemperature.text()))
-        else:
-            self.toolTempSpinBox.setProperty("value", float(self.tool0TargetTemperature.text()))
-        self.bedTempSpinBox.setProperty("value", float(self.bedTargetTemperature.text()))
-
     def nozzleOffset(self):
         octopiclient.gcode(command='M503')
         self.stackedWidget.setCurrentWidget(self.nozzleOffsetPage)
-
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    # ++++++++++++++++++++++++++++++Caliberation Wizzard++++++++++++++++++++++++++++
-    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     def step1(self):
         '''
@@ -1650,6 +1630,64 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.caliberatePage)
 
 
+    def startKeyboardPassword(self):
+        '''
+        starts the keyboard screen for entering Password
+        '''
+        if self.keyboardWindow is None:
+            self.keyboardWindow = Keyboard(self)
+        self.keyboardWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.keyboardWindow.show()
+        # flag that will be used to know where to enter text
+        self.enterIntoPassword = True
+
+    def startKeyboardSSID(self):
+        '''
+        starts the keyboard screen for entering SSID
+        '''
+        if self.keyboardWindow is None:
+            self.keyboardWindow = Keyboard(self)
+        self.keyboardWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.keyboardWindow.show()
+        # flag that will be used to know where to enter text
+        self.enterIntoSSID = True
+
+    def getKeyboadText(self, text):
+
+        '''
+        Enters value reieved from the keyboard into appropriate fields
+        :param text: text to enter into appropriate field
+        :return: None
+        '''
+        if self.enterIntoPassword:
+            self.enterIntoPassword = False
+            self.wifiPasswordLineEdit.setText(text)
+        elif self.enterIntoSSID:
+            self.wifiSettingsComboBox.addItem(text)
+            self.wifiSettingsComboBox.setCurrentIndex(self.wifiSettingsComboBox.findText(text))
+            self.enterIntoSSID = False
+        self.keyboardWindow = None
+
+
+
+
+    def pairPhoneApp(self):
+        if self.getIP('eth0') != 'Not Connected':
+            qrip = self.getIP('eth0')
+        elif self.getIP('wlan0') != 'Not Connected':
+            qrip = self.getIP('wlan0')
+        else:
+            qrip = None
+        self.QRCodeLabel.setPixmap(
+            qrcode.make(json.dumps({'apiKey': apiKey, 'IP': qrip}), image_factory=Image).pixmap())
+        self.stackedWidget.setCurrentWidget(self.QRCodePage)
+
+
+
+
+
+
+
 class QtWebsocket(QtCore.QThread):
     '''
     https://pypi.python.org/pypi/websocket-client
@@ -1725,10 +1763,9 @@ class QtWebsocket(QtCore.QThread):
                     if 'Active Extruder' in item: # can get thris throught the positionUpdate event
                         self.emit(QtCore.SIGNAL('ACTIVE_EXTRUDER'), item[-1])
                     if 'M206' in item:
-                        self.emit(QtCore.SIGNAL('Z_HOME_OFFSET'), item[item.index('Z') + 1:])
+                        self.emit(QtCore.SIGNAL('Z_HOME_OFFSET'), item[item.index('Z') + 1:].split(' ', 1)[0])
                     if 'Count' in item: # can get thris throught the positionUpdate event
-                        index = item.index('Z')
-                        self.emit(QtCore.SIGNAL('SET_Z_HOME_OFFSET'), item[index + 2:index + 7], False)
+                        self.emit(QtCore.SIGNAL('SET_Z_HOME_OFFSET'), item[item.index('Z')+2:].split(' ', 1)[0], False)
 
             if data["current"]["state"]["text"]:
                 self.emit(QtCore.SIGNAL('STATUS'), data["current"]["state"]["text"])

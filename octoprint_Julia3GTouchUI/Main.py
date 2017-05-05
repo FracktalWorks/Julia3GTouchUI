@@ -113,6 +113,9 @@ except AttributeError:
 
 
 def run_async(func):
+    '''
+    Function decorater to make methods run in a thread
+    '''
     from threading import Thread
     from functools import wraps
 
@@ -1629,6 +1632,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.movie5.stop()
         self.stackedWidget.setCurrentWidget(self.caliberatePage)
 
+    ''' +++++++++++++++++++++++++++++++++++Keyboard++++++++++++++++++++++++++++++++ '''
 
     def startKeyboardPassword(self):
         '''
@@ -1669,7 +1673,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.keyboardWindow = None
 
 
-
+    ''' +++++++++++++++++++++++++++++++++++ Misc ++++++++++++++++++++++++++++++++ '''
 
     def pairPhoneApp(self):
         if self.getIP('eth0') != 'Not Connected':
@@ -1681,11 +1685,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.QRCodeLabel.setPixmap(
             qrcode.make(json.dumps({'apiKey': apiKey, 'IP': qrip}), image_factory=Image).pixmap())
         self.stackedWidget.setCurrentWidget(self.QRCodePage)
-
-
-
-
-
 
 
 class QtWebsocket(QtCore.QThread):

@@ -85,7 +85,7 @@ Testing:
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-#ip = '192.168.1.103:5000'
+# ip = '192.168.0.117'
 ip = '0.0.0.0:5000'
 # ip = 'localhost:5000'
 # open octoprint config.yaman and get the apiKey
@@ -1776,8 +1776,9 @@ class QtWebsocket(QtCore.QThread):
                 self.emit(QtCore.SIGNAL('PRINT_STATUS'), None)
 
             if data["current"]["temps"]:
-                if data["current"]["temps"][0]["tool1"]["actual"] == None:
+                if "tool1" not in data["current"]["temps"][0]:
                     data["current"]["temps"][0]["tool1"]["actual"] = 0
+                    data["current"]["temps"][0]["tool1"]["target"] = 0
                 temperatures = {'tool0Actual': data["current"]["temps"][0]["tool0"]["actual"],
                                 'tool0Target': data["current"]["temps"][0]["tool0"]["target"],
                                 'tool1Actual': data["current"]["temps"][0]["tool1"]["actual"],

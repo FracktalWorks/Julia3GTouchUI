@@ -888,7 +888,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 398, 490))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 398, 560))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setContentsMargins(0, 0, 3, 0)
@@ -1022,6 +1022,38 @@ class Ui_MainWindow(object):
         self.OTAButton.setIconSize(QtCore.QSize(40, 40))
         self.OTAButton.setObjectName(_fromUtf8("OTAButton"))
         self.verticalLayout.addWidget(self.OTAButton)
+        self.c = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.c.setMinimumSize(QtCore.QSize(0, 70))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(13)
+        self.c.setFont(font)
+        self.c.setStyleSheet(_fromUtf8("QPushButton {\n"
+"     border: 1px solid rgb(87, 87, 87);\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+"}\n"
+"\n"
+"QPushButton:flat {\n"
+"    border: none; /* no border for a flat push button */\n"
+"}\n"
+"\n"
+"QPushButton:default {\n"
+"    border-color: navy; /* make the default button prominent */\n"
+"}\n"
+"\n"
+"QPushButton:focus {\n"
+"    outline: none;\n"
+"}"))
+        self.c.setIconSize(QtCore.QSize(40, 40))
+        self.c.setObjectName(_fromUtf8("c"))
+        self.verticalLayout.addWidget(self.c)
         self.versionButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.versionButton.setMinimumSize(QtCore.QSize(0, 70))
         font = QtGui.QFont()
@@ -5969,8 +6001,8 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.mainApplication)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(24)
-        self.controlTabWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
+        self.controlTabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -6000,8 +6032,9 @@ class Ui_MainWindow(object):
         self.menuCaliberateButton.setText(_translate("MainWindow", "Calibrate", None))
         self.networkInfoButton.setText(_translate("MainWindow", "Network info", None))
         self.configureWifiButton.setText(_translate("MainWindow", "Configure WiFi", None))
-        self.pairPhoneButton.setText(_translate("MainWindow", "Pair Phone App", None))
+        self.pairPhoneButton.setText(_translate("MainWindow", "Open in Smartphone", None))
         self.OTAButton.setText(_translate("MainWindow", "Check for Updates", None))
+        self.c.setText(_translate("MainWindow", "Caliberate Touch", None))
         self.versionButton.setText(_translate("MainWindow", "Version", None))
         self.restartButton.setText(_translate("MainWindow", "Restart", None))
         self.ssidlabel.setText(_translate("MainWindow", "Enter SSID:", None))
@@ -6010,8 +6043,8 @@ class Ui_MainWindow(object):
         self.wifiSettingsCancelButton.setText(_translate("MainWindow", "Cancel", None))
         self.wifiSettingsSSIDKeyboardButton.setText(_translate("MainWindow", "...", None))
         self.hiddenCheckBox.setText(_translate("MainWindow", "Hidden ", None))
-        self.hostnameLabel.setText(_translate("MainWindow", "Hostname: ", None))
-        self.hostname.setText(_translate("MainWindow", "Hostname: ", None))
+        self.hostnameLabel.setText(_translate("MainWindow", "URL: ", None))
+        self.hostname.setText(_translate("MainWindow", "Hostname", None))
         self.wifiIpLabel.setText(_translate("MainWindow", "Wi-Fi IP address: ", None))
         self.wifiIp.setText(_translate("MainWindow", "Hostname: ", None))
         self.lanIpLabel.setText(_translate("MainWindow", "LAN IP address: ", None))

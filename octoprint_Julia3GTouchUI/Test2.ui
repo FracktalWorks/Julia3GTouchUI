@@ -173,7 +173,7 @@ QStatusBar::item {
 background-color: rgb(40, 40, 40);</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="loadingPage">
      <widget class="QLabel" name="LoadingLabel">
@@ -1709,7 +1709,7 @@ QScrollBar::down-arrow:vertical {
          <x>0</x>
          <y>0</y>
          <width>398</width>
-         <height>490</height>
+         <height>560</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -1868,7 +1868,7 @@ QPushButton:focus {
 }</string>
           </property>
           <property name="text">
-           <string>Pair Phone App</string>
+           <string>Open in Smartphone</string>
           </property>
           <property name="iconSize">
            <size>
@@ -1919,6 +1919,56 @@ QPushButton:focus {
           </property>
           <property name="text">
            <string>Check for Updates</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>40</width>
+            <height>40</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="c">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>70</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Gotham</family>
+            <pointsize>13</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+     border: 1px solid rgb(87, 87, 87);
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+
+
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
+
+QPushButton:focus {
+	outline: none;
+}</string>
+          </property>
+          <property name="text">
+           <string>Caliberate Touch</string>
           </property>
           <property name="iconSize">
            <size>
@@ -2610,7 +2660,7 @@ QCheckBox::indicator:unchecked {
 background-color: rgba(255, 255, 255, 0);</string>
       </property>
       <property name="text">
-       <string>Hostname: </string>
+       <string>URL: </string>
       </property>
      </widget>
      <widget class="QLabel" name="hostname">
@@ -2635,7 +2685,7 @@ background-color: rgba(255, 255, 255, 0);</string>
 background-color: rgba(255, 255, 255, 0);</string>
       </property>
       <property name="text">
-       <string>Hostname: </string>
+       <string>Hostname</string>
       </property>
      </widget>
      <widget class="QLabel" name="wifiIpLabel">

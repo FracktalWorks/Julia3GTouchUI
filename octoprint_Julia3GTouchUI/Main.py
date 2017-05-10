@@ -823,7 +823,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
     def networkInfo(self):
         self.stackedWidget.setCurrentWidget(self.networkInfoPage)
         self.hostname.setText(
-            subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0])
+            subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0] + ".local/")
         self.wifiIp.setText(self.getIP('wlan0'))
         self.lanIp.setText(self.getIP('eth0'))
 
@@ -1672,7 +1672,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             self.enterIntoSSID = False
         self.keyboardWindow = None
 
-
     ''' +++++++++++++++++++++++++++++++++++ Misc ++++++++++++++++++++++++++++++++ '''
 
     def pairPhoneApp(self):
@@ -1681,11 +1680,10 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         elif self.getIP('wlan0') != 'Not Connected':
             qrip = self.getIP('wlan0')
         else:
-            qrip = None
+            qrip = "Network Disconnected"
         self.QRCodeLabel.setPixmap(
-            qrcode.make(json.dumps({'apiKey': apiKey, 'IP': qrip}), image_factory=Image).pixmap())
+            qrcode.make(json.dumps(qrip), image_factory=Image).pixmap())
         self.stackedWidget.setCurrentWidget(self.QRCodePage)
-
 
 class QtWebsocket(QtCore.QThread):
     '''

@@ -822,8 +822,12 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
     def networkInfo(self):
         self.stackedWidget.setCurrentWidget(self.networkInfoPage)
-        self.hostname.setText(
-            subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0] + ".local/")
+        # self.hostname.setText(
+        #     subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0] + ".local/")
+        hostname = subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0]
+        hostname.strip('\n')
+        hostname = hostname + ".local/"
+        self.hostname.setText(hostname)
         self.wifiIp.setText(self.getIP('wlan0'))
         self.lanIp.setText(self.getIP('eth0'))
 
@@ -1346,6 +1350,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         Depending on Status, enable and Disable Buttons
         '''
         if status == "Printing":
+            lightbar.write('state:6[60]\n')
             self.playPauseButton.setChecked(True)
             self.stopButton.setDisabled(False)
             self.motionTab.setDisabled(True)
@@ -1366,6 +1371,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
 
         else:
+            lightbar.write('state:6[20]\n')
             self.stopButton.setDisabled(True)
             self.playPauseButton.setChecked(False)
             self.motionTab.setDisabled(False)
@@ -1816,8 +1822,11 @@ class sanityCheckThread(QtCore.QThread):
                 for line in result:
                     if 'FTDI' in line:
                         self.MKSPort = line[line.index('ttyUSB'):line.index('ttyUSB') + 7]
+                        print self.MKSPort
+
                     elif 'ch341-uart' in line:
                         self.lightBarPort = line[line.index('ttyUSB'):line.index('ttyUSB') + 7]
+                        print self.lightBarPort
 
                 if not self.MKSPort:
                     octopiclient.connectPrinter(port="VIRTUAL", baudrate=115200)
@@ -1830,6 +1839,7 @@ class sanityCheckThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('LOADED'))
         if self.lightBarPort:
             lightbar = serial.Serial(port="/dev/" + self.lightBarPort, baudrate=9600)
+            print "Connected to lightbar"
             time.sleep(2)
             lightbar.write('state:1\n')
         else:

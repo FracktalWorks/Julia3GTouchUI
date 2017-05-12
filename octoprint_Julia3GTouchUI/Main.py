@@ -1809,7 +1809,6 @@ class sanityCheckThread(QtCore.QThread):
 
     def run(self):
         global octopiclient
-        global octopiclient
         global lightbar
         # keep trying untill octoprint connects
         while (True):

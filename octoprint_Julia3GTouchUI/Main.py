@@ -483,6 +483,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.configureWifiButton.pressed.connect(self.wifiSettings)
         self.networkInfoButton.pressed.connect(self.networkInfo)
         self.OTAButton.pressed.connect(self.softwareUpdate)
+        self.caliberateTouch.pressed.connect(self.touchCaliberation)
 
         # Network Info Page
         self.networkInfoBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
@@ -1491,6 +1492,9 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.bedTempSpinBox.setProperty("value", 0)
 
     ''' +++++++++++++++++++++++++++++++++++Caliberation++++++++++++++++++++++++++++++++ '''
+
+    def touchCaliberation(self):
+        os.system('sudo /home/pi/setenv.sh')
 
     def setZHomeOffsestUI(self, offset):
         '''

@@ -614,34 +614,29 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         if resurrection["status"] == "available":
             self.printResurrectionMessageBox(resurrection["file"])
 
-	''' +++++++++++++++++++++++++++++++++OTA Update+++++++++++++++++++++++++++++++++++ '''
-
-
+    ''' +++++++++++++++++++++++++++++++++OTA Update+++++++++++++++++++++++++++++++++++ '''
 
     def displayVersionInfo(self):
-	self.updateListWidget.clear()
-	updateAvailable = False
-	self.performUpdateButton.setDisabled(True)
-	self.stackedWidget.setCurrentWidget(self.OTAUpdatePage)
-	data = octopiclient.getSoftwareUpdateInfo()
-	if data:
-	    for item in data["information"]:
-	        if not data["information"][item]["updateAvailable"]:
-	            self.updateListWidget.addItem(u'\u2713' + data["information"][item]["displayName"] +
-	                                          "  " + data["information"][item]["displayVersion"] + "\n"
-	                                          + "   Available: " +
-	                                          data["information"][item]["information"]["remote"]["value"])
-	        else:
-	            updateAvailable = True
-	            self.updateListWidget.addItem(u"\u2717" + data["information"][item]["displayName"] +
-	                                          "  " + data["information"][item]["displayVersion"] + "\n"
-	                                          + "   Available: " +
-	                                          data["information"][item]["information"]["remote"]["value"])
-	if updateAvailable:
-		self.performUpdateButton.setDisabled(False)
-
-
-    ''' +++++++++++++++++++++++++++++++++OTA Update+++++++++++++++++++++++++++++++++++ '''
+        self.updateListWidget.clear()
+        updateAvailable = False
+        self.performUpdateButton.setDisabled(True)
+        self.stackedWidget.setCurrentWidget(self.OTAUpdatePage)
+        data = octopiclient.getSoftwareUpdateInfo()
+        if data:
+            for item in data["information"]:
+                if not data["information"][item]["updateAvailable"]:
+                    self.updateListWidget.addItem(u'\u2713' + data["information"][item]["displayName"] +
+                                                  "  " + data["information"][item]["displayVersion"] + "\n"
+                                                  + "   Available: " +
+                                                  data["information"][item]["information"]["remote"]["value"])
+                else:
+                    updateAvailable = True
+                    self.updateListWidget.addItem(u"\u2717" + data["information"][item]["displayName"] +
+                                                  "  " + data["information"][item]["displayVersion"] + "\n"
+                                                  + "   Available: " +
+                                                  data["information"][item]["information"]["remote"]["value"])
+        if updateAvailable:
+            self.performUpdateButton.setDisabled(False)
 
     def updateStatusMessageBox(self,status):
         '''
@@ -755,94 +750,94 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.updateFailedMessageBox(messageText)
 
     def softwareUpdate(self):
-    	data =octopiclient.getSoftwareUpdateInfo()
-    	updateAvailable= True
-    	if data:
-    		for item in data["information"]:
-                	if not data["information"][item]["updateAvailable"]:
-    				updateAvailable=False
-    	if updateAvailable:
-    		print('Update Available')
-	        choice = QtGui.QMessageBox()
-	        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-	        font = QtGui.QFont()
-	        QtGui.QInputMethodEvent
-	        font.setFamily(_fromUtf8("Gotham"))
-	        font.setPointSize(12)
-	        font.setBold(False)
-	        font.setUnderline(False)
-	        font.setWeight(50)
-	        font.setStrikeOut(False)
-	        choice.setFont(font)
-	        choice.setText("Update Available! Update Now?")
-	        # choice.setText(text)
-	        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
-	        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-	        #choice.setFixedSize(QtCore.QSize(400, 300))
-	        choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-	        choice.setStyleSheet(_fromUtf8("\n"
-	                                       "QPushButton{\n"
-	                                       "     border: 1px solid rgb(87, 87, 87);\n"
-	                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-	                                       "height:70px;\n"
-	                                       "width: 150px;\n"
-	                                       "border-radius:5px;\n"
-	                                       "    font: 14pt \"Gotham\";\n"
-	                                       "}\n"
-	                                       "\n"
-	                                       "QPushButton:pressed {\n"
-	                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-	                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-	                                       "}\n"
-	                                       "QPushButton:focus {\n"
-	                                       "outline: none;\n"
-	                                       "}\n"
-	                                       "\n"
-	                                       ""))
-	        retval = choice.exec_()
-	        if retval == QtGui.QMessageBox.Yes:
-	        	octopiclient.performSoftwareUpdate()
+        data = octopiclient.getSoftwareUpdateInfo()
+        updateAvailable = False
+        if data:
+            for item in data["information"]:
+                if data["information"][item]["updateAvailable"]:
+                    updateAvailable = True
+        if updateAvailable:
+            print('Update Available')
+            choice = QtGui.QMessageBox()
+            choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            font = QtGui.QFont()
+            QtGui.QInputMethodEvent
+            font.setFamily(_fromUtf8("Gotham"))
+            font.setPointSize(12)
+            font.setBold(False)
+            font.setUnderline(False)
+            font.setWeight(50)
+            font.setStrikeOut(False)
+            choice.setFont(font)
+            choice.setText("Update Available! Update Now?")
+            # choice.setText(text)
+            choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+            # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+            #choice.setFixedSize(QtCore.QSize(400, 300))
+            choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+            choice.setStyleSheet(_fromUtf8("\n"
+                                           "QPushButton{\n"
+                                           "     border: 1px solid rgb(87, 87, 87);\n"
+                                           "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                           "height:70px;\n"
+                                           "width: 150px;\n"
+                                           "border-radius:5px;\n"
+                                           "    font: 14pt \"Gotham\";\n"
+                                           "}\n"
+                                           "\n"
+                                           "QPushButton:pressed {\n"
+                                           "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                           "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                           "}\n"
+                                           "QPushButton:focus {\n"
+                                           "outline: none;\n"
+                                           "}\n"
+                                           "\n"
+                                           ""))
+            retval = choice.exec_()
+            if retval == QtGui.QMessageBox.Yes:
+                octopiclient.performSoftwareUpdate()
 
-    	else :
-	        choice = QtGui.QMessageBox()
-	        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-	        font = QtGui.QFont()
-	        QtGui.QInputMethodEvent
-	        font.setFamily(_fromUtf8("Gotham"))
-	        font.setPointSize(12)
-	        font.setBold(False)
-	        font.setUnderline(False)
-	        font.setWeight(50)
-	        font.setStrikeOut(False)
-	        choice.setFont(font)
-	        choice.setText("System is Up To Date!")
-	        # choice.setText(text)
-	        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
-	        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-	        #choice.setFixedSize(QtCore.QSize(400, 300))
-	        choice.setStandardButtons(QtGui.QMessageBox.Ok)
-	        choice.setStyleSheet(_fromUtf8("\n"
-	                                       "QPushButton{\n"
-	                                       "     border: 1px solid rgb(87, 87, 87);\n"
-	                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-	                                       "height:70px;\n"
-	                                       "width: 150px;\n"
-	                                       "border-radius:5px;\n"
-	                                       "    font: 14pt \"Gotham\";\n"
-	                                       "}\n"
-	                                       "\n"
-	                                       "QPushButton:pressed {\n"
-	                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-	                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-	                                       "}\n"
-	                                       "QPushButton:focus {\n"
-	                                       "outline: none;\n"
-	                                       "}\n"
-	                                       "\n"
-	                                       ""))
-	        retval = choice.exec_()
-	        if retval == QtGui.QMessageBox.Ok:
-	        	print('Update Unavailable')
+        else :
+            choice = QtGui.QMessageBox()
+            choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            font = QtGui.QFont()
+            QtGui.QInputMethodEvent
+            font.setFamily(_fromUtf8("Gotham"))
+            font.setPointSize(12)
+            font.setBold(False)
+            font.setUnderline(False)
+            font.setWeight(50)
+            font.setStrikeOut(False)
+            choice.setFont(font)
+            choice.setText("System is Up To Date!")
+            # choice.setText(text)
+            choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+            # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+            #choice.setFixedSize(QtCore.QSize(400, 300))
+            choice.setStandardButtons(QtGui.QMessageBox.Ok)
+            choice.setStyleSheet(_fromUtf8("\n"
+                                           "QPushButton{\n"
+                                           "     border: 1px solid rgb(87, 87, 87);\n"
+                                           "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                           "height:70px;\n"
+                                           "width: 150px;\n"
+                                           "border-radius:5px;\n"
+                                           "    font: 14pt \"Gotham\";\n"
+                                           "}\n"
+                                           "\n"
+                                           "QPushButton:pressed {\n"
+                                           "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                           "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                           "}\n"
+                                           "QPushButton:focus {\n"
+                                           "outline: none;\n"
+                                           "}\n"
+                                           "\n"
+                                           ""))
+            retval = choice.exec_()
+            if retval == QtGui.QMessageBox.Ok:
+                print('Update Unavailable')
 
     ''' +++++++++++++++++++++++++++++++++Wifi Config+++++++++++++++++++++++++++++++++++ '''
 

@@ -173,7 +173,7 @@ QStatusBar::item {
 background-color: rgb(40, 40, 40);</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="loadingPage">
      <widget class="QLabel" name="LoadingLabel">
@@ -1511,7 +1511,7 @@ QToolButton:default {
        <enum>Qt::ToolButtonTextUnderIcon</enum>
       </property>
      </widget>
-     <widget class="QToolButton" name="menuStatsButton">
+     <widget class="QToolButton" name="menuCartButton">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1571,6 +1571,9 @@ QToolButton:default {
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
+      <property name="autoRaise">
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QToolButton" name="menuCaliberateButton">
@@ -1637,7 +1640,7 @@ QToolButton:default {
      </widget>
      <zorder>menuSettingsButton</zorder>
      <zorder>menuControlButton</zorder>
-     <zorder>menuStatsButton</zorder>
+     <zorder>menuCartButton</zorder>
      <zorder>menuCaliberateButton</zorder>
      <zorder>menuBackButton</zorder>
      <zorder>menuPrintButton</zorder>

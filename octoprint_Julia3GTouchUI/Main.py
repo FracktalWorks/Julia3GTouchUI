@@ -282,6 +282,8 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                                                           ""))
         self.wifiPasswordLineEdit.setObjectName(_fromUtf8("wifiPasswordLineEdit"))
 
+        self.menuCartButton.setDisabled(True)
+
         self.movie = QtGui.QMovie("templates/img/loading.gif")
         self.loadingGif.setMovie(self.movie)
         self.movie.start()

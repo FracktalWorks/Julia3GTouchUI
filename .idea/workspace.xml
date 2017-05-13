@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f3bfca3-6a62-46bf-a4a3-5a39cfeecc16" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" />
     </list>
     <ignored path="Julia3GTouchUI.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="290">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
                 <element signature="e#15#53#0" expanded="true" />
               </folding>
@@ -87,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="284" column="45" selection-start-line="284" selection-start-column="45" selection-end-line="284" selection-end-column="45" />
+            <state relative-caret-position="250">
+              <caret line="925" column="41" selection-start-line="925" selection-start-column="41" selection-end-line="925" selection-end-column="41" />
               <folding>
                 <element signature="e#288#319#0" expanded="true" />
                 <element signature="e#9426#10817#0" expanded="false" />
@@ -111,10 +111,10 @@
                 <element signature="e#34330#39285#0" expanded="false" />
                 <element signature="e#34616#36976#0" expanded="false" />
                 <element signature="e#37005#39285#0" expanded="false" />
-                <marker date="1494681949270" expanded="false" signature="96964:97541" ph="..." />
-                <marker date="1494681949270" expanded="false" signature="97590:99054" ph="..." />
-                <marker date="1494681949270" expanded="false" signature="98075:98362" ph="..." />
-                <marker date="1494681949270" expanded="false" signature="98384:99054" ph="..." />
+                <marker date="1494683330455" expanded="false" signature="96977:97554" ph="..." />
+                <marker date="1494683330455" expanded="false" signature="97603:99067" ph="..." />
+                <marker date="1494683330455" expanded="false" signature="98088:98375" ph="..." />
+                <marker date="1494683330455" expanded="false" signature="98397:99067" ph="..." />
               </folding>
             </state>
           </provider>
@@ -133,9 +133,9 @@
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/octoprintAPI.py" />
         <option value="$USER_HOME$/Downloads/prime.py" />
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py" />
-        <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py" />
+        <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" />
       </list>
     </option>
   </component>
@@ -592,10 +592,10 @@
             <element signature="e#34330#39285#0" expanded="false" />
             <element signature="e#34616#36976#0" expanded="false" />
             <element signature="e#37005#39285#0" expanded="false" />
-            <marker date="1494681949270" expanded="false" signature="96964:97541" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="97590:99054" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98075:98362" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98384:99054" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="96977:97554" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="97603:99067" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98088:98375" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98397:99067" ph="..." />
           </folding>
         </state>
       </provider>
@@ -641,10 +641,10 @@
             <element signature="e#34330#39285#0" expanded="false" />
             <element signature="e#34616#36976#0" expanded="false" />
             <element signature="e#37005#39285#0" expanded="false" />
-            <marker date="1494681949270" expanded="false" signature="96964:97541" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="97590:99054" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98075:98362" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98384:99054" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="96977:97554" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="97603:99067" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98088:98375" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98397:99067" ph="..." />
           </folding>
         </state>
       </provider>
@@ -724,10 +724,10 @@
             <element signature="e#34330#39285#0" expanded="false" />
             <element signature="e#34616#36976#0" expanded="false" />
             <element signature="e#37005#39285#0" expanded="false" />
-            <marker date="1494681949270" expanded="false" signature="96964:97541" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="97590:99054" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98075:98362" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98384:99054" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="96977:97554" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="97603:99067" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98088:98375" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98397:99067" ph="..." />
           </folding>
         </state>
       </provider>
@@ -807,10 +807,10 @@
             <element signature="e#34330#39285#0" expanded="false" />
             <element signature="e#34616#36976#0" expanded="false" />
             <element signature="e#37005#39285#0" expanded="false" />
-            <marker date="1494681949270" expanded="false" signature="96964:97541" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="97590:99054" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98075:98362" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98384:99054" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="96977:97554" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="97603:99067" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98088:98375" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98397:99067" ph="..." />
           </folding>
         </state>
       </provider>
@@ -890,10 +890,10 @@
             <element signature="e#34330#39285#0" expanded="false" />
             <element signature="e#34616#36976#0" expanded="false" />
             <element signature="e#37005#39285#0" expanded="false" />
-            <marker date="1494681949270" expanded="false" signature="96964:97541" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="97590:99054" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98075:98362" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98384:99054" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="96977:97554" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="97603:99067" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98088:98375" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98397:99067" ph="..." />
           </folding>
         </state>
       </provider>
@@ -973,10 +973,10 @@
             <element signature="e#34330#39285#0" expanded="false" />
             <element signature="e#34616#36976#0" expanded="false" />
             <element signature="e#37005#39285#0" expanded="false" />
-            <marker date="1494681949270" expanded="false" signature="96964:97541" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="97590:99054" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98075:98362" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98384:99054" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="96977:97554" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="97603:99067" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98088:98375" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98397:99067" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1046,14 +1046,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24450">
-          <caret line="1020" column="22" selection-start-line="1020" selection-start-column="22" selection-end-line="1020" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/octoprintAPI.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="850">
@@ -1064,10 +1056,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24450">
+          <caret line="1020" column="22" selection-start-line="1020" selection-start-column="22" selection-end-line="1020" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="284" column="45" selection-start-line="284" selection-start-column="45" selection-end-line="284" selection-end-column="45" />
+        <state relative-caret-position="250">
+          <caret line="925" column="41" selection-start-line="925" selection-start-column="41" selection-end-line="925" selection-end-column="41" />
           <folding>
             <element signature="e#288#319#0" expanded="true" />
             <element signature="e#9426#10817#0" expanded="false" />
@@ -1087,28 +1105,10 @@
             <element signature="e#34330#39285#0" expanded="false" />
             <element signature="e#34616#36976#0" expanded="false" />
             <element signature="e#37005#39285#0" expanded="false" />
-            <marker date="1494681949270" expanded="false" signature="96964:97541" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="97590:99054" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98075:98362" ph="..." />
-            <marker date="1494681949270" expanded="false" signature="98384:99054" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#15#53#0" expanded="true" />
+            <marker date="1494683330455" expanded="false" signature="96977:97554" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="97603:99067" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98088:98375" ph="..." />
+            <marker date="1494683330455" expanded="false" signature="98397:99067" ph="..." />
           </folding>
         </state>
       </provider>

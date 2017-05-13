@@ -919,12 +919,12 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
     def networkInfo(self):
         self.stackedWidget.setCurrentWidget(self.networkInfoPage)
-        # self.hostname.setText(
-        #     subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0] + ".local/")
-        hostname = subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0]
-        hostname.strip('\n')
-        hostname = hostname + ".local/"
-        self.hostname.setText(hostname)
+        self.hostname.setText(
+            subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0].rstrip() + ".local/")
+        # hostname = subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0]
+        # hostname.strip('\n')
+        # hostname = hostname + ".local/"
+        # self.hostname.setText(hostname)
         self.wifiIp.setText(self.getIP('wlan0'))
         self.lanIp.setText(self.getIP('eth0'))
 

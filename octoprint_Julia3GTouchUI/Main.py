@@ -89,8 +89,9 @@ Testing:
 ip = '0.0.0.0:5000'
 # ip = 'localhost:5000'
 # open octoprint config.yaman and get the apiKey
-# apiKey = 'E85D3D2FFAF446BC8B763F2D3DB46D01'
 apiKey = 'B508534ED20348F090B4D0AD637D3660'
+#apiKey = '3013BA719419421DBFF8BE976AEB4E3A'
+
 file_name = ''
 Development = True
 filaments = {"ABS": 220,
@@ -326,6 +327,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.sanityCheck = sanityCheckThread()
         self.sanityCheck.start()
         self.connect(self.sanityCheck, QtCore.SIGNAL('LOADED'), self.proceed)
+        self.connect(self.sanityCheck, QtCore.SIGNAL('STARTUP_ERROR'), self.shutdown)
 
         # Thread to get the get the state of the Printer as well as the temperature
 
@@ -483,7 +485,9 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.configureWifiButton.pressed.connect(self.wifiSettings)
         self.networkInfoButton.pressed.connect(self.networkInfo)
         self.OTAButton.pressed.connect(self.softwareUpdate)
+        self.versionButton.pressed.connect(self.displayVersionInfo)
         self.caliberateTouch.pressed.connect(self.touchCaliberation)
+        self.restartButton.pressed.connect(self.reboot)
 
         # Network Info Page
         self.networkInfoBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
@@ -610,6 +614,33 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         if resurrection["status"] == "available":
             self.printResurrectionMessageBox(resurrection["file"])
 
+	''' +++++++++++++++++++++++++++++++++OTA Update+++++++++++++++++++++++++++++++++++ '''
+
+
+
+    def displayVersionInfo(self):
+	self.updateListWidget.clear()
+	updateAvailable = False
+	self.performUpdateButton.setDisabled(True)
+	self.stackedWidget.setCurrentWidget(self.OTAUpdatePage)
+	data = octopiclient.getSoftwareUpdateInfo()
+	if data:
+	    for item in data["information"]:
+	        if not data["information"][item]["updateAvailable"]:
+	            self.updateListWidget.addItem(u'\u2713' + data["information"][item]["displayName"] +
+	                                          "  " + data["information"][item]["displayVersion"] + "\n"
+	                                          + "   Available: " +
+	                                          data["information"][item]["information"]["remote"]["value"])
+	        else:
+	            updateAvailable = True
+	            self.updateListWidget.addItem(u"\u2717" + data["information"][item]["displayName"] +
+	                                          "  " + data["information"][item]["displayVersion"] + "\n"
+	                                          + "   Available: " +
+	                                          data["information"][item]["information"]["remote"]["value"])
+	if updateAvailable:
+		self.performUpdateButton.setDisabled(False)
+
+
     ''' +++++++++++++++++++++++++++++++++OTA Update+++++++++++++++++++++++++++++++++++ '''
 
     def updateStatusMessageBox(self,status):
@@ -724,26 +755,94 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.updateFailedMessageBox(messageText)
 
     def softwareUpdate(self):
-        self.updateListWidget.clear()
-        updateAvailable = False
-        self.performUpdateButton.setDisabled(True)
-        self.stackedWidget.setCurrentWidget(self.OTAUpdatePage)
-        data = octopiclient.getSoftwareUpdateInfo()
-        if data:
-            for item in data["information"]:
-                if not data["information"][item]["updateAvailable"]:
-                    self.updateListWidget.addItem(u'\u2713' + data["information"][item]["displayName"] +
-                                                  "  " + data["information"][item]["displayVersion"] + "\n"
-                                                  + "   Available: " +
-                                                  data["information"][item]["information"]["remote"]["value"])
-                else:
-                    updateAvailable = True
-                    self.updateListWidget.addItem(u"\u2717" + data["information"][item]["displayName"] +
-                                                  "  " + data["information"][item]["displayVersion"] + "\n"
-                                                  + "   Available: " +
-                                                  data["information"][item]["information"]["remote"]["value"])
-        if updateAvailable:
-            self.performUpdateButton.setDisabled(False)
+    	data =octopiclient.getSoftwareUpdateInfo()
+    	updateAvailable= True
+    	if data:
+    		for item in data["information"]:
+                	if not data["information"][item]["updateAvailable"]:
+    				updateAvailable=False
+    	if updateAvailable:
+    		print('Update Available')
+	        choice = QtGui.QMessageBox()
+	        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+	        font = QtGui.QFont()
+	        QtGui.QInputMethodEvent
+	        font.setFamily(_fromUtf8("Gotham"))
+	        font.setPointSize(12)
+	        font.setBold(False)
+	        font.setUnderline(False)
+	        font.setWeight(50)
+	        font.setStrikeOut(False)
+	        choice.setFont(font)
+	        choice.setText("Update Available! Update Now?")
+	        # choice.setText(text)
+	        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+	        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+	        #choice.setFixedSize(QtCore.QSize(400, 300))
+	        choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+	        choice.setStyleSheet(_fromUtf8("\n"
+	                                       "QPushButton{\n"
+	                                       "     border: 1px solid rgb(87, 87, 87);\n"
+	                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+	                                       "height:70px;\n"
+	                                       "width: 150px;\n"
+	                                       "border-radius:5px;\n"
+	                                       "    font: 14pt \"Gotham\";\n"
+	                                       "}\n"
+	                                       "\n"
+	                                       "QPushButton:pressed {\n"
+	                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+	                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+	                                       "}\n"
+	                                       "QPushButton:focus {\n"
+	                                       "outline: none;\n"
+	                                       "}\n"
+	                                       "\n"
+	                                       ""))
+	        retval = choice.exec_()
+	        if retval == QtGui.QMessageBox.Yes:
+	        	octopiclient.performSoftwareUpdate()
+
+    	else :
+	        choice = QtGui.QMessageBox()
+	        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+	        font = QtGui.QFont()
+	        QtGui.QInputMethodEvent
+	        font.setFamily(_fromUtf8("Gotham"))
+	        font.setPointSize(12)
+	        font.setBold(False)
+	        font.setUnderline(False)
+	        font.setWeight(50)
+	        font.setStrikeOut(False)
+	        choice.setFont(font)
+	        choice.setText("System is Up To Date!")
+	        # choice.setText(text)
+	        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+	        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+	        #choice.setFixedSize(QtCore.QSize(400, 300))
+	        choice.setStandardButtons(QtGui.QMessageBox.Ok)
+	        choice.setStyleSheet(_fromUtf8("\n"
+	                                       "QPushButton{\n"
+	                                       "     border: 1px solid rgb(87, 87, 87);\n"
+	                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+	                                       "height:70px;\n"
+	                                       "width: 150px;\n"
+	                                       "border-radius:5px;\n"
+	                                       "    font: 14pt \"Gotham\";\n"
+	                                       "}\n"
+	                                       "\n"
+	                                       "QPushButton:pressed {\n"
+	                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+	                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+	                                       "}\n"
+	                                       "QPushButton:focus {\n"
+	                                       "outline: none;\n"
+	                                       "}\n"
+	                                       "\n"
+	                                       ""))
+	        retval = choice.exec_()
+	        if retval == QtGui.QMessageBox.Ok:
+	        	print('Update Unavailable')
 
     ''' +++++++++++++++++++++++++++++++++Wifi Config+++++++++++++++++++++++++++++++++++ '''
 
@@ -1351,7 +1450,9 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         Depending on Status, enable and Disable Buttons
         '''
         if status == "Printing":
-            lightbar.write('state:6[60]\n')
+            if lightbar:
+                lightbar.write('state:6[60]\n')
+		#lightbar.write('state:6[60]\n')
             self.playPauseButton.setChecked(True)
             self.stopButton.setDisabled(False)
             self.motionTab.setDisabled(True)
@@ -1372,7 +1473,8 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
 
         else:
-            lightbar.write('state:6[20]\n')
+            if lightbar:
+                lightbar.write('state:6[20]\n')
             self.stopButton.setDisabled(True)
             self.playPauseButton.setChecked(False)
             self.motionTab.setDisabled(False)
@@ -1495,6 +1597,96 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
     def touchCaliberation(self):
         os.system('sudo /home/pi/setenv.sh')
+
+    def reboot(self):
+        '''
+        Displays a message box asking if the user is sure if he wants to reboot
+        '''
+        choice = QtGui.QMessageBox()
+        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        font = QtGui.QFont()
+        QtGui.QInputMethodEvent
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        choice.setFont(font)
+        choice.setText("Are you sure you want to Reboot?")
+        # choice.setText(text)
+        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        #choice.setFixedSize(QtCore.QSize(400, 300))
+        choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        choice.setStyleSheet(_fromUtf8("\n"
+                                       "QPushButton{\n"
+                                       "     border: 1px solid rgb(87, 87, 87);\n"
+                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                       "height:70px;\n"
+                                       "width: 150px;\n"
+                                       "border-radius:5px;\n"
+                                       "    font: 14pt \"Gotham\";\n"
+                                       "}\n"
+                                       "\n"
+                                       "QPushButton:pressed {\n"
+                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                       "}\n"
+                                       "QPushButton:focus {\n"
+                                       "outline: none;\n"
+                                       "}\n"
+                                       "\n"
+                                       ""))
+        retval = choice.exec_()
+        if retval == QtGui.QMessageBox.Yes:
+    		os.system('sudo reboot now')
+
+
+    def shutdown(self):
+        '''
+        Displays a message box asking if the user is sure if he wants to shutdown
+        '''
+        print('Shutting Down. Unable to connect')
+        choice = QtGui.QMessageBox()
+        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        font = QtGui.QFont()
+        QtGui.QInputMethodEvent
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        choice.setFont(font)
+        choice.setText("Error, Contact Support. Shut down?")
+        # choice.setText(text)
+        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        #choice.setFixedSize(QtCore.QSize(400, 300))
+        choice.setStandardButtons(QtGui.QMessageBox.Ok)
+        choice.setStyleSheet(_fromUtf8("\n"
+                                       "QPushButton{\n"
+                                       "     border: 1px solid rgb(87, 87, 87);\n"
+                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                       "height:70px;\n"
+                                       "width: 150px;\n"
+                                       "border-radius:5px;\n"
+                                       "    font: 14pt \"Gotham\";\n"
+                                       "}\n"
+                                       "\n"
+                                       "QPushButton:pressed {\n"
+                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                       "}\n"
+                                       "QPushButton:focus {\n"
+                                       "outline: none;\n"
+                                       "}\n"
+                                       "\n"
+                                       ""))
+        retval = choice.exec_()
+        if retval == QtGui.QMessageBox.Ok:
+    		os.system('sudo shutdown now')
 
     def setZHomeOffsestUI(self, offset):
         '''
@@ -1814,10 +2006,17 @@ class sanityCheckThread(QtCore.QThread):
     def run(self):
         global octopiclient
         global lightbar
+        shutdown_flag= False
+        #get the first value of t1 (runtime check)
+    	uptime = time.time()
         # keep trying untill octoprint connects
         while (True):
             # Start an object instance of octopiAPI
             try:
+    	        if((time.time()-uptime)>30):
+    	        	shutdown_flag=True
+    	        	self.emit(QtCore.SIGNAL('STARTUP_ERROR'))
+    	        	break
                 octopiclient = octoprintAPI(ip, apiKey)
                 result = subprocess.Popen("dmesg | grep 'ttyUSB'", stdout=subprocess.PIPE, shell=True).communicate()[0]
                 result = result.split('\n')  # each ssid and pass from an item in a list ([ssid pass,ssid paas])
@@ -1839,14 +2038,15 @@ class sanityCheckThread(QtCore.QThread):
             except:
                 time.sleep(1)
                 print "Not Connected!"
-        self.emit(QtCore.SIGNAL('LOADED'))
-        if self.lightBarPort:
-            lightbar = serial.Serial(port="/dev/" + self.lightBarPort, baudrate=9600)
-            print "Connected to lightbar"
-            time.sleep(2)
-            lightbar.write('state:1\n')
-        else:
-            lightbar = False
+        if shutdown_flag == False:
+                self.emit(QtCore.SIGNAL('LOADED'))
+	        if self.lightBarPort:
+	            lightbar = serial.Serial(port="/dev/" + self.lightBarPort, baudrate=9600)
+	            print "Connected to lightbar"
+	            time.sleep(2)
+	            lightbar.write('state:1\n')
+	        else:
+	            lightbar = False
 
 
 class fileUploadThread(QtCore.QThread):

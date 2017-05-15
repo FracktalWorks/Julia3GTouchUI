@@ -12,7 +12,6 @@
 *************************************************************************
 '''
 
-
 from PyQt4 import QtCore, QtGui
 import mainGUI
 import keyBoard
@@ -90,7 +89,7 @@ ip = '0.0.0.0:5000'
 # ip = 'localhost:5000'
 # open octoprint config.yaman and get the apiKey
 apiKey = 'B508534ED20348F090B4D0AD637D3660'
-#apiKey = '3013BA719419421DBFF8BE976AEB4E3A'
+# apiKey = '3013BA719419421DBFF8BE976AEB4E3A'
 
 file_name = ''
 Development = True
@@ -506,8 +505,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.softwareUpdateBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
         self.performUpdateButton.pressed.connect(lambda: octopiclient.performSoftwareUpdate())
 
-
-
     ''' +++++++++++++++++++++++++Filament Sensor++++++++++++++++++++++++++++++++++++++ '''
 
     def filamentSensorTriggeredMessageBox(self):
@@ -567,7 +564,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
     ''' +++++++++++++++++++++++++Print Resurrection+++++++++++++++++++++++++++++++++++ '''
 
-    def printResurrectionMessageBox(self,file):
+    def printResurrectionMessageBox(self, file):
         '''
         Displays a message box alerting the user of a filament error
         '''
@@ -640,7 +637,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         if updateAvailable:
             self.performUpdateButton.setDisabled(False)
 
-    def updateStatusMessageBox(self,status):
+    def updateStatusMessageBox(self, status):
         '''
         Displays a message box alerting the user of a filament error
         '''
@@ -658,7 +655,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         choice.setText(status)
         choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
         # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        #choice.setFixedSize(QtCore.QSize(400,300))
+        # choice.setFixedSize(QtCore.QSize(400,300))
         choice.setStandardButtons(QtGui.QMessageBox.Ok)
         choice.setStyleSheet(_fromUtf8("QPushButton{\n"
                                        "     border: 1px solid rgb(87, 87, 87);\n"
@@ -739,14 +736,14 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.logTextEdit.setTextColor(QtCore.Qt.red)
         self.logTextEdit.append("---------------------------------------------------------------\n"
                                 "Updating " + data["name"] + " to " + data["version"] + "\n"
-                                "---------------------------------------------------------------")
+                                                                                        "---------------------------------------------------------------")
 
     def softwareUpdateProgressLog(self, data):
         self.logTextEdit.setTextColor(QtCore.Qt.white)
         for line in data:
             self.logTextEdit.append(line["line"])
 
-    def updateFailed(self,data):
+    def updateFailed(self, data):
         self.stackedWidget.setCurrentWidget(self.settingsPage)
         messageText = (data["name"] + " failed to update\n")
         self.updateFailedMessageBox(messageText)
@@ -775,7 +772,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             # choice.setText(text)
             choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
             # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-            #choice.setFixedSize(QtCore.QSize(400, 300))
+            # choice.setFixedSize(QtCore.QSize(400, 300))
             choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
             choice.setStyleSheet(_fromUtf8("\n"
                                            "QPushButton{\n"
@@ -800,7 +797,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             if retval == QtGui.QMessageBox.Yes:
                 octopiclient.performSoftwareUpdate()
 
-        else :
+        else:
             choice = QtGui.QMessageBox()
             choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
             font = QtGui.QFont()
@@ -816,7 +813,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             # choice.setText(text)
             choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
             # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-            #choice.setFixedSize(QtCore.QSize(400, 300))
+            # choice.setFixedSize(QtCore.QSize(400, 300))
             choice.setStandardButtons(QtGui.QMessageBox.Ok)
             choice.setStyleSheet(_fromUtf8("\n"
                                            "QPushButton{\n"
@@ -920,7 +917,8 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
     def networkInfo(self):
         self.stackedWidget.setCurrentWidget(self.networkInfoPage)
         self.hostname.setText(
-            subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0].rstrip() + ".local/")
+            subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[
+                0].rstrip() + ".local/")
         # hostname = subprocess.Popen("cat /etc/hostname", stdout=subprocess.PIPE, shell=True).communicate()[0]
         # hostname.strip('\n')
         # hostname = hostname + ".local/"
@@ -1000,7 +998,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
     ''' +++++++++++++++++++++++++++++++++Job Operations+++++++++++++++++++++++++++++++ '''
 
-
     def stopActionMessageBox(self):
         '''
         Displays a message box asking if the user is sure if he wants to turn off the print
@@ -1020,7 +1017,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # choice.setText(text)
         choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
         # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        #choice.setFixedSize(QtCore.QSize(400, 300))
+        # choice.setFixedSize(QtCore.QSize(400, 300))
         choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
         choice.setStyleSheet(_fromUtf8("\n"
                                        "QPushButton{\n"
@@ -1218,9 +1215,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # delete PNG also
         self.fileListLocal()
 
-
     ''' +++++++++++++++++++++++++++++++++Printer Status+++++++++++++++++++++++++++++++ '''
-
 
     def updateTemperature(self, temperature):
         '''
@@ -1449,7 +1444,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         if status == "Printing":
             if lightbar:
                 lightbar.write('state:6[60]\n')
-		#lightbar.write('state:6[60]\n')
+            # lightbar.write('state:6[60]\n')
             self.playPauseButton.setChecked(True)
             self.stopButton.setDisabled(False)
             self.motionTab.setDisabled(True)
@@ -1480,9 +1475,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             self.menuSettingsButton.setDisabled(False)
             self.menuPrintButton.setDisabled(False)
 
-
     ''' ++++++++++++++++++++++++++++Active Extruder/Tool Change++++++++++++++++++++++++ '''
-
 
     def selectToolChangeFilament(self):
         '''
@@ -1543,7 +1536,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
             # set button states
             # set octoprint if mismatch
-
 
     ''' +++++++++++++++++++++++++++++++++Control Screen+++++++++++++++++++++++++++++++ '''
 
@@ -1614,7 +1606,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # choice.setText(text)
         choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
         # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        #choice.setFixedSize(QtCore.QSize(400, 300))
+        # choice.setFixedSize(QtCore.QSize(400, 300))
         choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
         choice.setStyleSheet(_fromUtf8("\n"
                                        "QPushButton{\n"
@@ -1637,8 +1629,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                                        ""))
         retval = choice.exec_()
         if retval == QtGui.QMessageBox.Yes:
-    		os.system('sudo reboot now')
-
+            os.system('sudo reboot now')
 
     def shutdown(self):
         '''
@@ -1660,7 +1651,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # choice.setText(text)
         choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
         # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        #choice.setFixedSize(QtCore.QSize(400, 300))
+        # choice.setFixedSize(QtCore.QSize(400, 300))
         choice.setStandardButtons(QtGui.QMessageBox.Ok)
         choice.setStyleSheet(_fromUtf8("\n"
                                        "QPushButton{\n"
@@ -1683,7 +1674,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                                        ""))
         retval = choice.exec_()
         if retval == QtGui.QMessageBox.Ok:
-    		os.system('sudo shutdown now')
+            os.system('sudo shutdown now')
 
     def setZHomeOffsestUI(self, offset):
         '''
@@ -1789,7 +1780,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         '''
         self.stackedWidget.setCurrentWidget(self.step6Page)
         octopiclient.jog(z=10, absolute=True)
-        octopiclient.jog(x=142, y=188, absolute=True)
+        octopiclient.jog(x=142, y=0, absolute=True)
         octopiclient.jog(z=2, absolute=True)
         self.movie4.stop()
 
@@ -1884,6 +1875,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             qrcode.make(json.dumps(qrip), image_factory=Image).pixmap())
         self.stackedWidget.setCurrentWidget(self.QRCodePage)
 
+
 class QtWebsocket(QtCore.QThread):
     '''
     https://pypi.python.org/pypi/websocket-client
@@ -1943,25 +1935,25 @@ class QtWebsocket(QtCore.QThread):
 
             elif data["plugin"]["plugin"] == 'softwareupdate':
                 if data["plugin"]["data"]["type"] == "updating":
-                    self.emit(QtCore.SIGNAL('UPDATE_STARTED'),data["plugin"]["data"]["data"])
+                    self.emit(QtCore.SIGNAL('UPDATE_STARTED'), data["plugin"]["data"]["data"])
                 elif data["plugin"]["data"]["type"] == "loglines":
-                    self.emit(QtCore.SIGNAL('UPDATE_LOG'),data["plugin"]["data"]["data"]["loglines"])
+                    self.emit(QtCore.SIGNAL('UPDATE_LOG'), data["plugin"]["data"]["data"]["loglines"])
                 elif data["plugin"]["data"]["type"] == "restarting":
-                    self.emit(QtCore.SIGNAL('UPDATE_LOG_RESULT'),data["plugin"]["data"]["data"]["results"])
+                    self.emit(QtCore.SIGNAL('UPDATE_LOG_RESULT'), data["plugin"]["data"]["data"]["results"])
                 elif data["plugin"]["data"]["type"] == "update_failed":
-                    self.emit(QtCore.SIGNAL('UPDATE_FAILED'),data["plugin"]["data"]["data"])
-
+                    self.emit(QtCore.SIGNAL('UPDATE_FAILED'), data["plugin"]["data"]["data"])
 
         if "current" in data:
 
             if data["current"]["messages"]:
                 for item in data["current"]["messages"]:
-                    if 'Active Extruder' in item: # can get thris throught the positionUpdate event
+                    if 'Active Extruder' in item:  # can get thris throught the positionUpdate event
                         self.emit(QtCore.SIGNAL('ACTIVE_EXTRUDER'), item[-1])
                     if 'M206' in item:
                         self.emit(QtCore.SIGNAL('Z_HOME_OFFSET'), item[item.index('Z') + 1:].split(' ', 1)[0])
-                    if 'Count' in item: # can get thris throught the positionUpdate event
-                        self.emit(QtCore.SIGNAL('SET_Z_HOME_OFFSET'), item[item.index('Z')+2:].split(' ', 1)[0], False)
+                    if 'Count' in item:  # can get thris throught the positionUpdate event
+                        self.emit(QtCore.SIGNAL('SET_Z_HOME_OFFSET'), item[item.index('Z') + 2:].split(' ', 1)[0],
+                                  False)
 
             if data["current"]["state"]["text"]:
                 self.emit(QtCore.SIGNAL('STATUS'), data["current"]["state"]["text"])
@@ -2003,17 +1995,17 @@ class sanityCheckThread(QtCore.QThread):
     def run(self):
         global octopiclient
         global lightbar
-        shutdown_flag= False
-        #get the first value of t1 (runtime check)
-    	uptime = time.time()
+        shutdown_flag = False
+        # get the first value of t1 (runtime check)
+        uptime = 0
         # keep trying untill octoprint connects
         while (True):
             # Start an object instance of octopiAPI
             try:
-    	        if((time.time()-uptime)>30):
-    	        	shutdown_flag=True
-    	        	self.emit(QtCore.SIGNAL('STARTUP_ERROR'))
-    	        	break
+                if ( uptime > 30):
+                    shutdown_flag = True
+                    self.emit(QtCore.SIGNAL('STARTUP_ERROR'))
+                    break
                 octopiclient = octoprintAPI(ip, apiKey)
                 result = subprocess.Popen("dmesg | grep 'ttyUSB'", stdout=subprocess.PIPE, shell=True).communicate()[0]
                 result = result.split('\n')  # each ssid and pass from an item in a list ([ssid pass,ssid paas])
@@ -2034,16 +2026,18 @@ class sanityCheckThread(QtCore.QThread):
                 break
             except:
                 time.sleep(1)
+                uptime = uptime + 1
                 print "Not Connected!"
         if shutdown_flag == False:
-                self.emit(QtCore.SIGNAL('LOADED'))
-	        if self.lightBarPort:
-	            lightbar = serial.Serial(port="/dev/" + self.lightBarPort, baudrate=9600)
-	            print "Connected to lightbar"
-	            time.sleep(2)
-	            lightbar.write('state:1\n')
-	        else:
-	            lightbar = False
+            self.emit(QtCore.SIGNAL('LOADED'))
+            if self.lightBarPort:
+                lightbar = serial.Serial(port="/dev/" + self.lightBarPort, baudrate=9600)
+                print "Connected to lightbar"
+                time.sleep(2)
+
+                lightbar.write('state:1\n')
+            else:
+                lightbar = False
 
 
 class fileUploadThread(QtCore.QThread):
@@ -2119,4 +2113,3 @@ if __name__ == '__main__':
     # charm = FlickCharm()
     # charm.activateOn(MainWindow.FileListWidget)
     sys.exit(app.exec_())
-

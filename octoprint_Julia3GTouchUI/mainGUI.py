@@ -6002,7 +6002,11 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.mainApplication)
 
         self.retranslateUi(MainWindow)
+<<<<<<< HEAD
         self.stackedWidget.setCurrentIndex(16)
+=======
+        self.stackedWidget.setCurrentIndex(2)
+>>>>>>> refs/remotes/origin/master
         self.controlTabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

@@ -173,7 +173,11 @@ QStatusBar::item {
 background-color: rgb(40, 40, 40);</string>
     </property>
     <property name="currentIndex">
+<<<<<<< HEAD
      <number>16</number>
+=======
+     <number>2</number>
+>>>>>>> refs/remotes/origin/master
     </property>
     <widget class="QWidget" name="loadingPage">
      <widget class="QLabel" name="LoadingLabel">

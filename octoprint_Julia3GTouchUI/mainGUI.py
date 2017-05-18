@@ -225,7 +225,7 @@ class Ui_MainWindow(object):
         self.fileName.setStyleSheet(_fromUtf8("color: rgb(255, 255, 255);\n"
 "background-color: rgba(255, 255, 255, 0);"))
         self.fileName.setScaledContents(True)
-        self.fileName.setWordWrap(True)
+        self.fileName.setWordWrap(False)
         self.fileName.setObjectName(_fromUtf8("fileName"))
         self.printTime = QtGui.QLabel(self.homePage)
         self.printTime.setGeometry(QtCore.QRect(100, 190, 181, 21))
@@ -762,14 +762,14 @@ class Ui_MainWindow(object):
         self.menuSettingsButton.setCheckable(False)
         self.menuSettingsButton.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.menuSettingsButton.setObjectName(_fromUtf8("menuSettingsButton"))
-        self.menuStatsButton = QtGui.QToolButton(self.MenuPage)
-        self.menuStatsButton.setGeometry(QtCore.QRect(0, 160, 160, 160))
-        self.menuStatsButton.setMinimumSize(QtCore.QSize(0, 0))
+        self.menuCartButton = QtGui.QToolButton(self.MenuPage)
+        self.menuCartButton.setGeometry(QtCore.QRect(0, 160, 160, 160))
+        self.menuCartButton.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Gotham Light"))
         font.setPointSize(18)
-        self.menuStatsButton.setFont(font)
-        self.menuStatsButton.setStyleSheet(_fromUtf8("QToolButton {\n"
+        self.menuCartButton.setFont(font)
+        self.menuCartButton.setStyleSheet(_fromUtf8("QToolButton {\n"
 "padding-top: 20px;\n"
 "     border: 1px solid rgb(87, 87, 87);\n"
 "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
@@ -790,11 +790,12 @@ class Ui_MainWindow(object):
 "}"))
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(_fromUtf8("templates/img/cart.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.menuStatsButton.setIcon(icon7)
-        self.menuStatsButton.setIconSize(QtCore.QSize(80, 80))
-        self.menuStatsButton.setCheckable(False)
-        self.menuStatsButton.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
-        self.menuStatsButton.setObjectName(_fromUtf8("menuStatsButton"))
+        self.menuCartButton.setIcon(icon7)
+        self.menuCartButton.setIconSize(QtCore.QSize(80, 80))
+        self.menuCartButton.setCheckable(False)
+        self.menuCartButton.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+        self.menuCartButton.setAutoRaise(False)
+        self.menuCartButton.setObjectName(_fromUtf8("menuCartButton"))
         self.menuCaliberateButton = QtGui.QToolButton(self.MenuPage)
         self.menuCaliberateButton.setGeometry(QtCore.QRect(320, 0, 160, 160))
         self.menuCaliberateButton.setMinimumSize(QtCore.QSize(0, 0))
@@ -830,7 +831,7 @@ class Ui_MainWindow(object):
         self.menuCaliberateButton.setObjectName(_fromUtf8("menuCaliberateButton"))
         self.menuSettingsButton.raise_()
         self.menuControlButton.raise_()
-        self.menuStatsButton.raise_()
+        self.menuCartButton.raise_()
         self.menuCaliberateButton.raise_()
         self.menuBackButton.raise_()
         self.menuPrintButton.raise_()
@@ -888,12 +889,46 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 398, 560))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 478, 560))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setContentsMargins(0, 0, 3, 0)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.settingsBackButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.settingsBackButton.setMinimumSize(QtCore.QSize(0, 70))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Gotham Light"))
+        font.setPointSize(9)
+        self.settingsBackButton.setFont(font)
+        self.settingsBackButton.setStyleSheet(_fromUtf8("QPushButton {\n"
+"     border: 1px solid rgb(87, 87, 87);\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+"}\n"
+"\n"
+"QPushButton:flat {\n"
+"    border: none; /* no border for a flat push button */\n"
+"}\n"
+"\n"
+"QPushButton:default {\n"
+"    border-color: navy; /* make the default button prominent */\n"
+"}"))
+        self.settingsBackButton.setText(_fromUtf8(""))
+        self.settingsBackButton.setIcon(icon4)
+        self.settingsBackButton.setIconSize(QtCore.QSize(50, 50))
+        self.settingsBackButton.setCheckable(False)
+        self.settingsBackButton.setAutoDefault(False)
+        self.settingsBackButton.setDefault(False)
+        self.settingsBackButton.setFlat(False)
+        self.settingsBackButton.setObjectName(_fromUtf8("settingsBackButton"))
+        self.verticalLayout.addWidget(self.settingsBackButton)
         self.networkInfoButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.networkInfoButton.setMinimumSize(QtCore.QSize(0, 70))
         font = QtGui.QFont()
@@ -1118,40 +1153,6 @@ class Ui_MainWindow(object):
         self.restartButton.setIconSize(QtCore.QSize(40, 40))
         self.restartButton.setObjectName(_fromUtf8("restartButton"))
         self.verticalLayout.addWidget(self.restartButton)
-        self.settingsBackButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
-        self.settingsBackButton.setMinimumSize(QtCore.QSize(0, 70))
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Gotham Light"))
-        font.setPointSize(9)
-        self.settingsBackButton.setFont(font)
-        self.settingsBackButton.setStyleSheet(_fromUtf8("QPushButton {\n"
-"     border: 1px solid rgb(87, 87, 87);\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"\n"
-"\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-"}\n"
-"\n"
-"QPushButton:flat {\n"
-"    border: none; /* no border for a flat push button */\n"
-"}\n"
-"\n"
-"QPushButton:default {\n"
-"    border-color: navy; /* make the default button prominent */\n"
-"}"))
-        self.settingsBackButton.setText(_fromUtf8(""))
-        self.settingsBackButton.setIcon(icon4)
-        self.settingsBackButton.setIconSize(QtCore.QSize(50, 50))
-        self.settingsBackButton.setCheckable(False)
-        self.settingsBackButton.setAutoDefault(False)
-        self.settingsBackButton.setDefault(False)
-        self.settingsBackButton.setFlat(False)
-        self.settingsBackButton.setObjectName(_fromUtf8("settingsBackButton"))
-        self.verticalLayout.addWidget(self.settingsBackButton)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.stackedWidget.addWidget(self.settingsPage)
         self.QRCodePage = QtGui.QWidget()
@@ -2566,7 +2567,7 @@ class Ui_MainWindow(object):
         self.step6NextButton.setIconSize(QtCore.QSize(40, 40))
         self.step6NextButton.setObjectName(_fromUtf8("step6NextButton"))
         self.printPreviewSelected_8 = QtGui.QLabel(self.step6Page)
-        self.printPreviewSelected_8.setGeometry(QtCore.QRect(160, 110, 150, 150))
+        self.printPreviewSelected_8.setGeometry(QtCore.QRect(50, 120, 371, 111))
         self.printPreviewSelected_8.setStyleSheet(_fromUtf8("background-color: rgba(255, 255, 255, 0);"))
         self.printPreviewSelected_8.setText(_fromUtf8(""))
         self.printPreviewSelected_8.setPixmap(QtGui.QPixmap(_fromUtf8("octoprint_Julia3GTouchUI/templates/img/Nozzle Offset.png")))
@@ -2681,7 +2682,7 @@ class Ui_MainWindow(object):
         self.step7CancelButton.setIconSize(QtCore.QSize(40, 40))
         self.step7CancelButton.setObjectName(_fromUtf8("step7CancelButton"))
         self.caliberationHeightLabel = QtGui.QLabel(self.step7Page)
-        self.caliberationHeightLabel.setGeometry(QtCore.QRect(160, 110, 150, 150))
+        self.caliberationHeightLabel.setGeometry(QtCore.QRect(70, 110, 331, 150))
         self.caliberationHeightLabel.setStyleSheet(_fromUtf8("background-color: rgba(255, 255, 255, 0);"))
         self.caliberationHeightLabel.setText(_fromUtf8(""))
         self.caliberationHeightLabel.setScaledContents(True)
@@ -6001,7 +6002,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.mainApplication)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(16)
         self.controlTabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -6028,7 +6029,7 @@ class Ui_MainWindow(object):
         self.menuControlButton.setText(_translate("MainWindow", "Control", None))
         self.menuPrintButton.setText(_translate("MainWindow", "Print", None))
         self.menuSettingsButton.setText(_translate("MainWindow", "Settings", None))
-        self.menuStatsButton.setText(_translate("MainWindow", "Cart", None))
+        self.menuCartButton.setText(_translate("MainWindow", "Cart", None))
         self.menuCaliberateButton.setText(_translate("MainWindow", "Calibrate", None))
         self.networkInfoButton.setText(_translate("MainWindow", "Network info", None))
         self.configureWifiButton.setText(_translate("MainWindow", "Configure WiFi", None))

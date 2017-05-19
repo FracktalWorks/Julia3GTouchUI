@@ -293,7 +293,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.movie4 = QtGui.QMovie("templates/img/lockCenter.gif")
         self.turnCenterLevelingScrewLabel.setMovie(self.movie4)
 
-        self.movie5 = QtGui.QMovie("templates/img/cat.gif")
+        self.movie5 = QtGui.QMovie("templates/img/heightCaliberation.gif")
         self.caliberationHeightLabel.setMovie(self.movie5)
 
     def __init__(self):
@@ -1212,9 +1212,16 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
     def updateTemperature(self, temperature):
         '''
         Slot that gets a signal originating from the thread that keeps polling for printer status
-        runs at 1HZ, so do things that need to be constantly updated only
+        runs at 1HZ, so do things that need to be constantly updated only. This also controls the cooling fan depending on the temperatures
         :param temperature: dict containing key:value pairs with keys being the tools, bed and their values being their corresponding temperratures
         '''
+
+        if temperature['tool0Target'] + temperature['tool1Target'] > 500 :
+            writeToLightbar('state:6[80]')
+        elif temperature['tool0Target'] + temperature['tool1Target'] > 200:
+            writeToLightbar('state:6[60]')
+        else:
+            writeToLightbar('state:6[20]')
 
         if temperature['tool0Target'] == 0:
             self.tool0TempBar.setMaximum(300)
@@ -1381,7 +1388,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             else:
                 self.printProgressBar.setValue(file['progress']['completion'])
                 if lightbar and self.setLEDFromStatus:
-                    lightbar.write('state:2[' + str(int(file['progress']['completion'])) + ']\n')
+                    writeToLightbar('state:2[' + str(int(file['progress']['completion'])) + ']')
 
             '''
             If image is available from server, set it, otherwise display default image.
@@ -1416,32 +1423,28 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                                                              "    border-radius: 10px;\n"
                                                              "background-color: qlineargradient(spread:pad, x1:0, y1:0.517, x2:0, y2:0.512, stop:0 rgba(255, 28, 35, 255), stop:1 rgba(255, 68, 74, 255));"))
             if lightbar and self.setLEDFromStatus:
-                lightbar.write('state:4\n')
+                writeToLightbar('state:4')
         elif status == "Paused":  # Amber
             self.printerStatusColour.setStyleSheet(_fromUtf8("     border: 1px solid rgb(87, 87, 87);\n"
                                                              "    border-radius: 10px;\n"
                                                              "background-color: qlineargradient(spread:pad, x1:0, y1:0.523, x2:0, y2:0.54, stop:0 rgba(255, 211, 78, 255), stop:1 rgba(219, 183, 74, 255));"))
             if lightbar and self.setLEDFromStatus:
-                lightbar.write('state:3\n')
+                writeToLightbar('state:3')
         elif status == "Operational":  # Amber
             self.printerStatusColour.setStyleSheet(_fromUtf8("     border: 1px solid rgb(87, 87, 87);\n"
                                                              "    border-radius: 10px;\n"
                                                              "background-color: qlineargradient(spread:pad, x1:0, y1:0.523, x2:0, y2:0.54, stop:0 rgba(74, 183, 255, 255), stop:1 rgba(53, 173, 242, 255));"))
             if lightbar and self.setLEDFromStatus:
-                lightbar.write('state:1\n')
+                writeToLightbar('state:1')
         '''
         Depending on Status, enable and Disable Buttons
         '''
         if status == "Printing":
-            if lightbar:
-                lightbar.write('state:6[0]\n')
-            # lightbar.write('state:6[60]\n')
             self.playPauseButton.setChecked(True)
             self.stopButton.setDisabled(False)
             self.motionTab.setDisabled(True)
             self.changeFilamentButton.setDisabled(True)
             self.menuCaliberateButton.setDisabled(True)
-            self.menuSettingsButton.setDisabled(True)
             self.menuPrintButton.setDisabled(True)
 
 
@@ -1451,19 +1454,15 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             self.motionTab.setDisabled(False)
             self.changeFilamentButton.setDisabled(False)
             self.menuCaliberateButton.setDisabled(True)
-            self.menuSettingsButton.setDisabled(True)
             self.menuPrintButton.setDisabled(True)
 
 
         else:
-            if lightbar:
-                lightbar.write('state:6[20]\n')
             self.stopButton.setDisabled(True)
             self.playPauseButton.setChecked(False)
             self.motionTab.setDisabled(False)
             self.changeFilamentButton.setDisabled(False)
             self.menuCaliberateButton.setDisabled(False)
-            self.menuSettingsButton.setDisabled(False)
             self.menuPrintButton.setDisabled(False)
 
     ''' ++++++++++++++++++++++++++++Active Extruder/Tool Change++++++++++++++++++++++++ '''
@@ -1710,7 +1709,8 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         octopiclient.jog(x=125, y=125, z=35, absolute=True, speed=1500)
         self.setLEDFromStatus = False  # so that led is updated from ui, not from octoptint loop
         if lightbar:
-            lightbar.write('state:5\n')
+            writeToLightbar('state:5')
+
 
     def step2(self):
         '''
@@ -2023,11 +2023,16 @@ class sanityCheckThread(QtCore.QThread):
             if self.lightBarPort:
                 lightbar = serial.Serial(port="/dev/" + self.lightBarPort, baudrate=9600)
                 print "Connected to lightbar"
-                time.sleep(2)
-
-                lightbar.write('state:1\n')
+                writeToLightbar('state:1')
             else:
                 lightbar = False
+
+@run_async
+def writeToLightbar(state):
+    while 'ok' not in lightbar.readline():
+        lightbar.write(state + "\n")
+        print state
+        time.sleep(0.5)
 
 
 class fileUploadThread(QtCore.QThread):

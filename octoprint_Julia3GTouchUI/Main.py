@@ -1381,7 +1381,9 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             else:
                 self.printProgressBar.setValue(file['progress']['completion'])
                 if lightbar and self.setLEDFromStatus:
-                    lightbar.write('state:2[' + str(int(file['progress']['completion'])) + ']\n')
+                    prog=int(file['progress']['completion'])
+                    prog=((prog*9)/10)+10
+                    lightbar.write('state:2[' + str(prog) + ']\n')
 
             '''
             If image is available from server, set it, otherwise display default image.
@@ -2023,8 +2025,9 @@ class sanityCheckThread(QtCore.QThread):
             if self.lightBarPort:
                 lightbar = serial.Serial(port="/dev/" + self.lightBarPort, baudrate=9600)
                 print "Connected to lightbar"
-                time.sleep(2)
+                time.sleep(5)
 
+                lightbar.write('state:1\n')
                 lightbar.write('state:1\n')
             else:
                 lightbar = False

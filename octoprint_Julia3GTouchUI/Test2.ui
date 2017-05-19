@@ -173,11 +173,7 @@ QStatusBar::item {
 background-color: rgb(40, 40, 40);</string>
     </property>
     <property name="currentIndex">
-<<<<<<< HEAD
      <number>16</number>
-=======
-     <number>2</number>
->>>>>>> refs/remotes/origin/master
     </property>
     <widget class="QWidget" name="loadingPage">
      <widget class="QLabel" name="LoadingLabel">
@@ -4801,9 +4797,9 @@ QPushButton:focus {
      <widget class="QLabel" name="caliberationHeightLabel">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>130</x>
         <y>110</y>
-        <width>331</width>
+        <width>231</width>
         <height>150</height>
        </rect>
       </property>

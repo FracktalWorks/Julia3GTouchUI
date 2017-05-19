@@ -2682,7 +2682,7 @@ class Ui_MainWindow(object):
         self.step7CancelButton.setIconSize(QtCore.QSize(40, 40))
         self.step7CancelButton.setObjectName(_fromUtf8("step7CancelButton"))
         self.caliberationHeightLabel = QtGui.QLabel(self.step7Page)
-        self.caliberationHeightLabel.setGeometry(QtCore.QRect(70, 110, 331, 150))
+        self.caliberationHeightLabel.setGeometry(QtCore.QRect(130, 110, 231, 150))
         self.caliberationHeightLabel.setStyleSheet(_fromUtf8("background-color: rgba(255, 255, 255, 0);"))
         self.caliberationHeightLabel.setText(_fromUtf8(""))
         self.caliberationHeightLabel.setScaledContents(True)
@@ -6002,11 +6002,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.mainApplication)
 
         self.retranslateUi(MainWindow)
-<<<<<<< HEAD
         self.stackedWidget.setCurrentIndex(16)
-=======
-        self.stackedWidget.setCurrentIndex(2)
->>>>>>> refs/remotes/origin/master
         self.controlTabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

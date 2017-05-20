@@ -1058,11 +1058,10 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         sets the stacked widget page to the file list page
         '''
         self.stackedWidget.setCurrentWidget(self.fileListLocalPage)
-        files = octopiclient.retrieveFileInformation()['files']
-
-        for file in files:
-            if file["type"] != "machinecode":
-                files.remove(file)
+        files=[]
+        for file in octopiclient.retrieveFileInformation()['files']:
+            if file["type"] == "machinecode":
+                files.append(file)
 
         self.fileListWidget.clear()
         files.sort(key=lambda d: d['date'], reverse=True)
@@ -1216,12 +1215,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         :param temperature: dict containing key:value pairs with keys being the tools, bed and their values being their corresponding temperratures
         '''
 
-        if temperature['tool0Target'] + temperature['tool1Target'] > 500 :
-            writeToLightbar('state:6[80]')
-        elif temperature['tool0Target'] + temperature['tool1Target'] > 200:
-            writeToLightbar('state:6[60]')
-        else:
-            writeToLightbar('state:6[20]')
 
         if temperature['tool0Target'] == 0:
             self.tool0TempBar.setMaximum(300)
@@ -1410,6 +1403,16 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         this function updates the status bar, as well as enables/disables relavent buttons
         :param status: String of the status text
         '''
+
+        if float(self.tool0ActualTemperature.text()) + float(self.tool1ActualTemperature.text()) > 500:
+            writeToLightbar('state:6[80]')
+        elif float(self.tool0ActualTemperature.text()) + float(self.tool1ActualTemperature.text()) > 200:
+            writeToLightbar('state:6[60]')
+        elif float(self.tool0ActualTemperature.text()) + float(self.tool1ActualTemperature.text()) > 50:
+            writeToLightbar('state:6[40]')
+        else:
+            writeToLightbar('state:6[20]')
+
 
         self.printerStatusText = status
         self.printerStatus.setText(status)
@@ -1956,8 +1959,8 @@ class QtWebsocket(QtCore.QThread):
 
             if data["current"]["temps"]:
                 if "tool1" not in data["current"]["temps"][0]:
-                    data["current"]["temps"][0]["tool1"]["actual"] = 0
-                    data["current"]["temps"][0]["tool1"]["target"] = 0
+                    data["current"]["temps"][0]["tool1"] = {"actual" : 0}
+                    data["current"]["temps"][0]["tool1"] = {"target" : 0}
                 temperatures = {'tool0Actual': data["current"]["temps"][0]["tool0"]["actual"],
                                 'tool0Target': data["current"]["temps"][0]["tool0"]["target"],
                                 'tool1Actual': data["current"]["temps"][0]["tool1"]["actual"],
@@ -2026,13 +2029,19 @@ class sanityCheckThread(QtCore.QThread):
                 writeToLightbar('state:1')
             else:
                 lightbar = False
-
 @run_async
 def writeToLightbar(state):
-    while 'ok' not in lightbar.readline():
-        lightbar.write(state + "\n")
-        print state
+    lightbar.write(state + "\n")
+    time.sleep(0.1)
+    while lightbar.in_waiting == 0:
         time.sleep(0.5)
+        lightbar.write(state + "\n")
+    else:
+        lightbar.flushInput()
+
+
+
+
 
 
 class fileUploadThread(QtCore.QThread):

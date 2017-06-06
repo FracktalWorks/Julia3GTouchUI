@@ -249,11 +249,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.setHomeOffsetBool = False
         self.currentImage = None
         self.currentFile = None
-        '''
-        The setLEDFromStatus flag is used to change the status of the lightbar from the updateStatus/updatePrintStatus
-        methods that get called from octoptint, or should the LED's be get because of some external event, like caliberation,
-        filament getting over etc.'''
-        self.setLEDFromStatus = True
         self.setActiveExtruder(0)
         self.sanityCheck = sanityCheckThread()
         self.sanityCheck.start()
@@ -286,7 +281,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.connect(self.QtSocket, QtCore.SIGNAL('STATUS'), self.updateStatus)
         self.connect(self.QtSocket, QtCore.SIGNAL('PRINT_STATUS'), self.updatePrintStatus)
         self.connect(self.QtSocket, QtCore.SIGNAL('FILAMENT_SENSOR_TRIGGERED'), self.filamentSensorTriggeredMessageBox)
-        self.connect(self.wifiPasswordLineEdit, QtCore.SIGNAL("clicked()"), self.startKeyboardPassword)
+        self.connect(self.wifiPasswordLineEdit, QtCore.SIGNAL("clicked()"), lambda: self.startKeyboard(self.wifiPasswordLineEdit.setText))
         self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_STARTED'), self.softwareUpdateProgress)
         self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_LOG'), self.softwareUpdateProgressLog)
         self.connect(self.QtSocket, QtCore.SIGNAL('UPDATE_LOG_RESULT'), self.softwareUpdateResult)
@@ -424,7 +419,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.networkInfoBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
 
         # WifiSetings page
-        self.wifiSettingsSSIDKeyboardButton.pressed.connect(self.startKeyboardSSID)
+        self.wifiSettingsSSIDKeyboardButton.pressed.connect(lambda: self.startKeyboard(self.wifiSettingsComboBox.addItem))
         self.wifiSettingsCancelButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
         self.wifiSettingsDoneButton.pressed.connect(self.acceptWifiSettings)
 
@@ -1316,8 +1311,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                 self.printProgressBar.setValue(0)
             else:
                 self.printProgressBar.setValue(file['progress']['completion'])
-                if lightbar and self.setLEDFromStatus:
-                    writeToLightbar('state:2[' + str(int(file['progress']['completion'])) + ']')
 
             '''
             If image is available from server, set it, otherwise display default image.
@@ -1340,14 +1333,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         :param status: String of the status text
         '''
 
-        if float(self.tool0ActualTemperature.text()) + float(self.tool1ActualTemperature.text()) > 500:
-            writeToLightbar('state:6[80]')
-        elif float(self.tool0ActualTemperature.text()) + float(self.tool1ActualTemperature.text()) > 200:
-            writeToLightbar('state:6[60]')
-        elif float(self.tool0ActualTemperature.text()) + float(self.tool1ActualTemperature.text()) > 50:
-            writeToLightbar('state:6[40]')
-        else:
-            writeToLightbar('state:6[20]')
 
 
         self.printerStatusText = status
@@ -1361,20 +1346,16 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             self.printerStatusColour.setStyleSheet(_fromUtf8("     border: 1px solid rgb(87, 87, 87);\n"
                                                              "    border-radius: 10px;\n"
                                                              "background-color: qlineargradient(spread:pad, x1:0, y1:0.517, x2:0, y2:0.512, stop:0 rgba(255, 28, 35, 255), stop:1 rgba(255, 68, 74, 255));"))
-            if lightbar and self.setLEDFromStatus:
-                writeToLightbar('state:4')
         elif status == "Paused":  # Amber
             self.printerStatusColour.setStyleSheet(_fromUtf8("     border: 1px solid rgb(87, 87, 87);\n"
                                                              "    border-radius: 10px;\n"
                                                              "background-color: qlineargradient(spread:pad, x1:0, y1:0.523, x2:0, y2:0.54, stop:0 rgba(255, 211, 78, 255), stop:1 rgba(219, 183, 74, 255));"))
-            if lightbar and self.setLEDFromStatus:
-                writeToLightbar('state:3')
+
         elif status == "Operational":  # Amber
             self.printerStatusColour.setStyleSheet(_fromUtf8("     border: 1px solid rgb(87, 87, 87);\n"
                                                              "    border-radius: 10px;\n"
                                                              "background-color: qlineargradient(spread:pad, x1:0, y1:0.523, x2:0, y2:0.54, stop:0 rgba(74, 183, 255, 255), stop:1 rgba(53, 173, 242, 255));"))
-            if lightbar and self.setLEDFromStatus:
-                writeToLightbar('state:1')
+
         '''
         Depending on Status, enable and Disable Buttons
         '''
@@ -1646,10 +1627,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         octopiclient.gcode(command='M206 Z0')
         octopiclient.home(['x', 'y', 'z'])
         octopiclient.jog(x=125, y=125, z=35, absolute=True, speed=1500)
-        self.setLEDFromStatus = False  # so that led is updated from ui, not from octoptint loop
-        if lightbar:
-            writeToLightbar('state:5')
-
 
     def step2(self):
         '''
@@ -1736,7 +1713,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         Sets the new z home offset, and goes back to caliebration page
         :return:
         '''
-        self.setLEDFromStatus = True
         self.stackedWidget.setCurrentWidget(self.caliberatePage)
         self.setHomeOffsetBool = True
         octopiclient.gcode(command='M114')
@@ -1752,28 +1728,14 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.caliberatePage)
 
     ''' +++++++++++++++++++++++++++++++++++Keyboard++++++++++++++++++++++++++++++++ '''
-
-    def startKeyboardPassword(self):
+    def startKeyboard(self,returnFunction):
         '''
         starts the keyboard screen for entering Password
         '''
         keyBoardobj = keyBoardFunc.Keyboard()
-        self.connect(keyBoardobj, QtCore.SIGNAL('KEYBOARD'), self.wifiPasswordLineEdit.setText)
+        self.connect(keyBoardobj, QtCore.SIGNAL('KEYBOARD'), returnFunction)
         keyBoardobj.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         keyBoardobj.show()
-        # flag that will be used to know where to enter text
-        self.enterIntoPassword = True
-
-    def startKeyboardSSID(self):
-        '''
-        starts the keyboard screen for entering SSID
-        '''
-        keyBoardobj = keyBoardFunc.Keyboard()
-        self.connect(keyBoardobj, QtCore.SIGNAL('KEYBOARD'), self.wifiSettingsComboBox.addItem)
-        keyBoardobj.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        keyBoardobj.show()
-        # flag that will be used to know where to enter text
-        self.enterIntoSSID = True
 
     ''' +++++++++++++++++++++++++++++++++++ Misc ++++++++++++++++++++++++++++++++ '''
 
@@ -1881,12 +1843,20 @@ class QtWebsocket(QtCore.QThread):
                 if "tool1" not in data["current"]["temps"][0]:
                     data["current"]["temps"][0]["tool1"] = {"actual" : 0}
                     data["current"]["temps"][0]["tool1"] = {"target" : 0}
-                temperatures = {'tool0Actual': data["current"]["temps"][0]["tool0"]["actual"],
-                                'tool0Target': data["current"]["temps"][0]["tool0"]["target"],
-                                'tool1Actual': data["current"]["temps"][0]["tool1"]["actual"],
-                                'tool1Target': data["current"]["temps"][0]["tool1"]["target"],
-                                'bedActual': data["current"]["temps"][0]["bed"]["actual"],
-                                'bedTarget': data["current"]["temps"][0]["bed"]["target"]}
+                try:
+                    temperatures = {'tool0Actual': data["current"]["temps"][0]["tool0"]["actual"],
+                                    'tool0Target': data["current"]["temps"][0]["tool0"]["target"],
+                                    'tool1Actual': data["current"]["temps"][0]["tool1"]["actual"],
+                                    'tool1Target': data["current"]["temps"][0]["tool1"]["target"],
+                                    'bedActual': data["current"]["temps"][0]["bed"]["actual"],
+                                    'bedTarget': data["current"]["temps"][0]["bed"]["target"]}
+                except KeyError:
+                    temperatures = {'tool0Actual': data["current"]["temps"][0]["tool0"]["actual"],
+                                    'tool0Target': data["current"]["temps"][0]["tool0"]["target"],
+                                    'tool1Actual': 0,
+                                    'tool1Target': 0,
+                                    'bedActual': data["current"]["temps"][0]["bed"]["actual"],
+                                    'bedTarget': data["current"]["temps"][0]["bed"]["target"]}
                 self.emit(QtCore.SIGNAL('TEMPERATURES'), temperatures)
 
     def on_open(self, ws):
@@ -1903,11 +1873,9 @@ class sanityCheckThread(QtCore.QThread):
     def __init__(self):
         super(sanityCheckThread, self).__init__()
         self.MKSPort = None
-        self.lightBarPort = None
 
     def run(self):
         global octopiclient
-        global lightbar
         shutdown_flag = False
         # get the first value of t1 (runtime check)
         uptime = 0
@@ -1928,10 +1896,6 @@ class sanityCheckThread(QtCore.QThread):
                         self.MKSPort = line[line.index('ttyUSB'):line.index('ttyUSB') + 7]
                         print self.MKSPort
 
-                    elif 'ch341-uart' in line:
-                        self.lightBarPort = line[line.index('ttyUSB'):line.index('ttyUSB') + 7]
-                        print self.lightBarPort
-
                 if not self.MKSPort:
                     octopiclient.connectPrinter(port="VIRTUAL", baudrate=115200)
                 else:
@@ -1943,25 +1907,6 @@ class sanityCheckThread(QtCore.QThread):
                 print "Not Connected!"
         if shutdown_flag == False:
             self.emit(QtCore.SIGNAL('LOADED'))
-            if self.lightBarPort:
-                lightbar = serial.Serial(port="/dev/" + self.lightBarPort, baudrate=9600)
-                print "Connected to lightbar"
-                writeToLightbar('state:1')
-            else:
-                lightbar = False
-@run_async
-def writeToLightbar(state):
-    lightbar.write(state + "\n")
-    time.sleep(0.1)
-    while lightbar.in_waiting == 0:
-        time.sleep(0.5)
-        lightbar.write(state + "\n")
-    else:
-        lightbar.flushInput()
-
-
-
-
 
 
 class fileUploadThread(QtCore.QThread):
@@ -2037,3 +1982,6 @@ if __name__ == '__main__':
     # charm = FlickCharm()
     # charm.activateOn(MainWindow.FileListWidget)
 sys.exit(app.exec_())
+
+
+a[{"event":{"type":"PositionUpdate","payload":{"reason":null,"e":0.0,"t":0,"f":null,"y":0.0,"x":0.0,"z":0.0}}}]

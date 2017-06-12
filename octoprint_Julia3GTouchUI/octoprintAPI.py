@@ -620,7 +620,7 @@ class octoprintAPI:
 
 
     def toggleFiamentSensor(self,value):
-        url = 'http://' + self.ip + '/plugin/Julia3GFilament/enable'
+        url = 'http://' + self.ip + '/plugin/Julia3GFilamentSensor/enable'
         payload = {'sensorCount': value}
         headers = {'content-type': 'application/json', 'X-Api-Key': self.apiKey}
         requests.post(url, data=json.dumps(payload), headers=headers)

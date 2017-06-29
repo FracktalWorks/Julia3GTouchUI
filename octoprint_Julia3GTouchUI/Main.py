@@ -232,9 +232,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.movie4 = QtGui.QMovie("templates/img/lockCenter.gif")
         self.turnCenterLevelingScrewLabel.setMovie(self.movie4)
 
-        self.movie5 = QtGui.QMovie("templates/img/heightCaliberation.gif")
-        self.caliberationHeightLabel.setMovie(self.movie5)
-
     def __init__(self):
         '''
         This method gets called when an object of type MainUIClass is defined
@@ -319,19 +316,12 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.step4NextButton.clicked.connect(self.step5)
         self.step5NextButton.clicked.connect(self.step6)
         self.step6NextButton.clicked.connect(self.doneStep)
-        #self.step6NextButton.clicked.connect(self.step7) # skips the nozzle height caliberation wissard
-        #self.step7NextButton.clicked.connect(self.step8)
-        #self.step8DoneButton.clicked.connect(self.doneStep)
-        self.moveZMCaliberateButton.pressed.connect(lambda: octopiclient.jog(z=-0.05))
-        self.moveZPCaliberateButton.pressed.connect(lambda: octopiclient.jog(z=0.05))
         self.step1CancelButton.pressed.connect(self.cancelStep)
         self.step2CancelButton.pressed.connect(self.cancelStep)
         self.step3CancelButton.pressed.connect(self.cancelStep)
         self.step4CancelButton.pressed.connect(self.cancelStep)
         self.step5CancelButton.pressed.connect(self.cancelStep)
         self.step6CancelButton.pressed.connect(self.cancelStep)
-        self.step7CancelButton.pressed.connect(self.cancelStep)
-        self.step8CancelButton.pressed.connect(self.cancelStep)
 
         # PrintLocationScreen
         self.printLocationScreenBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.MenuPage))
@@ -1258,6 +1248,8 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                         self.stackedWidget.setCurrentWidget(self.changeFilamentExtrudePage)
                     else:
                         self.stackedWidget.setCurrentWidget(self.changeFilamentRetractPage)
+                        octopiclient.extrude(5) # extrudes some amount of filament to prevent plugging
+
                 self.changeFilamentProgress.setValue(temperature['tool0Actual'])
             elif self.activeExtruder == 1:
                 if temperature['tool1Target'] == 0:
@@ -1271,7 +1263,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                         self.stackedWidget.setCurrentWidget(self.changeFilamentExtrudePage)
                     else:
                         self.stackedWidget.setCurrentWidget(self.changeFilamentRetractPage)
-                        octopiclient.extrude(10) # extrudes some amount of filament to prevent plugging
+                        octopiclient.extrude(5) # extrudes some amount of filament to prevent plugging
 
                 self.changeFilamentProgress.setValue(temperature['tool1Actual'])
 
@@ -1693,32 +1685,13 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         octopiclient.jog(z=2, absolute=True)
         self.movie4.stop()
 
-    # def step7(self):
-    #     '''
-    #     Shows the animaion to show how leveling is done
-    #     :return:
-    #     '''
-    #     self.stackedWidget.setCurrentWidget(self.step7Page)
-    #
-    #     self.movie5.start()
-    #
-    # def step8(self):
-    #     '''
-    #     actually jogs the nozzle up depending on user input by a factor of 0.05
-    #     :return:
-    #     '''
-    #     self.stackedWidget.setCurrentWidget(self.step8Page)
-    #     self.movie5.stop()
-    #     # Jog commads are set in setActions() under caliberation
-
     def doneStep(self):
         '''
         Sets the new z home offset, and goes back to caliebration page
         :return:
         '''
         self.stackedWidget.setCurrentWidget(self.caliberatePage)
-        #self.setHomeOffsetBool = True
-        #octopiclient.gcode(command='M114') Was being used to set the current Z position as the home offset
+
         octopiclient.gcode(command='M501') # restore eeprom settings to get Z home offset back
         octopiclient.home(['z'])
         octopiclient.home(['x', 'y'])
@@ -1730,7 +1703,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.movie2.stop()
         self.movie3.stop()
         self.movie4.stop()
-        self.movie5.stop()
         self.stackedWidget.setCurrentWidget(self.caliberatePage)
 
     ''' +++++++++++++++++++++++++++++++++++Keyboard++++++++++++++++++++++++++++++++ '''

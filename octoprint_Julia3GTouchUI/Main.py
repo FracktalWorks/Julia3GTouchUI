@@ -318,9 +318,10 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.step3NextButton.clicked.connect(self.step4)
         self.step4NextButton.clicked.connect(self.step5)
         self.step5NextButton.clicked.connect(self.step6)
-        self.step6NextButton.clicked.connect(self.step7)
-        self.step7NextButton.clicked.connect(self.step8)
-        self.step8DoneButton.clicked.connect(self.doneStep)
+        self.step6NextButton.clicked.connect(self.doneStep)
+        #self.step6NextButton.clicked.connect(self.step7) # skips the nozzle height caliberation wissard
+        #self.step7NextButton.clicked.connect(self.step8)
+        #self.step8DoneButton.clicked.connect(self.doneStep)
         self.moveZMCaliberateButton.pressed.connect(lambda: octopiclient.jog(z=-0.05))
         self.moveZPCaliberateButton.pressed.connect(lambda: octopiclient.jog(z=0.05))
         self.step1CancelButton.pressed.connect(self.cancelStep)
@@ -402,8 +403,8 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.changeFilamentLoadButton.pressed.connect(lambda: self.loadFilament())
         self.loadDoneButton.pressed.connect(self.control)
         self.unloadDoneButton.pressed.connect(self.changeFilament)
-        self.retractFilamentButton.pressed.connect(lambda: octopiclient.extrude(-10))
-        self.ExtrudeButton.pressed.connect(lambda: octopiclient.extrude(10))
+        self.retractFilamentButton.pressed.connect(lambda: octopiclient.extrude(-20))
+        self.ExtrudeButton.pressed.connect(lambda: octopiclient.extrude(20))
 
         # Settings Page
         self.settingsBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.MenuPage))
@@ -1270,6 +1271,8 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                         self.stackedWidget.setCurrentWidget(self.changeFilamentExtrudePage)
                     else:
                         self.stackedWidget.setCurrentWidget(self.changeFilamentRetractPage)
+                        octopiclient.extrude(10) # extrudes some amount of filament to prevent plugging
+
                 self.changeFilamentProgress.setValue(temperature['tool1Actual'])
 
     def updatePrintStatus(self, file):
@@ -1624,7 +1627,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         :return:
         '''
         self.stackedWidget.setCurrentWidget(self.step1Page)
-        octopiclient.gcode(command='M206 Z0')
+        octopiclient.gcode(command='M206 Z0') # Sets Z home offset to 0
         octopiclient.home(['x', 'y', 'z'])
         octopiclient.jog(x=125, y=125, z=35, absolute=True, speed=1500)
 
@@ -1690,23 +1693,23 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         octopiclient.jog(z=2, absolute=True)
         self.movie4.stop()
 
-    def step7(self):
-        '''
-        Shows the animaion to show how leveling is done
-        :return:
-        '''
-        self.stackedWidget.setCurrentWidget(self.step7Page)
-
-        self.movie5.start()
-
-    def step8(self):
-        '''
-        actually jogs the nozzle up depending on user input by a factor of 0.05
-        :return:
-        '''
-        self.stackedWidget.setCurrentWidget(self.step8Page)
-        self.movie5.stop()
-        # Jog commads are set in setActions() under caliberation
+    # def step7(self):
+    #     '''
+    #     Shows the animaion to show how leveling is done
+    #     :return:
+    #     '''
+    #     self.stackedWidget.setCurrentWidget(self.step7Page)
+    #
+    #     self.movie5.start()
+    #
+    # def step8(self):
+    #     '''
+    #     actually jogs the nozzle up depending on user input by a factor of 0.05
+    #     :return:
+    #     '''
+    #     self.stackedWidget.setCurrentWidget(self.step8Page)
+    #     self.movie5.stop()
+    #     # Jog commads are set in setActions() under caliberation
 
     def doneStep(self):
         '''
@@ -1714,12 +1717,15 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         :return:
         '''
         self.stackedWidget.setCurrentWidget(self.caliberatePage)
-        self.setHomeOffsetBool = True
-        octopiclient.gcode(command='M114')
+        #self.setHomeOffsetBool = True
+        #octopiclient.gcode(command='M114') Was being used to set the current Z position as the home offset
+        octopiclient.gcode(command='M501') # restore eeprom settings to get Z home offset back
+        octopiclient.home(['z'])
+        octopiclient.home(['x', 'y'])
         # set current Z value as -home offset
 
     def cancelStep(self):
-        self.setLEDFromStatus = True
+        octopiclient.gcode(command='M501') # restore eeprom settings
         self.movie1.stop()
         self.movie2.stop()
         self.movie3.stop()

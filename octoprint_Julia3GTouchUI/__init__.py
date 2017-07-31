@@ -54,7 +54,7 @@ class Julia3GTouchUI(octoprint.plugin.StartupPlugin,
 		:return:
 		'''
 		return dict(
-			resetInetrval=2
+			resetInetrval=6
 			)
 
 	def get_update_information(self):

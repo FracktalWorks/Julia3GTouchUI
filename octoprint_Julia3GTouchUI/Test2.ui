@@ -6767,7 +6767,7 @@ QTabWidget::tab-bar {
 QTabBar::tab {
    border-right: 1px solid rgb(87, 87, 87);
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-    border-bottom-color: #C2C7CB; /* same as the pane color */
+    border-top-color: #C2C7CB; /* same as the pane color */
     width: 69px;
      height: 50px;
 	padding-left: 25px;
@@ -6801,13 +6801,13 @@ QTabBar:focus {
 }</string>
       </property>
       <property name="tabPosition">
-       <enum>QTabWidget::North</enum>
+       <enum>QTabWidget::South</enum>
       </property>
       <property name="tabShape">
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -6836,8 +6836,8 @@ QTabBar:focus {
        <widget class="QLabel" name="flowRateLabelControlPage_2">
         <property name="geometry">
          <rect>
-          <x>65</x>
-          <y>40</y>
+          <x>80</x>
+          <y>90</y>
           <width>181</width>
           <height>31</height>
          </rect>
@@ -6861,8 +6861,8 @@ background-color: rgba(255, 255, 255, 0);</string>
        <widget class="QSpinBox" name="feedRateSpinBox">
         <property name="geometry">
          <rect>
-          <x>62</x>
-          <y>28</y>
+          <x>77</x>
+          <y>78</y>
           <width>241</width>
           <height>136</height>
          </rect>
@@ -6961,8 +6961,8 @@ QSpinBox::down-button:pressed {
        <widget class="QPushButton" name="setFeedRateButton">
         <property name="geometry">
          <rect>
-          <x>300</x>
-          <y>30</y>
+          <x>315</x>
+          <y>80</y>
           <width>91</width>
           <height>132</height>
          </rect>
@@ -7030,7 +7030,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>20</y>
+          <y>80</y>
           <width>70</width>
           <height>21</height>
          </rect>
@@ -7054,7 +7054,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>340</x>
-          <y>20</y>
+          <y>80</y>
           <width>70</width>
           <height>21</height>
          </rect>
@@ -7078,7 +7078,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>210</y>
+          <y>0</y>
           <width>101</width>
           <height>60</height>
          </rect>
@@ -7099,7 +7099,7 @@ QPushButton:focus {
          <string notr="true">QPushButton {
     border: 1px solid rgb(87, 87, 87);
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-border-top-left-radius: 15px;
+border-bottom-left-radius: 15px;
 }
 
 QPushButton:pressed {
@@ -7137,7 +7137,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>300</x>
-          <y>210</y>
+          <y>0</y>
           <width>81</width>
           <height>60</height>
          </rect>
@@ -7159,7 +7159,7 @@ QPushButton:focus {
      border: 1px solid rgb(87, 87, 87);
 
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-border-top-right-radius: 15px;
+border-bottom-right-radius: 15px;
 }
 
 QPushButton:pressed {
@@ -7209,7 +7209,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>220</x>
-          <y>210</y>
+          <y>0</y>
           <width>81</width>
           <height>60</height>
          </rect>
@@ -7280,7 +7280,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>60</y>
+          <y>120</y>
           <width>161</width>
           <height>131</height>
          </rect>
@@ -7374,7 +7374,7 @@ QSpinBox::down-button:pressed {
         <property name="geometry">
          <rect>
           <x>240</x>
-          <y>60</y>
+          <y>120</y>
           <width>161</width>
           <height>131</height>
          </rect>
@@ -7468,7 +7468,7 @@ QSpinBox::down-button:pressed {
         <property name="geometry">
          <rect>
           <x>159</x>
-          <y>60</y>
+          <y>120</y>
           <width>71</width>
           <height>130</height>
          </rect>
@@ -7522,7 +7522,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>399</x>
-          <y>62</y>
+          <y>122</y>
           <width>71</width>
           <height>128</height>
          </rect>
@@ -7577,7 +7577,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>94</x>
-          <y>12</y>
+          <y>72</y>
           <width>136</width>
           <height>51</height>
          </rect>
@@ -7672,8 +7672,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="step1Button">
         <property name="geometry">
          <rect>
-          <x>102</x>
-          <y>225</y>
+          <x>92</x>
+          <y>-10</y>
           <width>100</width>
           <height>45</height>
          </rect>
@@ -7694,7 +7694,7 @@ QPushButton:focus {
          <string notr="true">QPushButton {
      border: 1px solid rgb(87, 87, 87);
      border-bottom: none; /* no border for a flat push button */
-border-top-left-radius: 15px;
+border-bottom-left-radius: 15px;
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
 }
 
@@ -7742,8 +7742,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="step10Button">
         <property name="geometry">
          <rect>
-          <x>201</x>
-          <y>225</y>
+          <x>191</x>
+          <y>-10</y>
           <width>100</width>
           <height>45</height>
          </rect>
@@ -7812,8 +7812,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="step100Button">
         <property name="geometry">
          <rect>
-          <x>300</x>
-          <y>225</y>
+          <x>290</x>
+          <y>-10</y>
           <width>101</width>
           <height>45</height>
          </rect>
@@ -7885,8 +7885,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveYPButton">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>6</y>
+          <x>90</x>
+          <y>46</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -7957,8 +7957,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveYMButton">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>144</y>
+          <x>90</x>
+          <y>184</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8030,8 +8030,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveXPButton">
         <property name="geometry">
          <rect>
-          <x>149</x>
-          <y>75</y>
+          <x>159</x>
+          <y>115</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8103,8 +8103,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveXMButton">
         <property name="geometry">
          <rect>
-          <x>11</x>
-          <y>75</y>
+          <x>21</x>
+          <y>115</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8176,8 +8176,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="homeXYButton">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>75</y>
+          <x>90</x>
+          <y>115</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8247,8 +8247,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="homeZButton">
         <property name="geometry">
          <rect>
-          <x>240</x>
-          <y>75</y>
+          <x>250</x>
+          <y>115</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8318,8 +8318,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="motorOffButton">
         <property name="geometry">
          <rect>
-          <x>400</x>
-          <y>225</y>
+          <x>390</x>
+          <y>-10</y>
           <width>81</width>
           <height>45</height>
          </rect>
@@ -8340,7 +8340,7 @@ QPushButton:focus {
          <string notr="true">QPushButton {
      border: 1px solid rgb(87, 87, 87);
      border-bottom: none; /* no border for a flat push button */
- border-top-right-radius: 15px;
+ border-bottom-right-radius: 15px;
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
 }
 
@@ -8389,8 +8389,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveZMButton">
         <property name="geometry">
          <rect>
-          <x>240</x>
-          <y>6</y>
+          <x>250</x>
+          <y>46</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8462,8 +8462,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveZPButton">
         <property name="geometry">
          <rect>
-          <x>240</x>
-          <y>144</y>
+          <x>250</x>
+          <y>184</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8535,8 +8535,8 @@ QPushButton:focus {
        <widget class="QLabel" name="XYLabel">
         <property name="geometry">
          <rect>
-          <x>2</x>
-          <y>10</y>
+          <x>12</x>
+          <y>50</y>
           <width>70</width>
           <height>21</height>
          </rect>
@@ -8559,8 +8559,8 @@ QPushButton:focus {
        <widget class="QLabel" name="ZLabel">
         <property name="geometry">
          <rect>
-          <x>200</x>
-          <y>10</y>
+          <x>210</x>
+          <y>50</y>
           <width>31</width>
           <height>21</height>
          </rect>
@@ -8583,8 +8583,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="retractButton">
         <property name="geometry">
          <rect>
-          <x>370</x>
-          <y>144</y>
+          <x>380</x>
+          <y>184</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8656,8 +8656,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="extruderButton">
         <property name="geometry">
          <rect>
-          <x>370</x>
-          <y>75</y>
+          <x>380</x>
+          <y>115</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8728,8 +8728,8 @@ QPushButton:focus {
        <widget class="QLabel" name="ELabel">
         <property name="geometry">
          <rect>
-          <x>320</x>
-          <y>10</y>
+          <x>330</x>
+          <y>50</y>
           <width>31</width>
           <height>21</height>
          </rect>
@@ -8752,8 +8752,8 @@ QPushButton:focus {
        <widget class="QLabel" name="moveByLabel">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>235</y>
+          <x>0</x>
+          <y>0</y>
           <width>111</width>
           <height>21</height>
          </rect>
@@ -8776,8 +8776,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="toolToggleMotionButton">
         <property name="geometry">
          <rect>
-          <x>370</x>
-          <y>6</y>
+          <x>380</x>
+          <y>46</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8884,7 +8884,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>240</x>
-          <y>180</y>
+          <y>0</y>
           <width>241</width>
           <height>91</height>
          </rect>
@@ -8941,8 +8941,8 @@ QToolButton :focus {
        <widget class="QPushButton" name="setFlowRateButton">
         <property name="geometry">
          <rect>
-          <x>300</x>
-          <y>30</y>
+          <x>298</x>
+          <y>102</y>
           <width>91</width>
           <height>132</height>
          </rect>
@@ -8996,8 +8996,8 @@ QPushButton:focus {
        <widget class="QSpinBox" name="flowRateSpinBox">
         <property name="geometry">
          <rect>
-          <x>62</x>
-          <y>28</y>
+          <x>60</x>
+          <y>100</y>
           <width>241</width>
           <height>136</height>
          </rect>
@@ -9122,7 +9122,7 @@ background-color: rgba(255, 255, 255, 0);</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>180</y>
+          <y>0</y>
           <width>241</width>
           <height>91</height>
          </rect>
@@ -9188,13 +9188,15 @@ QToolButton :focus {
        <zorder>flowRateLabelControlPage</zorder>
        <zorder>changeFilamentButton</zorder>
        <zorder>filamentSensorToggleButton</zorder>
+       <zorder>controlBackButton</zorder>
+       <zorder>controlBackButton</zorder>
       </widget>
      </widget>
      <widget class="QPushButton" name="controlBackButton">
       <property name="geometry">
        <rect>
         <x>380</x>
-        <y>0</y>
+        <y>270</y>
         <width>100</width>
         <height>50</height>
        </rect>

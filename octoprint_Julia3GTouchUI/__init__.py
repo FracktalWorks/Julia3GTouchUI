@@ -42,11 +42,11 @@ class Julia3GTouchUI(octoprint.plugin.StartupPlugin,
 
 
 	def worker(self):
-		self._logger.info("Restarting Touch driver ...")
+		#self._logger.info("Restarting Touch driver ...")
 		subprocess.call(["sudo", "modprobe", "-r", "ads7846"], shell=False)
 		time.sleep(0.1)
 		subprocess.call(["sudo", "modprobe", "ads7846"], shell=False)
-		self._logger.info("Touch driver restarted")
+		#self._logger.info("Touch driver restarted")
 
 	def get_settings_defaults(self):
 		'''
@@ -75,7 +75,7 @@ class Julia3GTouchUI(octoprint.plugin.StartupPlugin,
 
 
 __plugin_name__ = "Julia3GTouchUI"
-__plugin_version__ = "1.0.5"
+__plugin_version__ = "1.0.6"
 
 
 def __plugin_load__():

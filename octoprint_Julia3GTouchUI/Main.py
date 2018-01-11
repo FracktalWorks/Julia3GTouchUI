@@ -405,6 +405,8 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.versionButton.pressed.connect(self.displayVersionInfo)
         self.caliberateTouch.pressed.connect(self.touchCaliberation)
         self.restartButton.pressed.connect(self.reboot)
+        self.restoreFactoryDefaultsButton.pressed.connect(self.areYouSureFactoryDefaultsMessageBox)
+        self.restorePrintSettingsButton.pressed.connect(self.areYouSurerestorePrintSettingsMessageBox)
 
         # Network Info Page
         self.networkInfoBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.settingsPage))
@@ -1620,7 +1622,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         '''
         self.stackedWidget.setCurrentWidget(self.step1Page)
         octopiclient.gcode(command='M206 Z0') # Sets Z home offset to 0
-        octopiclient.home(['x', 'y', 'z'])
+
         octopiclient.jog(x=125, y=125, z=35, absolute=True, speed=1500)
 
     def step2(self):
@@ -1714,6 +1716,109 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.connect(keyBoardobj, QtCore.SIGNAL('KEYBOARD'), returnFunction)
         keyBoardobj.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         keyBoardobj.show()
+
+    ''' ++++++++++++++++++++++++++++++Restore Defaults++++++++++++++++++++++++++++ '''
+    def restoreFactoryDefaults(self):
+
+        os.system('sudo rm -rf  /home/pi/.octoprint/users.yaml')
+        os.system('sudo cp -f config_Julia3G.yaml /home/pi/.octoprint/config.yaml')
+
+
+    def restorePrintDefaults(self):
+        octopiclient.gcode(command='M502')
+        octopiclient.gcode(command='M500')
+
+
+
+
+    def areYouSureFactoryDefaultsMessageBox(self):
+            '''
+            Displays a message box asking if the user is sure if he wants to turn off the print
+            '''
+            choice = QtGui.QMessageBox()
+            choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            font = QtGui.QFont()
+            QtGui.QInputMethodEvent
+            font.setFamily(_fromUtf8("Gotham"))
+            font.setPointSize(14)
+            font.setBold(False)
+            font.setUnderline(False)
+            font.setWeight(50)
+            font.setStrikeOut(False)
+            choice.setFont(font)
+            choice.setText("Are you sure you want to restore to factory defaults?")
+            # choice.setText(text)
+            choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+            # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+            # choice.setFixedSize(QtCore.QSize(400, 300))
+            choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+            choice.setStyleSheet(_fromUtf8("\n"
+                                           "QPushButton{\n"
+                                           "     border: 1px solid rgb(87, 87, 87);\n"
+                                           "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                           "height:70px;\n"
+                                           "width: 150px;\n"
+                                           "border-radius:5px;\n"
+                                           "    font: 14pt \"Gotham\";\n"
+                                           "}\n"
+                                           "\n"
+                                           "QPushButton:pressed {\n"
+                                           "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                           "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                           "}\n"
+                                           "QPushButton:focus {\n"
+                                           "outline: none;\n"
+                                           "}\n"
+                                           "\n"
+                                           ""))
+            retval = choice.exec_()
+            if retval == QtGui.QMessageBox.Yes:
+                self.restoreFactoryDefaults()
+
+
+    def areYouSurerestorePrintSettingsMessageBox(self):
+        '''
+        Displays a message box asking if the user is sure if he wants to turn off the print
+        '''
+        choice = QtGui.QMessageBox()
+        choice.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        font = QtGui.QFont()
+        QtGui.QInputMethodEvent
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        choice.setFont(font)
+        choice.setText("Are you sure you want to restore default print settings?")
+        # choice.setText(text)
+        choice.setIconPixmap(QtGui.QPixmap(_fromUtf8("templates/img/exclamation-mark.png")))
+        # choice.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        # choice.setFixedSize(QtCore.QSize(400, 300))
+        choice.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        choice.setStyleSheet(_fromUtf8("\n"
+                                       "QPushButton{\n"
+                                       "     border: 1px solid rgb(87, 87, 87);\n"
+                                       "    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                       "height:70px;\n"
+                                       "width: 150px;\n"
+                                       "border-radius:5px;\n"
+                                       "    font: 14pt \"Gotham\";\n"
+                                       "}\n"
+                                       "\n"
+                                       "QPushButton:pressed {\n"
+                                       "    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                       "                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+                                       "}\n"
+                                       "QPushButton:focus {\n"
+                                       "outline: none;\n"
+                                       "}\n"
+                                       "\n"
+                                       ""))
+        retval = choice.exec_()
+        if retval == QtGui.QMessageBox.Yes:
+            self.restorePrintDefaults()
 
     ''' +++++++++++++++++++++++++++++++++++ Misc ++++++++++++++++++++++++++++++++ '''
 
@@ -1962,4 +2067,3 @@ if __name__ == '__main__':
 sys.exit(app.exec_())
 
 
-a[{"event":{"type":"PositionUpdate","payload":{"reason":null,"e":0.0,"t":0,"f":null,"y":0.0,"x":0.0,"z":0.0}}}]

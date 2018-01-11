@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Test2.ui'
+# Form implementation generated from reading ui file '.\Test2.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -889,7 +889,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 398, 560))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -382, 398, 700))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setContentsMargins(0, 0, 3, 0)
@@ -1089,6 +1089,70 @@ class Ui_MainWindow(object):
         self.caliberateTouch.setIconSize(QtCore.QSize(40, 40))
         self.caliberateTouch.setObjectName(_fromUtf8("caliberateTouch"))
         self.verticalLayout.addWidget(self.caliberateTouch)
+        self.restorePrintSettingsButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.restorePrintSettingsButton.setMinimumSize(QtCore.QSize(0, 70))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(13)
+        self.restorePrintSettingsButton.setFont(font)
+        self.restorePrintSettingsButton.setStyleSheet(_fromUtf8("QPushButton {\n"
+"     border: 1px solid rgb(87, 87, 87);\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+"}\n"
+"\n"
+"QPushButton:flat {\n"
+"    border: none; /* no border for a flat push button */\n"
+"}\n"
+"\n"
+"QPushButton:default {\n"
+"    border-color: navy; /* make the default button prominent */\n"
+"}\n"
+"\n"
+"QPushButton:focus {\n"
+"    outline: none;\n"
+"}"))
+        self.restorePrintSettingsButton.setIconSize(QtCore.QSize(40, 40))
+        self.restorePrintSettingsButton.setObjectName(_fromUtf8("restorePrintSettingsButton"))
+        self.verticalLayout.addWidget(self.restorePrintSettingsButton)
+        self.restoreFactoryDefaultsButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.restoreFactoryDefaultsButton.setMinimumSize(QtCore.QSize(0, 70))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Gotham"))
+        font.setPointSize(13)
+        self.restoreFactoryDefaultsButton.setFont(font)
+        self.restoreFactoryDefaultsButton.setStyleSheet(_fromUtf8("QPushButton {\n"
+"     border: 1px solid rgb(87, 87, 87);\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+"}\n"
+"\n"
+"QPushButton:flat {\n"
+"    border: none; /* no border for a flat push button */\n"
+"}\n"
+"\n"
+"QPushButton:default {\n"
+"    border-color: navy; /* make the default button prominent */\n"
+"}\n"
+"\n"
+"QPushButton:focus {\n"
+"    outline: none;\n"
+"}"))
+        self.restoreFactoryDefaultsButton.setIconSize(QtCore.QSize(40, 40))
+        self.restoreFactoryDefaultsButton.setObjectName(_fromUtf8("restoreFactoryDefaultsButton"))
+        self.verticalLayout.addWidget(self.restoreFactoryDefaultsButton)
         self.versionButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.versionButton.setMinimumSize(QtCore.QSize(0, 70))
         font = QtGui.QFont()
@@ -5722,7 +5786,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.mainApplication)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(3)
         self.controlTabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -5756,6 +5820,8 @@ class Ui_MainWindow(object):
         self.pairPhoneButton.setText(_translate("MainWindow", "Open in Smartphone", None))
         self.OTAButton.setText(_translate("MainWindow", "Check for Updates", None))
         self.caliberateTouch.setText(_translate("MainWindow", "Caliberate Touch", None))
+        self.restorePrintSettingsButton.setText(_translate("MainWindow", "Restore Print Settings", None))
+        self.restoreFactoryDefaultsButton.setText(_translate("MainWindow", "Restore Factory Defaults", None))
         self.versionButton.setText(_translate("MainWindow", "Version", None))
         self.restartButton.setText(_translate("MainWindow", "Restart", None))
         self.ssidlabel.setText(_translate("MainWindow", "Enter SSID:", None))

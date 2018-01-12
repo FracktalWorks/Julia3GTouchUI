@@ -1622,7 +1622,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         '''
         self.stackedWidget.setCurrentWidget(self.step1Page)
         octopiclient.gcode(command='M206 Z0') # Sets Z home offset to 0
-
+        octopiclient.home(['x', 'y', 'z'])
         octopiclient.jog(x=125, y=125, z=35, absolute=True, speed=1500)
 
     def step2(self):
@@ -1724,7 +1724,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         os.system('sudo cp -f config_Julia3G.yaml /home/pi/.octoprint/config.yaml')
         self.rebootAfterRestore()
 
-
     def restorePrintDefaults(self):
         octopiclient.gcode(command='M502')
         octopiclient.gcode(command='M500')
@@ -1816,7 +1815,6 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             retval = choice.exec_()
             if retval == QtGui.QMessageBox.Yes:
                 self.restoreFactoryDefaults()
-
 
     def areYouSurerestorePrintSettingsMessageBox(self):
         '''

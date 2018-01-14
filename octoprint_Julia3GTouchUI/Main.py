@@ -403,7 +403,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.networkInfoButton.pressed.connect(self.networkInfo)
         self.OTAButton.pressed.connect(self.softwareUpdate)
         self.versionButton.pressed.connect(self.displayVersionInfo)
-        self.caliberateTouch.pressed.connect(self.touchCaliberation)
+        self.caliberateTouch.clicked.connect(self.touchCaliberation)
         self.restartButton.pressed.connect(self.reboot)
         self.restoreFactoryDefaultsButton.pressed.connect(self.areYouSureFactoryDefaultsMessageBox)
         self.restorePrintSettingsButton.pressed.connect(self.areYouSurerestorePrintSettingsMessageBox)

@@ -54,7 +54,7 @@ class Julia3GTouchUI(octoprint.plugin.StartupPlugin,
 		:return:
 		'''
 		return dict(
-			resetInetrval=6
+			resetInetrval=15
 			)
 
 	def get_update_information(self):
@@ -75,7 +75,7 @@ class Julia3GTouchUI(octoprint.plugin.StartupPlugin,
 
 
 __plugin_name__ = "Julia3GTouchUI"
-__plugin_version__ = "1.0.8"
+__plugin_version__ = "1.0.7"
 
 
 def __plugin_load__():

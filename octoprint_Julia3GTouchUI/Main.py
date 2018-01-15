@@ -1061,7 +1061,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                 self.printPreviewSelected.setPixmap(pixmap)
 
             else:
-                self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/fracktal.png")))
+                self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/thumbnail.png")))
 
 
         except:
@@ -1070,7 +1070,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
 
             # Set image fot print preview:
-            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/fracktal.png")))
+            # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/thumbnail.png")))
             # print self.fileListWidget.currentItem().text().replace(".gcode","")
             # self.printPreviewSelected.setPixmap(QtGui.QPixmap(_fromUtf8("/home/pi/.octoprint/uploads/{}.png".format(self.FileListWidget.currentItem().text().replace(".gcode","")))))
 
@@ -1093,7 +1093,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
             if exists:
                 self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8(file)))
             else:
-                self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/fracktal.png")))
+                self.printPreviewSelectedUSB.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/thumbnail.png")))
         except:
             print "Log: Nothing Selected"
 
@@ -1321,7 +1321,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
                     pixmap.loadFromData(img)
                     self.printPreviewMain.setPixmap(pixmap)
                 else:
-                    self.printPreviewMain.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/fracktal.png")))
+                    self.printPreviewMain.setPixmap(QtGui.QPixmap(_fromUtf8("templates/img/thumbnail.png")))
 
     def updateStatus(self, status):
         '''

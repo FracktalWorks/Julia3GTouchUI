@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5f3bfca3-6a62-46bf-a4a3-5a39cfeecc16" name="Default" comment="" />
+    <list default="true" id="5f3bfca3-6a62-46bf-a4a3-5a39cfeecc16" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py" afterPath="$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py" />
+    </list>
     <ignored path="Julia3GTouchUI.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,8 +36,8 @@
       <file leaf-file-name="mainGUI.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="2935" column="64" selection-start-line="2935" selection-start-column="50" selection-end-line="2935" selection-end-column="64" />
+            <state relative-caret-position="70">
+              <caret line="3751" column="93" selection-start-line="3751" selection-start-column="93" selection-end-line="3751" selection-end-column="93" />
               <folding />
             </state>
           </provider>
@@ -87,8 +90,8 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="44" column="9" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="9" />
+            <state relative-caret-position="158">
+              <caret line="1321" column="59" selection-start-line="1321" selection-start-column="59" selection-end-line="1321" selection-end-column="59" />
               <folding>
                 <element signature="e#287#318#0" expanded="true" />
               </folding>
@@ -129,13 +132,13 @@
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/hurry/restartInterface.sh" />
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/restartInterface.sh" />
         <option value="$USER_HOME$/Downloads/prime.py" />
-        <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py" />
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/keyBoardFunc.py" />
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/octoprintAPI.py" />
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/config(Julia3G).yaml" />
-        <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py" />
+        <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py" />
+        <option value="$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py" />
       </list>
     </option>
   </component>
@@ -896,16 +899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="44" column="9" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="9" />
-          <folding>
-            <element signature="e#287#318#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
@@ -916,10 +909,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="1321" column="59" selection-start-line="1321" selection-start-column="59" selection-end-line="1321" selection-end-column="59" />
+          <folding>
+            <element signature="e#287#318#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/octoprint_Julia3GTouchUI/mainGUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="2935" column="64" selection-start-line="2935" selection-start-column="50" selection-end-line="2935" selection-end-column="64" />
+        <state relative-caret-position="70">
+          <caret line="3751" column="93" selection-start-line="3751" selection-start-column="93" selection-end-line="3751" selection-end-column="93" />
           <folding />
         </state>
       </provider>

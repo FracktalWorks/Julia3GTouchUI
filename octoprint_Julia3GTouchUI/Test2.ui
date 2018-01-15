@@ -173,7 +173,7 @@ QStatusBar::item {
 background-color: rgb(40, 40, 40);</string>
     </property>
     <property name="currentIndex">
-     <number>26</number>
+     <number>21</number>
     </property>
     <widget class="QWidget" name="loadingPage">
      <widget class="QLabel" name="LoadingLabel">
@@ -1228,7 +1228,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../JuliaMiniTouchUI/octoprint_JuliaMiniTouchUI/templates/img/thumbnail.png</pixmap>
+       <pixmap>templates/img/thumbnail.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -2975,7 +2975,7 @@ QPushButton:default {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../JuliaMiniTouchUI/octoprint_JuliaMiniTouchUI/templates/img/thumbnail.png</pixmap>
+       <pixmap>templates/img/thumbnail.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -6804,7 +6804,7 @@ QToolButton:default {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../JuliaMiniTouchUI/octoprint_JuliaMiniTouchUI/templates/img/thumbnail.png</pixmap>
+       <pixmap>templates/img/thumbnail.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>

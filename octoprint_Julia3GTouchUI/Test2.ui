@@ -173,7 +173,7 @@ QStatusBar::item {
 background-color: rgb(40, 40, 40);</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>26</number>
     </property>
     <widget class="QWidget" name="loadingPage">
      <widget class="QLabel" name="LoadingLabel">
@@ -815,28 +815,6 @@ QPushButton:focus {
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="printPreviewMain">
-      <property name="geometry">
-       <rect>
-        <x>270</x>
-        <y>30</y>
-        <width>210</width>
-        <height>210</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>templates/img/printer2.png</pixmap>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-     </widget>
      <widget class="QProgressBar" name="printProgressBar">
       <property name="geometry">
        <rect>
@@ -1234,8 +1212,29 @@ background-color: rgba(0, 0, 0, 0);</string>
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="printPreviewMain">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>30</y>
+        <width>210</width>
+        <height>210</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../JuliaMiniTouchUI/octoprint_JuliaMiniTouchUI/templates/img/thumbnail.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
      <zorder>line</zorder>
-     <zorder>printPreviewMain</zorder>
      <zorder>statusBar</zorder>
      <zorder>playPauseButton</zorder>
      <zorder>stopButton</zorder>
@@ -1263,6 +1262,7 @@ background-color: rgba(0, 0, 0, 0);</string>
      <zorder>tool1Label</zorder>
      <zorder>tool1TempBar</zorder>
      <zorder>tool1ActualTemperature</zorder>
+     <zorder>printPreviewMain</zorder>
     </widget>
     <widget class="QWidget" name="MenuPage">
      <widget class="QPushButton" name="menuBackButton">
@@ -1710,7 +1710,7 @@ QScrollBar::down-arrow:vertical {
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-382</y>
+         <y>0</y>
          <width>398</width>
          <height>700</height>
         </rect>
@@ -2963,7 +2963,7 @@ QPushButton:default {
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>30</y>
+        <y>20</y>
         <width>210</width>
         <height>210</height>
        </rect>
@@ -2975,7 +2975,7 @@ QPushButton:default {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>templates/img/printer2.png</pixmap>
+       <pixmap>../../JuliaMiniTouchUI/octoprint_JuliaMiniTouchUI/templates/img/thumbnail.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -2987,8 +2987,8 @@ QPushButton:default {
      <zorder>lanIpLabel</zorder>
      <zorder>lanIp</zorder>
      <zorder>networkInfoBackButton</zorder>
-     <zorder>printPreviewSelected_4</zorder>
      <zorder>hostname</zorder>
+     <zorder>printPreviewSelected_4</zorder>
     </widget>
     <widget class="QWidget" name="OTAUpdatePage">
      <widget class="QListWidget" name="updateListWidget">
@@ -6555,7 +6555,7 @@ background-color: rgba(255, 255, 255, 0);</string>
      <widget class="QLabel" name="printPreviewSelected">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>270</x>
         <y>30</y>
         <width>210</width>
         <height>210</height>
@@ -6568,26 +6568,12 @@ background-color: rgba(255, 255, 255, 0);</string>
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>templates/img/printer2.png</pixmap>
+       <pixmap>../../JuliaMiniTouchUI/octoprint_JuliaMiniTouchUI/templates/img/thumbnail.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
       </property>
      </widget>
-     <zorder>printPreviewSelected</zorder>
-     <zorder>fileSelected</zorder>
-     <zorder>fileSelectedBackButton</zorder>
-     <zorder>fileSelectedPrintButton</zorder>
-     <zorder>fileSizeSelected</zorder>
-     <zorder>fileDateSelected</zorder>
-     <zorder>filePrintTimeSelected</zorder>
-     <zorder>filamentVolumeSelected</zorder>
-     <zorder>fileSizeSelectedLabel</zorder>
-     <zorder>fileDateSelectedLabel</zorder>
-     <zorder>filePrintTimeSelectedLabel</zorder>
-     <zorder>filamentVolumeSelectedLabel</zorder>
-     <zorder>filamentLengthFileSelected</zorder>
-     <zorder>filamentLengthSelectedLabel</zorder>
     </widget>
     <widget class="QWidget" name="printSelectedUSBPage">
      <widget class="QToolButton" name="fileSelectedUSBTransferButton">
@@ -6648,28 +6634,6 @@ QToolButton:default {
       </property>
       <property name="toolButtonStyle">
        <enum>Qt::ToolButtonTextUnderIcon</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="printPreviewSelectedUSB">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>30</y>
-        <width>210</width>
-        <height>210</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>templates/img/printer2.png</pixmap>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
       </property>
      </widget>
      <widget class="QPushButton" name="fileSelectedUSBBackButton">
@@ -6824,11 +6788,28 @@ QToolButton:default {
        <enum>Qt::ToolButtonTextUnderIcon</enum>
       </property>
      </widget>
-     <zorder>printPreviewSelectedUSB</zorder>
-     <zorder>fileSelectedUSBTransferButton</zorder>
-     <zorder>fileSelectedUSBBackButton</zorder>
-     <zorder>fileSelectedUSBName</zorder>
-     <zorder>fileSelectedUSBPrintButton</zorder>
+     <widget class="QLabel" name="printPreviewSelectedUSB">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>30</y>
+        <width>210</width>
+        <height>210</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../JuliaMiniTouchUI/octoprint_JuliaMiniTouchUI/templates/img/thumbnail.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="controlPage">
      <widget class="QTabWidget" name="controlTabWidget">

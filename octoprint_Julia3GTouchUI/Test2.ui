@@ -173,7 +173,7 @@ QStatusBar::item {
 background-color: rgb(40, 40, 40);</string>
     </property>
     <property name="currentIndex">
-     <number>21</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="loadingPage">
      <widget class="QLabel" name="LoadingLabel">
@@ -1234,6 +1234,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <bool>true</bool>
       </property>
      </widget>
+     <zorder>printPreviewMain</zorder>
      <zorder>line</zorder>
      <zorder>statusBar</zorder>
      <zorder>playPauseButton</zorder>
@@ -1262,7 +1263,6 @@ background-color: rgba(0, 0, 0, 0);</string>
      <zorder>tool1Label</zorder>
      <zorder>tool1TempBar</zorder>
      <zorder>tool1ActualTemperature</zorder>
-     <zorder>printPreviewMain</zorder>
     </widget>
     <widget class="QWidget" name="MenuPage">
      <widget class="QPushButton" name="menuBackButton">
@@ -1710,7 +1710,7 @@ QScrollBar::down-arrow:vertical {
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
+         <y>-342</y>
          <width>398</width>
          <height>700</height>
         </rect>
@@ -2044,6 +2044,56 @@ QPushButton:focus {
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="versionButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>70</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Gotham</family>
+            <pointsize>13</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+     border: 1px solid rgb(87, 87, 87);
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+
+
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
+
+QPushButton:focus {
+	outline: none;
+}</string>
+          </property>
+          <property name="text">
+           <string>Version</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>40</width>
+            <height>40</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="restorePrintSettingsButton">
           <property name="minimumSize">
            <size>
@@ -2134,56 +2184,6 @@ QPushButton:focus {
           </property>
           <property name="text">
            <string>Restore Factory Defaults</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>40</width>
-            <height>40</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="versionButton">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Gotham</family>
-            <pointsize>13</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-     border: 1px solid rgb(87, 87, 87);
-	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-
-
-}
-
-QPushButton:pressed {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
-}
-
-QPushButton:flat {
-    border: none; /* no border for a flat push button */
-}
-
-QPushButton:default {
-    border-color: navy; /* make the default button prominent */
-}
-
-QPushButton:focus {
-	outline: none;
-}</string>
-          </property>
-          <property name="text">
-           <string>Version</string>
           </property>
           <property name="iconSize">
            <size>
@@ -2962,7 +2962,7 @@ QPushButton:default {
      <widget class="QLabel" name="printPreviewSelected_4">
       <property name="geometry">
        <rect>
-        <x>280</x>
+        <x>290</x>
         <y>20</y>
         <width>210</width>
         <height>210</height>
@@ -3508,7 +3508,7 @@ QToolButton:focus {
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>80</width>
+        <width>60</width>
         <height>16</height>
        </rect>
       </property>
@@ -3791,7 +3791,7 @@ QPushButton:focus {
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>160</width>
+        <width>120</width>
         <height>16</height>
        </rect>
       </property>
@@ -4020,7 +4020,7 @@ QPushButton:focus {
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>240</width>
+        <width>180</width>
         <height>16</height>
        </rect>
       </property>
@@ -4176,7 +4176,7 @@ QPushButton:focus {
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>320</width>
+        <width>240</width>
         <height>16</height>
        </rect>
       </property>
@@ -4359,7 +4359,7 @@ QPushButton:focus {
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>400</width>
+        <width>300</width>
         <height>16</height>
        </rect>
       </property>
@@ -4538,7 +4538,7 @@ QPushButton:focus {
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>480</width>
+        <width>360</width>
         <height>16</height>
        </rect>
       </property>
@@ -4629,7 +4629,7 @@ QPushButton:focus {
        <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Bed Leveling Done !</string>
+       <string>We shall now set the height of the nozzle from the bed. Wait for the movements to finish, and then click Next.</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -4676,7 +4676,7 @@ QPushButton:focus {
 }</string>
       </property>
       <property name="text">
-       <string>Done</string>
+       <string>Next</string>
       </property>
       <property name="iconSize">
        <size>
@@ -4740,6 +4740,512 @@ QPushButton:focus {
      <zorder>caliberateNozzleHeightLabel</zorder>
      <zorder>step6NextButton</zorder>
      <zorder>printPreviewSelected_8</zorder>
+    </widget>
+    <widget class="QWidget" name="step7Page">
+     <widget class="QPushButton" name="step7NextButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>260</y>
+        <width>241</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 1px solid rgb(87, 87, 87);
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+
+
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
+
+QPushButton:focus {
+	outline: none;
+}</string>
+      </property>
+      <property name="text">
+       <string>Next</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLabel" name="caliberateLabel_20">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>471</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Use caliberation sheet as shown in the illustration to set the height in the next step. Use the paper as a guage to set the height of the nozzle.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="caliberateLabel_19">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>420</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">	background-color: qlineargradient(spread:pad, x1:0, y1:0.523, x2:0, y2:0.534, stop:0 rgba(130, 203, 117, 255), stop:1 rgba(66, 191, 85, 255));
+border: 1px solid green;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="step7CancelButton">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>260</y>
+        <width>241</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 1px solid rgb(87, 87, 87);
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+
+
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
+
+QPushButton:focus {
+	outline: none;
+}</string>
+      </property>
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLabel" name="caliberationHeightLabel">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>110</y>
+        <width>231</width>
+        <height>150</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="caliberateLabel_26">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>481</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">    border: 1px solid rgb(87, 87, 87);
+ /*  border-bottom-left-radius: 10px;
+ border-bottom-right-radius: 10px;*/
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(150, 150, 150, 255), stop:1 rgba(180, 180, 180, 255));</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>caliberateLabel_26</zorder>
+     <zorder>step7NextButton</zorder>
+     <zorder>caliberateLabel_20</zorder>
+     <zorder>caliberateLabel_19</zorder>
+     <zorder>step7CancelButton</zorder>
+     <zorder>caliberationHeightLabel</zorder>
+    </widget>
+    <widget class="QWidget" name="step8Page">
+     <widget class="QLabel" name="caliberateLabel_17">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>481</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">	background-color: qlineargradient(spread:pad, x1:0, y1:0.523, x2:0, y2:0.534, stop:0 rgba(130, 203, 117, 255), stop:1 rgba(66, 191, 85, 255));
+border: 1px solid green;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="step8CancelButton">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>260</y>
+        <width>241</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 1px solid rgb(87, 87, 87);
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+
+
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
+
+QPushButton:focus {
+	outline: none;
+}</string>
+      </property>
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLabel" name="caliberateLabel_18">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>471</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Move the bed towards the Nozzle to the height required</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="step8DoneButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>260</y>
+        <width>241</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 1px solid rgb(87, 87, 87);
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+
+
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
+
+QPushButton:focus {
+	outline: none;
+}</string>
+      </property>
+      <property name="text">
+       <string>Done</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="moveZMCaliberateButton">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>69</y>
+        <width>161</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 1px solid rgb(87, 87, 87);
+
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
+
+QPushButton:focus {
+	outline: none;
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>templates/img/arrows.png</normaloff>templates/img/arrows.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+      <property name="default">
+       <bool>false</bool>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="moveZPCaliberateButton">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>160</y>
+        <width>161</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gotham</family>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 1px solid rgb(87, 87, 87);
+
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
+
+QPushButton:focus {
+	outline: none;
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>templates/img/arrows-5.png</normaloff>templates/img/arrows-5.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+      <property name="default">
+       <bool>false</bool>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="nozzleOffsetPage">
      <widget class="QDoubleSpinBox" name="nozzleOffsetDoubleSpinBox">
@@ -6555,7 +7061,7 @@ background-color: rgba(255, 255, 255, 0);</string>
      <widget class="QLabel" name="printPreviewSelected">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>30</y>
         <width>210</width>
         <height>210</height>
@@ -6574,6 +7080,20 @@ background-color: rgba(255, 255, 255, 0);</string>
        <bool>true</bool>
       </property>
      </widget>
+     <zorder>printPreviewSelected</zorder>
+     <zorder>fileSelected</zorder>
+     <zorder>fileSelectedBackButton</zorder>
+     <zorder>fileSelectedPrintButton</zorder>
+     <zorder>fileSizeSelected</zorder>
+     <zorder>fileDateSelected</zorder>
+     <zorder>filePrintTimeSelected</zorder>
+     <zorder>filamentVolumeSelected</zorder>
+     <zorder>fileSizeSelectedLabel</zorder>
+     <zorder>fileDateSelectedLabel</zorder>
+     <zorder>filePrintTimeSelectedLabel</zorder>
+     <zorder>filamentVolumeSelectedLabel</zorder>
+     <zorder>filamentLengthFileSelected</zorder>
+     <zorder>filamentLengthSelectedLabel</zorder>
     </widget>
     <widget class="QWidget" name="printSelectedUSBPage">
      <widget class="QToolButton" name="fileSelectedUSBTransferButton">
@@ -6791,8 +7311,8 @@ QToolButton:default {
      <widget class="QLabel" name="printPreviewSelectedUSB">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>30</y>
+        <x>150</x>
+        <y>20</y>
         <width>210</width>
         <height>210</height>
        </rect>
@@ -6848,7 +7368,7 @@ QTabWidget::tab-bar {
 QTabBar::tab {
    border-right: 1px solid rgb(87, 87, 87);
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-    border-top-color: #C2C7CB; /* same as the pane color */
+    border-bottom-color: #C2C7CB; /* same as the pane color */
     width: 69px;
      height: 50px;
 	padding-left: 25px;
@@ -6882,13 +7402,13 @@ QTabBar:focus {
 }</string>
       </property>
       <property name="tabPosition">
-       <enum>QTabWidget::South</enum>
+       <enum>QTabWidget::North</enum>
       </property>
       <property name="tabShape">
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="iconSize">
        <size>
@@ -6917,8 +7437,8 @@ QTabBar:focus {
        <widget class="QLabel" name="flowRateLabelControlPage_2">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>90</y>
+          <x>65</x>
+          <y>40</y>
           <width>181</width>
           <height>31</height>
          </rect>
@@ -6942,8 +7462,8 @@ background-color: rgba(255, 255, 255, 0);</string>
        <widget class="QSpinBox" name="feedRateSpinBox">
         <property name="geometry">
          <rect>
-          <x>77</x>
-          <y>78</y>
+          <x>62</x>
+          <y>28</y>
           <width>241</width>
           <height>136</height>
          </rect>
@@ -7042,8 +7562,8 @@ QSpinBox::down-button:pressed {
        <widget class="QPushButton" name="setFeedRateButton">
         <property name="geometry">
          <rect>
-          <x>315</x>
-          <y>80</y>
+          <x>300</x>
+          <y>30</y>
           <width>91</width>
           <height>132</height>
          </rect>
@@ -7111,7 +7631,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>80</y>
+          <y>20</y>
           <width>70</width>
           <height>21</height>
          </rect>
@@ -7135,7 +7655,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>340</x>
-          <y>80</y>
+          <y>20</y>
           <width>70</width>
           <height>21</height>
          </rect>
@@ -7159,7 +7679,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>120</x>
-          <y>0</y>
+          <y>210</y>
           <width>101</width>
           <height>60</height>
          </rect>
@@ -7180,7 +7700,7 @@ QPushButton:focus {
          <string notr="true">QPushButton {
     border: 1px solid rgb(87, 87, 87);
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-border-bottom-left-radius: 15px;
+border-top-left-radius: 15px;
 }
 
 QPushButton:pressed {
@@ -7218,7 +7738,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>300</x>
-          <y>0</y>
+          <y>210</y>
           <width>81</width>
           <height>60</height>
          </rect>
@@ -7240,7 +7760,7 @@ QPushButton:focus {
      border: 1px solid rgb(87, 87, 87);
 
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
-border-bottom-right-radius: 15px;
+border-top-right-radius: 15px;
 }
 
 QPushButton:pressed {
@@ -7290,7 +7810,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>220</x>
-          <y>0</y>
+          <y>210</y>
           <width>81</width>
           <height>60</height>
          </rect>
@@ -7361,7 +7881,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>120</y>
+          <y>60</y>
           <width>161</width>
           <height>131</height>
          </rect>
@@ -7455,7 +7975,7 @@ QSpinBox::down-button:pressed {
         <property name="geometry">
          <rect>
           <x>240</x>
-          <y>120</y>
+          <y>60</y>
           <width>161</width>
           <height>131</height>
          </rect>
@@ -7549,7 +8069,7 @@ QSpinBox::down-button:pressed {
         <property name="geometry">
          <rect>
           <x>159</x>
-          <y>120</y>
+          <y>60</y>
           <width>71</width>
           <height>130</height>
          </rect>
@@ -7603,7 +8123,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>399</x>
-          <y>122</y>
+          <y>62</y>
           <width>71</width>
           <height>128</height>
          </rect>
@@ -7658,7 +8178,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>94</x>
-          <y>72</y>
+          <y>12</y>
           <width>136</width>
           <height>51</height>
          </rect>
@@ -7753,8 +8273,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="step1Button">
         <property name="geometry">
          <rect>
-          <x>92</x>
-          <y>-10</y>
+          <x>102</x>
+          <y>225</y>
           <width>100</width>
           <height>45</height>
          </rect>
@@ -7775,7 +8295,7 @@ QPushButton:focus {
          <string notr="true">QPushButton {
      border: 1px solid rgb(87, 87, 87);
      border-bottom: none; /* no border for a flat push button */
-border-bottom-left-radius: 15px;
+border-top-left-radius: 15px;
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
 }
 
@@ -7823,8 +8343,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="step10Button">
         <property name="geometry">
          <rect>
-          <x>191</x>
-          <y>-10</y>
+          <x>201</x>
+          <y>225</y>
           <width>100</width>
           <height>45</height>
          </rect>
@@ -7893,8 +8413,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="step100Button">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>-10</y>
+          <x>300</x>
+          <y>225</y>
           <width>101</width>
           <height>45</height>
          </rect>
@@ -7966,8 +8486,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveYPButton">
         <property name="geometry">
          <rect>
-          <x>90</x>
-          <y>46</y>
+          <x>80</x>
+          <y>6</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8038,8 +8558,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveYMButton">
         <property name="geometry">
          <rect>
-          <x>90</x>
-          <y>184</y>
+          <x>80</x>
+          <y>144</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8111,8 +8631,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveXPButton">
         <property name="geometry">
          <rect>
-          <x>159</x>
-          <y>115</y>
+          <x>149</x>
+          <y>75</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8184,8 +8704,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveXMButton">
         <property name="geometry">
          <rect>
-          <x>21</x>
-          <y>115</y>
+          <x>11</x>
+          <y>75</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8257,8 +8777,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="homeXYButton">
         <property name="geometry">
          <rect>
-          <x>90</x>
-          <y>115</y>
+          <x>80</x>
+          <y>75</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8328,8 +8848,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="homeZButton">
         <property name="geometry">
          <rect>
-          <x>250</x>
-          <y>115</y>
+          <x>240</x>
+          <y>75</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8399,8 +8919,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="motorOffButton">
         <property name="geometry">
          <rect>
-          <x>390</x>
-          <y>-10</y>
+          <x>400</x>
+          <y>225</y>
           <width>81</width>
           <height>45</height>
          </rect>
@@ -8421,7 +8941,7 @@ QPushButton:focus {
          <string notr="true">QPushButton {
      border: 1px solid rgb(87, 87, 87);
      border-bottom: none; /* no border for a flat push button */
- border-bottom-right-radius: 15px;
+ border-top-right-radius: 15px;
 	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0.188, stop:0 rgba(180, 180, 180, 255), stop:1 rgba(255, 255, 255, 255));
 }
 
@@ -8470,8 +8990,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveZMButton">
         <property name="geometry">
          <rect>
-          <x>250</x>
-          <y>46</y>
+          <x>240</x>
+          <y>6</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8543,8 +9063,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="moveZPButton">
         <property name="geometry">
          <rect>
-          <x>250</x>
-          <y>184</y>
+          <x>240</x>
+          <y>144</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8616,8 +9136,8 @@ QPushButton:focus {
        <widget class="QLabel" name="XYLabel">
         <property name="geometry">
          <rect>
-          <x>12</x>
-          <y>50</y>
+          <x>2</x>
+          <y>10</y>
           <width>70</width>
           <height>21</height>
          </rect>
@@ -8640,8 +9160,8 @@ QPushButton:focus {
        <widget class="QLabel" name="ZLabel">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>50</y>
+          <x>200</x>
+          <y>10</y>
           <width>31</width>
           <height>21</height>
          </rect>
@@ -8664,8 +9184,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="retractButton">
         <property name="geometry">
          <rect>
-          <x>380</x>
-          <y>184</y>
+          <x>370</x>
+          <y>144</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8737,8 +9257,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="extruderButton">
         <property name="geometry">
          <rect>
-          <x>380</x>
-          <y>115</y>
+          <x>370</x>
+          <y>75</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8809,8 +9329,8 @@ QPushButton:focus {
        <widget class="QLabel" name="ELabel">
         <property name="geometry">
          <rect>
-          <x>330</x>
-          <y>50</y>
+          <x>320</x>
+          <y>10</y>
           <width>31</width>
           <height>21</height>
          </rect>
@@ -8833,8 +9353,8 @@ QPushButton:focus {
        <widget class="QLabel" name="moveByLabel">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>0</y>
+          <x>10</x>
+          <y>235</y>
           <width>111</width>
           <height>21</height>
          </rect>
@@ -8857,8 +9377,8 @@ QPushButton:focus {
        <widget class="QPushButton" name="toolToggleMotionButton">
         <property name="geometry">
          <rect>
-          <x>380</x>
-          <y>46</y>
+          <x>370</x>
+          <y>6</y>
           <width>70</width>
           <height>70</height>
          </rect>
@@ -8965,7 +9485,7 @@ QPushButton:focus {
         <property name="geometry">
          <rect>
           <x>240</x>
-          <y>0</y>
+          <y>180</y>
           <width>241</width>
           <height>91</height>
          </rect>
@@ -9022,8 +9542,8 @@ QToolButton :focus {
        <widget class="QPushButton" name="setFlowRateButton">
         <property name="geometry">
          <rect>
-          <x>298</x>
-          <y>102</y>
+          <x>300</x>
+          <y>30</y>
           <width>91</width>
           <height>132</height>
          </rect>
@@ -9077,8 +9597,8 @@ QPushButton:focus {
        <widget class="QSpinBox" name="flowRateSpinBox">
         <property name="geometry">
          <rect>
-          <x>60</x>
-          <y>100</y>
+          <x>62</x>
+          <y>28</y>
           <width>241</width>
           <height>136</height>
          </rect>
@@ -9203,7 +9723,7 @@ background-color: rgba(255, 255, 255, 0);</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>180</y>
           <width>241</width>
           <height>91</height>
          </rect>
@@ -9275,7 +9795,7 @@ QToolButton :focus {
       <property name="geometry">
        <rect>
         <x>380</x>
-        <y>270</y>
+        <y>0</y>
         <width>100</width>
         <height>50</height>
        </rect>

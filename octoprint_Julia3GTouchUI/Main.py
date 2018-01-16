@@ -99,6 +99,12 @@ filaments = {"ABS": 220,
              "CopperFill": 180
              }
 
+
+caliberationPosition = { 'X1': 236, 'Y1': 52,
+                         'X2': 50, 'Y2': 52,
+                         'X3': 145, 'Y3': 215
+                         }
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -220,6 +226,10 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.loadingGif.setMovie(self.movie)
         self.movie.start()
 
+        self.movie = QtGui.QMovie("templates/img/loading.gif")
+        self.loadingGif.setMovie(self.movie)
+        self.movie.start()
+
         self.movie1 = QtGui.QMovie("templates/img/unlockAll.gif")
         self.releaseAllLevelingScrewsLabel.setMovie(self.movie1)
 
@@ -231,6 +241,9 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
 
         self.movie4 = QtGui.QMovie("templates/img/lockCenter.gif")
         self.turnCenterLevelingScrewLabel.setMovie(self.movie4)
+
+        self.movie5 = QtGui.QMovie("templates/img/heightCaliberation.gif")
+        self.caliberationHeightLabel.setMovie(self.movie5)
 
     def __init__(self):
         '''
@@ -315,13 +328,19 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         self.step3NextButton.clicked.connect(self.step4)
         self.step4NextButton.clicked.connect(self.step5)
         self.step5NextButton.clicked.connect(self.step6)
-        self.step6NextButton.clicked.connect(self.doneStep)
+        self.step6NextButton.clicked.connect(self.step7)
+        self.step7NextButton.clicked.connect(self.step8)
+        self.step8DoneButton.clicked.connect(self.doneStep)
+        self.moveZMCaliberateButton.pressed.connect(lambda: octopiclient.jog(z=-0.05))
+        self.moveZPCaliberateButton.pressed.connect(lambda: octopiclient.jog(z=0.05))
         self.step1CancelButton.pressed.connect(self.cancelStep)
         self.step2CancelButton.pressed.connect(self.cancelStep)
         self.step3CancelButton.pressed.connect(self.cancelStep)
         self.step4CancelButton.pressed.connect(self.cancelStep)
         self.step5CancelButton.pressed.connect(self.cancelStep)
         self.step6CancelButton.pressed.connect(self.cancelStep)
+        self.step7CancelButton.pressed.connect(self.cancelStep)
+        self.step8CancelButton.pressed.connect(self.cancelStep)
 
         # PrintLocationScreen
         self.printLocationScreenBackButton.pressed.connect(lambda: self.stackedWidget.setCurrentWidget(self.MenuPage))
@@ -1621,7 +1640,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         :return:
         '''
         self.stackedWidget.setCurrentWidget(self.step1Page)
-        octopiclient.gcode(command='M206 Z0') # Sets Z home offset to 0
+        octopiclient.gcode(command='M206 Z0')
         octopiclient.home(['x', 'y', 'z'])
         octopiclient.jog(x=125, y=125, z=35, absolute=True, speed=1500)
 
@@ -1639,7 +1658,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         Then asks user to tighten right leveling screw
         '''
         self.stackedWidget.setCurrentWidget(self.step3Page)
-        octopiclient.jog(x=246.13, y=22.0, absolute=True)
+        octopiclient.jog(x=caliberationPosition['X1'], y=caliberationPosition['Y1'], absolute=True)
         octopiclient.jog(z=0, absolute=True)
 
         self.movie1.stop()
@@ -1655,7 +1674,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # sent twice for some reason
         self.stackedWidget.setCurrentWidget(self.step4Page)
         octopiclient.jog(z=10, absolute=True)
-        octopiclient.jog(x=56.76, y=22, absolute=True)
+        octopiclient.jog(x=caliberationPosition['X2'], y=caliberationPosition['Y2'], absolute=True)
         octopiclient.jog(z=0, absolute=True)
         self.movie2.stop()
 
@@ -1670,7 +1689,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         # sent twice for some reason
         self.stackedWidget.setCurrentWidget(self.step5Page)
         octopiclient.jog(z=10, absolute=True)
-        octopiclient.jog(x=142.45, y=186.94, absolute=True)
+        octopiclient.jog(x=caliberationPosition['X3'], y=caliberationPosition['Y3'], absolute=True)
         octopiclient.jog(z=0, absolute=True)
         self.movie3.stop()
 
@@ -1687,24 +1706,41 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
         octopiclient.jog(z=2, absolute=True)
         self.movie4.stop()
 
+    def step7(self):
+        '''
+        Shows the animaion to show how leveling is done
+        :return:
+        '''
+        self.stackedWidget.setCurrentWidget(self.step7Page)
+
+        self.movie5.start()
+
+    def step8(self):
+        '''
+        actually jogs the nozzle up depending on user input by a factor of 0.05
+        :return:
+        '''
+        self.stackedWidget.setCurrentWidget(self.step8Page)
+        self.movie5.stop()
+        # Jog commads are set in setActions() under caliberation
+
     def doneStep(self):
         '''
         Sets the new z home offset, and goes back to caliebration page
         :return:
         '''
         self.stackedWidget.setCurrentWidget(self.caliberatePage)
-
-        octopiclient.gcode(command='M501') # restore eeprom settings to get Z home offset back
-        octopiclient.home(['z'])
-        octopiclient.home(['x', 'y'])
+        self.setHomeOffsetBool = True
+        octopiclient.gcode(command='M114')
         # set current Z value as -home offset
 
     def cancelStep(self):
-        octopiclient.gcode(command='M501') # restore eeprom settings
+        self.setLEDFromStatus = True
         self.movie1.stop()
         self.movie2.stop()
         self.movie3.stop()
         self.movie4.stop()
+        self.movie5.stop()
         self.stackedWidget.setCurrentWidget(self.caliberatePage)
 
     ''' +++++++++++++++++++++++++++++++++++Keyboard++++++++++++++++++++++++++++++++ '''

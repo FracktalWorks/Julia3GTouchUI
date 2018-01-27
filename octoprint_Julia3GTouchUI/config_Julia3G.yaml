@@ -1,5 +1,5 @@
 accessControl:
-  enabled: true
+  enabled: false
   salt: 49EJwypqzpssdDKEhUs8JWQR01bTJO7u
 api:
   enabled: true
@@ -41,6 +41,8 @@ devel:
     bundle: true
     clean_on_startup: true
     minify: true
+feature:
+  sdSupport: false
 pluginmanager:
   repository: http://plugins.octoprint.org/plugins.json
 plugins:
@@ -48,13 +50,13 @@ plugins:
     extruderRunoutTime: '0.6'
     filamentRunoutTime: '15'
     minExtrudeTime: '10'
-    sensorCount: '2'
+    sensorCount: '-1'
   _disabled:
   - cura
   announcements:
     channels:
       _important:
-        read_until: 1478614200
+        read_until: 1509547500
   discovery:
     model:
       description: Julia 3G 3D Printer from Fracktal Works

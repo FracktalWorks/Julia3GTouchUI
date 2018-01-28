@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\NewUI.ui'
+# Form implementation generated from reading ui file '.\Test2_old config.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #

@@ -50,7 +50,7 @@ plugins:
     extruderRunoutTime: '0.6'
     filamentRunoutTime: '15'
     minExtrudeTime: '10'
-    sensorCount: '-1'
+    sensorCount: '2'
   _disabled:
   - cura
   announcements:

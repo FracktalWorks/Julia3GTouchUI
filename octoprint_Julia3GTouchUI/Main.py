@@ -1757,7 +1757,7 @@ class MainUiClass(QtGui.QMainWindow, mainGUI.Ui_MainWindow):
     def restoreFactoryDefaults(self):
 
         os.system('sudo rm -rf  /home/pi/.octoprint/users.yaml')
-        os.system('sudo cp -f config_Julia3G.yaml.backup /home/pi/.octoprint/config.yaml')
+        os.system('sudo cp -f config_Julia3G.yaml.backup.txt /home/pi/.octoprint/config.yaml')
         self.rebootAfterRestore()
 
     def restorePrintDefaults(self):

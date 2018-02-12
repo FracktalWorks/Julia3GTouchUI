@@ -1,6 +1,3 @@
-accessControl:
-  enabled: false
-  salt: 49EJwypqzpssdDKEhUs8JWQR01bTJO7u
 api:
   enabled: true
   key: B508534ED20348F090B4D0AD637D3660
